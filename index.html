@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JanakSanjel</title>
+    <link rel="shortcut icon" href="/assets/icon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script>
+        function showSection(sectionId, link) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // Set the active link
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => {
+                link.classList.remove('border-b-2', 'border-pink-500', 'text-pink-500');
+            });
+
+            // Show the active section
+            const activeSection = document.getElementById(sectionId);
+            activeSection.classList.remove('hidden');
+
+            // Highlight the active link
+            link.classList.add('border-b-2', 'border-pink-500', 'text-pink-500');
+        }
+
+        // Automatically show the "projects" section when the page loads
+        window.onload = function () {
+            showSection('projects', document.querySelector('#projects-link'));
+        };
+    </script>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <div class="max-w-2xl mx-auto p-4">
+
+        <!-- Header with Cover Image -->
+        <div class="relative">
+            <div class="bg-blue-100 h-40 w-full rounded-t-lg"></div>
+            <div
+                class="absolute top-28 left-1/2 transform -translate-x-1/2 w-32 h-32 rounded-full ring-4 ring-white overflow-hidden">
+                <img src="./assets/janak.jpg" alt="Profile image of Janak Sanjel" class="w-full h-full object-cover">
+            </div>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="mt-24 text-center">
+            <h1 class="text-2xl font-bold text-gray-800 flex items-center justify-center text-center md:text-3xl">
+                Janak Sanjel
+                <span class="text-blue-500 ml-2"><i class="fas fa-check-circle"></i></span>
+            </h1>
+            <p class="text-gray-500 mt-1">Smile, it's free😊</p>
+            <p class="mt-2 text-sm text-gray-600 md:text-base">
+                Seeking an internship opportunity as a Frontend Developer with some backend experience!
+            </p>
+        </div>
+
+        <div class="flex justify-center mt-4 space-x-4">
+            <!-- Follow Button (Instagram link) -->
+            <a href="https://github.com/janaksanjel" target="_blank">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-pink-600 transition">
+                    Follow
+                </button>
+            </a>
+
+            <!-- Message Button (Opens default email client) -->
+            <a href="mailto:janaksanjel12@gmail.com?subject=Hello&body=I would like to get in touch with you!">
+                <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-400 transition">
+                    Message
+                </button>
+            </a>
+        </div>
+
+
+
+        <!-- Navigation -->
+        <div class="mt-10 flex justify-center space-x-8 text-sm font-medium text-gray-600">
+            <a href="javascript:void(0)" onclick="showSection('projects', this)" id="projects-link"
+                class="nav-link text-pink-500 border-b-2 border-pink-500 pb-1">Projects</a>
+            <a href="javascript:void(0)" onclick="showSection('about', this)" class="nav-link">About</a>
+            <a href="javascript:void(0)" onclick="showSection('resume', this)" class="nav-link">Resume</a>
+            <a href="javascript:void(0)" onclick="showSection('contact', this)" class="nav-link">Contact</a>
+        </div>
+        <!-- Dynamic Sections -->
+        <div class="mt-8 space-y-6">
+            <!-- Projects Section -->
+            <div id="projects" class="section">
+                <!-- Project Card 1 -->
+                <div class="bg-white p-4 rounded-lg shadow-lg mb-6">
+                    <!-- Author Info -->
+                    <div class="flex items-center space-x-3 mb-4 group hover:bg-gray-100 p-2 rounded-lg transition">
+                        <!-- Profile Image -->
+                        <div class="relative w-12 h-12 rounded-full ring-2 ring-pink-500 overflow-hidden">
+                            <img src="./assets/janak.jpg" alt="Profile image of Janak Sanjel"
+                                class="w-full h-full object-cover">
+                            <!-- Custom Blue Tick Badge -->
+
+                        </div>
+
+                        <!-- Profile Details -->
+                        <div>
+                            <p class="text-lg font-semibold text-gray-800 group-hover:text-blue-500 transition">Janak
+                                Sanjel</p>
+                            <p class="text-sm text-gray-500 group-hover:text-gray-700 transition">Updated: 8 Feb 2023
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <img src="./assets/E Voting.png" alt="Electronic Voting System"
+                        class="rounded-lg mb-4 w-full h-48 object-cover">
+                    <h3 class="text-xl font-semibold text-gray-800">Electronic Voting System</h3>
+                    <p class="text-sm text-gray-500"><strong>Type:</strong> College Project</p>
+                    <p class="text-sm text-gray-600 mt-2">Created as a submission for my 4th semester. This system
+                        allows students to cast votes remotely with a secure, efficient, and user-friendly interface.
+                    </p>
+                    <a href="https://evote.kesug.com/" class="text-blue-500 mt-2 inline-block">evote.kesug.com</a>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="bg-white p-4 rounded-lg shadow-lg mb-6">
+                    <!-- Author Info -->
+                    <div class="flex items-center space-x-3 mb-4 group hover:bg-gray-100 p-2 rounded-lg transition">
+                        <!-- Profile Image -->
+                        <div class="relative w-12 h-12 rounded-full ring-2 ring-pink-500 overflow-hidden">
+                            <img src="./assets/janak.jpg" alt="Profile image of Janak Sanjel"
+                                class="w-full h-full object-cover">
+                            <!-- Custom Blue Tick Badge -->
+
+                        </div>
+
+                        <!-- Profile Details -->
+                        <div>
+                            <p class="text-lg font-semibold text-gray-800 group-hover:text-blue-500 transition">Janak
+                                Sanjel</p>
+                            <p class="text-sm text-gray-500 group-hover:text-gray-700 transition">Updated: 8 Feb 2023
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <img src="./assets/orderup.png" alt="Food Delivery System"
+                        class="rounded-lg mb-4 w-full h-48 object-cover">
+                    <h3 class="text-xl font-semibold text-gray-800">Food Delivery System in ReactJS</h3>
+                    <p class="text-sm text-gray-500"><strong>Type:</strong> Ongoing College Project</p>
+                    <p class="text-sm text-gray-600 mt-2">Online food ordering system that lets customers place orders,
+                        browse menus, and make payments with a user-friendly interface.</p>
+                    <a href="https://order-up-nu.vercel.app/"
+                        class="text-blue-500 mt-2 inline-block">order-up-nu.vercel.app</a>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-lg mb-6">
+                    <!-- Author Info -->
+                    <div class="flex items-center space-x-3 mb-4 group hover:bg-gray-100 p-2 rounded-lg transition">
+                        <!-- Profile Image -->
+                        <div class="relative w-12 h-12 rounded-full ring-2 ring-pink-500 overflow-hidden">
+                            <img src="./assets/janak.jpg" alt="Profile image of Janak Sanjel"
+                                class="w-full h-full object-cover">
+                            <!-- Custom Blue Tick Badge -->
+
+                        </div>
+
+                        <!-- Profile Details -->
+                        <div>
+                            <p class="text-lg font-semibold text-gray-800 group-hover:text-blue-500 transition">Janak
+                                Sanjel</p>
+                            <p class="text-sm text-gray-500 group-hover:text-gray-700 transition">Updated: 8 Feb 2023
+                            </p>
+                        </div>
+                    </div>
+                    <img src="./assets/ai.png" alt="Free Tools Suite" class="rounded-lg mb-4 w-full h-48 object-cover">
+                    <h3 class="text-xl font-semibold text-gray-800">Free Tools Suite</h3>
+                    <p class="text-sm text-gray-500"><strong>Type:</strong> Personal Project</p>
+                    <p class="text-sm text-gray-600 mt-2">A suite of tools designed for content creators, including
+                        caption generators, blog writers, and YouTube tools.</p>
+                    <a href="https://janak-seven.vercel.app/"
+                        class="text-blue-500 mt-2 inline-block">janak-seven.vercel.app</a>
+                </div>
+
+                <!-- Project Card 4 -->
+                <div class="bg-white p-4 rounded-lg shadow-lg mb-6">
+                    <!-- Author Info -->
+                    <div class="flex items-center space-x-3 mb-4 group hover:bg-gray-100 p-2 rounded-lg transition">
+                        <!-- Profile Image -->
+                        <div class="relative w-12 h-12 rounded-full ring-2 ring-pink-500 overflow-hidden">
+                            <img src="./assets/janak.jpg" alt="Profile image of Janak Sanjel"
+                                class="w-full h-full object-cover">
+                            <!-- Custom Blue Tick Badge -->
+
+                        </div>
+
+                        <!-- Profile Details -->
+                        <div>
+                            <p class="text-lg font-semibold text-gray-800 group-hover:text-blue-500 transition">Janak
+                                Sanjel</p>
+                            <p class="text-sm text-gray-500 group-hover:text-gray-700 transition">Updated: 8 Feb 2023
+                            </p>
+                        </div>
+                    </div>
+                    <img src="./assets/esign.png" alt="E-Signature Web Application"
+                        class="rounded-lg mb-4 w-full h-48 object-cover">
+                    <h3 class="text-xl font-semibold text-gray-800">E-Signature Web Application</h3>
+                    <p class="text-sm text-gray-500"><strong>Type:</strong> Personal Project</p>
+                    <p class="text-sm text-gray-600 mt-2">A digital signature solution for online document signing,
+                        built with HTML, CSS, and JavaScript.</p>
+                    <a href="https://dapper-caramel-040a30.netlify.app/"
+                        class="text-blue-500 mt-2 inline-block">dapper-caramel-040a30.netlify.app</a>
+                </div>
+
+                <!-- Project Card 5 -->
+                <div class="bg-white p-4 rounded-lg shadow-lg mb-6">
+                    <!-- Author Info -->
+                    <div class="flex items-center space-x-3 mb-4 group hover:bg-gray-100 p-2 rounded-lg transition">
+                        <!-- Profile Image -->
+                        <div class="relative w-12 h-12 rounded-full ring-2 ring-pink-500 overflow-hidden">
+                            <img src="./assets/janak.jpg" alt="Profile image of Janak Sanjel"
+                                class="w-full h-full object-cover">
+                            <!-- Custom Blue Tick Badge -->
+
+                        </div>
+
+                        <!-- Profile Details -->
+                        <div>
+                            <p class="text-lg font-semibold text-gray-800 group-hover:text-blue-500 transition">Janak
+                                Sanjel</p>
+                            <p class="text-sm text-gray-500 group-hover:text-gray-700 transition">Updated: 8 Feb 2023
+                            </p>
+                        </div>
+                    </div>
+
+                    <img src="./assets/news.png" alt="Simple News Portal"
+                        class="rounded-lg mb-4 w-full h-48 object-cover">
+                    <h3 class="text-xl font-semibold text-gray-800">Simple News Portal (React)</h3>
+                    <p class="text-sm text-gray-500"><strong>Type:</strong> Personal Project</p>
+                    <p class="text-sm text-gray-600 mt-2">A simple news portal built with ReactJS, offering an intuitive
+                        UI to browse and read news articles easily.</p>
+                    <a href="https://simple-react-project-red.vercel.app/"
+                        class="text-blue-500 mt-2 inline-block">simple-react-project-red.vercel.app</a>
+                </div>
+
+                <!-- Additional Project Cards... -->
+
+            </div>
+
+            <!-- Other Sections... -->
+
+            <div id="about" class="section hidden bg-white p-6 rounded-lg shadow-lg">
+
+                <!-- Header with Profile Info -->
+                <div class="flex items-center space-x-3 mb-4 group hover:bg-gray-100 p-2 rounded-lg transition">
+                    <!-- Profile Image -->
+                    <div class="relative w-12 h-12 rounded-full ring-2 ring-pink-500 overflow-hidden">
+                        <img src="./assets/janak.jpg" alt="Profile image of Janak Sanjel"
+                            class="w-full h-full object-cover">
+                        <!-- Custom Blue Tick Badge -->
+
+                    </div>
+
+                    <!-- Profile Details -->
+                    <div>
+                        <p class="text-lg font-semibold text-gray-800 group-hover:text-blue-500 transition">Janak
+                            Sanjel</p>
+                        <p class="text-sm text-gray-500 group-hover:text-gray-700 transition">Updated: 8 Feb 2023
+                        </p>
+                    </div>
+                </div>
+                <!-- About Content -->
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">About Me</h2>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    My name is <strong class="text-pink-500">Janak Sanjel</strong>, and I am an aspiring IT student with
+                    a passion for software development.
+                    Currently, I am pursuing my <em>Bachelor of Computer Application (BCA)</em> at Jana Bhawana Campus,
+                    Chapagaun, and looking for an internship opportunity to enhance my skills and contribute to
+                    innovative IT projects.
+                </p>
+                <p class="text-gray-700 leading-relaxed">
+                    I specialize in front-end development with technologies like <span
+                        class="text-pink-500">ReactJS</span>, <span class="text-blue-500">HTML</span>,
+                    <span class="text-blue-500">CSS</span>, and <span class="text-yellow-500">JavaScript</span>, and I
+                    am expanding my backend knowledge with tools such as
+                    <span class="text-indigo-500">PHP</span>,<span class="text-green-500">.Net</span> and <span
+                        class="text-green-500">MySQL</span>.
+                    I am eager to learn new technologies and collaborate in an environment where I can grow
+                    professionally
+                    while contributing to the success of my team.
+                </p>
+
+
+
+            </div>
+
+            <!-- resume sectiom -->
+            <div id="resume" class="section hidden bg-white p-6 rounded-lg shadow-lg">
+                <!-- Header with Profile Info -->
+                <div class="flex items-center space-x-3 mb-4 group hover:bg-gray-100 p-2 rounded-lg transition">
+                    <!-- Profile Image -->
+                    <div class="relative w-12 h-12 rounded-full ring-2 ring-pink-500 overflow-hidden">
+                        <img src="./assets/janak.jpg" alt="Profile image of Janak Sanjel"
+                            class="w-full h-full object-cover">
+                        <!-- Custom Blue Tick Badge -->
+
+                    </div>
+
+                    <!-- Profile Details -->
+                    <div>
+                        <p class="text-lg font-semibold text-gray-800 group-hover:text-blue-500 transition">Janak
+                            Sanjel</p>
+                        <p class="text-sm text-gray-500 group-hover:text-gray-700 transition">Updated: 8 Feb 2023
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Resume Container -->
+                <div class="space-y-6">
+                    <!-- Personal Information -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Personal Information</h3>
+                        <div class="text-gray-700">
+                            <p><strong>Name:</strong> Janak Sanjel</p>
+                            <p><strong>Address:</strong> Godawari-11, Lalitpur, Nepal</p>
+                            <p><strong>Email:</strong> <a href="mailto:janaksanjel12@gmail.com"
+                                    class="text-blue-500">janaksanjel12@gmail.com</a></p>
+                            <p><strong>Phone:</strong> <a href="tel:+9779840748285" class="text-blue-500">+977
+                                    9840748285</a></p>
+                            <p><strong>GitHub:</strong> <a href="https://github.com/janaksanjel" target="_blank"
+                                    class="text-blue-500">github.com/janaksanjel</a></p>
+                            <p><strong>Website:</strong> <a href="https://www.janaksanjel.com.np" target="_blank"
+                                    class="text-blue-500">www.janaksanjel.com.np</a></p>
+                        </div>
+                    </div>
+
+                    <!-- Objective -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Objective</h3>
+                        <p class="text-gray-700">
+                            Aspiring IT student seeking a challenging internship opportunity in an innovative IT company
+                            to gain
+                            practical experience, expand my technical skills, and contribute to the development of
+                            cutting-edge solutions.
+                        </p>
+                    </div>
+
+                    <!-- Academic Qualification -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Academic Qualification</h3>
+                        <ul class="text-gray-700 list-disc pl-6">
+                            <li>
+                                <strong>Bachelor of Computer Application (BCA):</strong> Jana Bhawana Campus, Chapagaun
+                                (Expected 2025)
+                            </li>
+                            <li>
+                                <strong>+2 (Science):</strong> Advance Academy College, Grade: 2.97 (Year: 2077)
+                            </li>
+                            <li>
+                                <strong>S.L.C:</strong> Shree Bidhyadhishwari Secondary School, Grade: 3.15 (Year: 2073)
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Skills -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Skills</h3>
+                        <ul class="text-gray-700 list-disc pl-6">
+                            <li><strong>Frontend:</strong> HTML, CSS, JavaScript, Bootstrap, ReactJS</li>
+                            <li><strong>Backend:</strong> PHP, MySQL, MongoDB</li>
+                            <li><strong>Frameworks/Tools:</strong> ReactJS, .NET Framework</li>
+                            <li><strong>Networking:</strong> Cisco Packet Tracer</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div id="contact" class="section hidden bg-white p-6 rounded-lg shadow-lg">
+                <div class="flex items-center space-x-3 mb-4 group hover:bg-gray-100 p-2 rounded-lg transition">
+                    <!-- Profile Image -->
+                    <div class="relative w-12 h-12 rounded-full ring-2 ring-pink-500 overflow-hidden">
+                        <img src="./assets/janak.jpg" alt="Profile image of Janak Sanjel"
+                            class="w-full h-full object-cover">
+                        <!-- Custom Blue Tick Badge -->
+
+                    </div>
+
+                    <!-- Profile Details -->
+                    <div>
+                        <p class="text-lg font-semibold text-gray-800 group-hover:text-blue-500 transition">Janak
+                            Sanjel</p>
+                        <p class="text-sm text-gray-500 group-hover:text-gray-700 transition">Updated: 8 Feb 2023
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Contact Information -->
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">Get in Touch</h2>
+                        <ul class="space-y-4">
+                            <li class="flex items-center">
+                                <i class="fas fa-envelope text-pink-500 text-xl mr-4"></i>
+                                <p><strong>Email:</strong> <a href="mailto:janaksanjel12@gmail.com"
+                                        class="text-blue-500">janaksanjel12@gmail.com</a></p>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-phone text-pink-500 text-xl mr-4"></i>
+                                <p><strong>Phone:</strong> <a href="tel:+9840748285"
+                                        class="text-blue-500">+9779840748285</a></p>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-pink-500 text-xl mr-4"></i>
+                                <p><strong>Address:</strong> Godawari-11, Lalitpur, Nepal</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">Send a Message</h2>
+                        <form action="https://api.web3forms.com/submit" class="contact-form space-y-4" method="POST">
+                            <input type="hidden" name="access_key" value="3068ef37-8acb-463e-bfa7-d03d9b6ad8f6">
+
+                            <!-- Name and Email Input -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-700">Your Name</label>
+                                    <input type="text" id="name" name="name" required
+                                        class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500">
+                                </div><br>
+
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700">Your
+                                        Email</label>
+                                    <input type="email" id="email" name="email" required
+                                        class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500">
+                                </div>
+                            </div>
+
+                            <!-- Message Textarea -->
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-700">Your
+                                    Message</label>
+                                <textarea id="message" name="message" rows="4" required
+                                    class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500"></textarea>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit"
+                                class="w-full bg-pink-500 text-white py-2 rounded-md hover:bg-pink-600 transition">
+                                Send Message
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+
+    </div>
+
+    </div>
+
+    </div>
+
+    <footer class="bg-gray-800 text-gray-300 py-8">
+        <div class="max-w-6xl mx-auto px-4">
+            <!-- Grid Layout -->
+            <div class="grid gap-8 md:grid-cols-3">
+                <!-- About Section -->
+                <div>
+                    <h2 class="text-lg font-bold text-white mb-4">About</h2>
+                    <p class="text-sm leading-relaxed">
+                        Hi, I’m Janak Sanjel, an aspiring IT professional specializing in Frontend Development. Let’s
+                        connect and build innovative solutions together!
+                    </p>
+                </div>
+
+                <!-- Navigation Links -->
+                <div>
+                    <h2 class="text-lg font-bold text-white mb-4">Quick Links</h2>
+                    <ul class="space-y-2">
+                        <li><a href="#projects" class="hover:text-pink-500 transition">Projects</a></li>
+                        <li><a href="#about" class="hover:text-pink-500 transition">About</a></li>
+                        <li><a href="#resume" class="hover:text-pink-500 transition">Resume</a></li>
+                        <li><a href="#contact" class="hover:text-pink-500 transition">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social Links -->
+                <div>
+                    <h2 class="text-lg font-bold text-white mb-4">Follow Me</h2>
+                    <div class="flex space-x-4 justify-center md:justify-start">
+                        <a href="https://github.com/janaksanjel" target="_blank"
+                            class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-github text-2xl"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/janaksanjel" target="_blank"
+                            class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-linkedin text-2xl"></i>
+                        </a>
+                        <a href="mailto:janaksanjel12@gmail.com" target="_blank"
+                            class="text-gray-400 hover:text-white transition">
+                            <i class="fas fa-envelope text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="border-t border-gray-700 mt-8"></div>
+
+            <!-- Copyright Section -->
+            <div class="text-center text-sm mt-4">
+                <p>&copy; 2024 Janak Sanjel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+</body>
+
+</html>
