@@ -41,106 +41,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-    <!-- Bubble Animation Styles -->
-    <style>
-        body {
-
-            background: linear-gradient(135deg, #9bf8ab, #5db1f6, #082a68, #8e44ad, fuchsia);
-
-            overflow-x: hidden;
-
-            position: relative;
-
-        }
-
-        .main_contant {
-
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        @keyframes bubble-animation {
-            0% {
-                transform: translateY(0) scale(0.3);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: translateY(-100vh) scale(1);
-                opacity: 0;
-            }
-        }
-
-        .bubble {
-            position: fixed;
-            bottom: -50px;
-            width: 20px;
-            height: 20px;
-            background-color: rgba(255, 255, 255, 0.6);
-            border-radius: 50%;
-            animation: bubble-animation linear infinite;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .bubble:nth-child(odd) {
-            animation-duration: 8s;
-            animation-delay: -4s;
-            animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
-        }
-
-        .bubble:nth-child(even) {
-            animation-duration: 6s;
-            animation-delay: -2s;
-            animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
-        }
-
-        .bubble:nth-child(3n) {
-            animation-duration: 7s;
-            animation-delay: -3s;
-            animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
-        }
-
-
-        @keyframes gradientMove {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-.animate-gradient {
-    background-size: 200% 200%;
-    animation: gradientMove 8s ease infinite;
-}
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.animate-fade-in {
-    animation: fadeIn 2s ease forwards;
-}
-
-.animate-fade-in-delayed {
-    animation: fadeIn 2s ease forwards;
-    animation-delay: 1s;
-}
-
-
-    </style>
+   
 
     <script>
         function showSection(sectionId, link) {
@@ -160,7 +61,6 @@
             link.classList.add('border-b-2', 'border-pink-500', 'text-pink-500');
         }
 
-        function generateBubbles() {
             const bubbleContainer = document.body;
             const totalBubbles = 70;
 
