@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Janaksanjel.com.np</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="border-fix.css" />
+      <link rel="shortcut icon" href="/img/icon.png" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Desktop Background -->
+    <div class="desktop">
+      <!-- Desktop Icons -->
+      <div class="desktop-icons">
+        <div class="desktop-icon" data-app="thispc">
+          <img src="./img/thispc.png" alt="This PC" />
+          <span>This PC</span>
+        </div>
+        <div class="desktop-icon" data-app="recycle">
+          <img src="./img/recyclebin.png" alt="Recycle Bin" />
+          <span>Recycle Bin</span>
+        </div>
+
+        <div class="desktop-icon" data-app="brave">
+          <img src="./img/brave.png" alt="Brave" />
+          <span>Brave</span>
+        </div>
+        <div class="desktop-icon" data-app="portfolio">
+          <img src="./img/portfolio.png" alt="My Portfolio" />
+          <span>My Portfolio</span>
+        </div>
+      </div>
+
+      <!-- Brave Window -->
+      <div class="window brave-window" id="brave-window" style="display: none;">
+        <div class="window-header">
+          <div class="window-title">
+            <img src="./img/brave.png" alt="Brave" class="window-icon" />
+            <span>Brave Browser</span>
+          </div>
+          <div class="window-controls">
+            <button class="minimize"><i class="fas fa-minus"></i></button>
+            <button class="maximize"><i class="fas fa-square"></i></button>
+            <button class="close"><i class="fas fa-times"></i></button>
+          </div>
+        </div>
+        <div class="brave-tabs">
+          <div class="tab active">
+            <i class="fab fa-codepen"></i>
+            <span>CodePen</span>
+            <button class="tab-close">×</button>
+          </div>
+          <div class="tab">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+            <button class="tab-close">×</button>
+          </div>
+          <button class="new-tab">+</button>
+        </div>
+        <div class="brave-toolbar">
+          <div class="navigation">
+            <button class="nav-btn"><i class="fas fa-arrow-left"></i></button>
+            <button class="nav-btn"><i class="fas fa-arrow-right"></i></button>
+            <button class="nav-btn"><i class="fas fa-redo"></i></button>
+          </div>
+          <div class="address-bar">
+            <i class="fas fa-lock"></i>
+            <input type="text" value="" placeholder="Search or enter address" />
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="brave-menu">
+            <button class="menu-btn"><i class="fas fa-ellipsis-v"></i></button>
+          </div>
+        </div>
+        <div class="brave-content">
+          <iframe id="brave-iframe" src="about:blank" frameborder="0" style="width: 100%; height: 100%; border: none;"></iframe>
+          <div class="webpage" id="default-page">
+            <div class="search-homepage">
+              <div class="brave-logo">
+                <img src="./img/brave.png" alt="Brave" style="width: 80px; height: 80px; margin-bottom: 20px;">
+                <h1>Brave Browser</h1>
+              </div>
+              <div class="homepage-search">
+                <div class="search-container">
+                  <i class="fas fa-search"></i>
+                  <input type="text" id="homepage-search" placeholder="Search or enter address" />
+                  <button id="search-btn"><i class="fas fa-arrow-right"></i></button>
+                </div>
+              </div>
+              <div class="quick-links">
+                <div class="quick-link" data-url="github">
+                  <i class="fab fa-github"></i>
+                  <span>My GitHub</span>
+                </div>
+                <div class="quick-link" data-url="https://codepen.io">
+                  <i class="fab fa-codepen"></i>
+                  <span>CodePen</span>
+                </div>
+                <div class="quick-link" data-url="https://stackoverflow.com">
+                  <i class="fab fa-stack-overflow"></i>
+                  <span>Stack Overflow</span>
+                </div>
+                <div class="quick-link" data-url="youtube">
+                  <i class="fab fa-youtube"></i>
+                  <span>YouTube</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- This PC Window -->
+      <div class="window thispc-window" id="thispc-window" style="display: none;">
+        <div class="window-header">
+          <div class="window-title">
+            <img src="./img/thispc.png" alt="This PC" class="window-icon" />
+            <span>This PC</span>
+          </div>
+          <div class="window-controls">
+            <button class="minimize"><i class="fas fa-minus"></i></button>
+            <button class="maximize"><i class="fas fa-square"></i></button>
+            <button class="close"><i class="fas fa-times"></i></button>
+          </div>
+        </div>
+        <div class="thispc-content">
+          <div class="thispc-toolbar">
+            <button class="toolbar-btn"><i class="fas fa-arrow-left"></i></button>
+            <button class="toolbar-btn"><i class="fas fa-arrow-right"></i></button>
+            <button class="toolbar-btn"><i class="fas fa-arrow-up"></i></button>
+            <div class="address-path">
+              <span>This PC</span>
+            </div>
+            <button class="toolbar-btn"><i class="fas fa-redo"></i></button>
+          </div>
+          <div class="thispc-main">
+            <div class="quick-access">
+              <h3>Quick access</h3>
+              <div class="quick-items">
+                <div class="quick-item">
+                  <i class="fas fa-desktop"></i>
+                  <span>Desktop</span>
+                </div>
+                <div class="quick-item">
+                  <i class="fas fa-download"></i>
+                  <span>Downloads</span>
+                </div>
+                <div class="quick-item">
+                  <i class="fas fa-file-alt"></i>
+                  <span>Documents</span>
+                </div>
+                <div class="quick-item">
+                  <i class="fas fa-images"></i>
+                  <span>Pictures</span>
+                </div>
+              </div>
+            </div>
+            <div class="drives-section">
+              <h3>Devices and drives</h3>
+              <div class="drives-grid">
+                <div class="drive-item">
+                  <i class="fas fa-hdd"></i>
+                  <div class="drive-info">
+                    <span>Local Disk (C:)</span>
+                    <small>465 GB free of 931 GB</small>
+                    <div class="drive-bar">
+                      <div class="drive-used" style="width: 50%;"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="drive-item">
+                  <i class="fas fa-hdd"></i>
+                  <div class="drive-info">
+                    <span>Local Disk (D:)</span>
+                    <small>1.2 TB free of 2 TB</small>
+                    <div class="drive-bar">
+                      <div class="drive-used" style="width: 40%;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Portfolio Window -->
+      <div class="window portfolio-window" id="portfolio-window" style="display: none;">
+        <div class="window-header">
+          <div class="window-title">
+            <img src="./img/portfolio.png" alt="My Portfolio" class="window-icon" />
+            <span>My Portfolio</span>
+          </div>
+          <div class="window-controls">
+            <button class="minimize"><i class="fas fa-minus"></i></button>
+            <button class="maximize"><i class="fas fa-square"></i></button>
+            <button class="close"><i class="fas fa-times"></i></button>
+          </div>
+        </div>
+        <div class="portfolio-content">
+          <div class="portfolio-nav">
+            <button class="nav-item active" data-section="about">About</button>
+            <button class="nav-item" data-section="skills">Skills</button>
+            <button class="nav-item" data-section="qualification">Qualification</button>
+            <button class="nav-item" data-section="experience">Experience</button>
+            <button class="nav-item" data-section="projects">Projects</button>
+            <button class="nav-item" data-section="contact">Contact</button>
+          </div>
+          <div class="portfolio-sections">
+            <div class="section active" id="about">
+              <h2>About Me</h2>
+              <div class="profile-card">
+                <div class="profile-avatar">
+                  <img src="./img/myphoto.jpg" alt="Janak Sanjel" class="profile-photo" />
+                </div>
+                <div class="profile-info">
+                  <h3>Janak Sanjel</h3>
+                  <p class="title">Full Stack Developer</p>
+                  <p>IT student specializing in ReactJS, JAVA, and Django. Currently pursuing Bachelor of Computer Application (BCA) at Jana Bhawana Campus, Chapagaun, looking for internship opportunities to enhance skills and contribute to innovative IT projects.</p>
+                </div>
+              </div>
+            </div>
+            <div class="section" id="skills">
+              <h2>Skills</h2>
+              <div class="skills-grid">
+                <div class="skill-item">
+                  <i class="fab fa-html5"></i>
+                  <span>HTML5</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fab fa-css3-alt"></i>
+                  <span>CSS3</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fab fa-js-square"></i>
+                  <span>JavaScript</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fab fa-react"></i>
+                  <span>ReactJS</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fab fa-java"></i>
+                  <span>Java</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fas fa-database"></i>
+                  <span>MySQL</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fab fa-python"></i>
+                  <span>Django</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fas fa-leaf"></i>
+                  <span>Grails</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fab fa-node-js"></i>
+                  <span>Node.js</span>
+                </div>
+              </div>
+            </div>
+            <div class="section" id="qualification">
+              <h2>Academic Qualification</h2>
+              <div class="qualification-grid">
+                <div class="qualification-card">
+                  <div class="qualification-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                  </div>
+                  <div class="qualification-info">
+                    <h3>Bachelor of Computer Application (BCA)</h3>
+                    <h4>Jana Bhawana Campus, Chapagaun</h4>
+                    <p class="qualification-year">Expected 2025</p>
+                  </div>
+                </div>
+                <div class="qualification-card">
+                  <div class="qualification-icon">
+                    <i class="fas fa-certificate"></i>
+                  </div>
+                  <div class="qualification-info">
+                    <h3>+2 (Science)</h3>
+                    <h4>Advance Academy College</h4>
+                    <p class="qualification-details">Grade: 2.97 • Year: 2077</p>
+                  </div>
+                </div>
+                <div class="qualification-card">
+                  <div class="qualification-icon">
+                    <i class="fas fa-school"></i>
+                  </div>
+                  <div class="qualification-info">
+                    <h3>S.L.C</h3>
+                    <h4>Shree Bidhyadhishwari Secondary School</h4>
+                    <p class="qualification-details">Grade: 3.15 • Year: 2073</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section" id="experience">
+              <h2>Experience</h2>
+              <div class="experience-grid">
+                <div class="experience-card">
+                  <div class="experience-header">
+                    <img src="./img/company.png" alt="NIRC" class="company-logo" />
+                    <div class="experience-info">
+                      <h3>Full Stack Developer (<span id="experience-months"></span>)</h3>
+                      <h4>NIRC (National Incubation & Research Center)</h4>
+                      <p class="experience-duration">Dec 2024 - Current</p>
+                    </div>
+                  </div>
+                  <div class="experience-description">
+                    <p>Working as a Full Stack Developer at National Incubation & Research Center, developing innovative web applications and contributing to research-based technology projects.</p>
+                    <div class="experience-tech">
+                      <span>ReactJS</span>
+                      <span>Django</span>
+                      <span>Python</span>
+                      <span>Grails</span>
+                      <span>Java</span>
+                      <span>MySQL</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section" id="projects">
+              <h2>Projects</h2>
+              <div class="projects-grid">
+                <div class="project-card">
+                  <div class="project-header">
+                    <i class="fas fa-users-cog"></i>
+                    <h3>CRM App for Kiran Restaurant and Dealership</h3>
+                  </div>
+                  <p>Customer Relationship Management system for restaurant and dealership operations.</p>
+                  <div class="project-tech">
+                    <span>ReactJS</span>
+                    <span>Django</span>
+                    <span>Python</span>
+                    <span>MySQL</span>
+                  </div>
+                  <div class="project-status">
+                    <span class="status-working">Currently Working</span>
+                  </div>
+                </div>
+                <div class="project-card">
+                  <div class="project-header">
+                    <i class="fas fa-utensils"></i>
+                    <h3>OrderUP Food Delivery</h3>
+                  </div>
+                  <p>Online food ordering system with user-friendly interface for browsing menus, placing orders, and making payments.</p>
+                  <div class="project-tech">
+                    <span>ReactJS</span>
+                    <span>Node.js</span>
+                    <span>Algorithm</span>
+                  </div>
+                </div>
+                <div class="project-card">
+                  <div class="project-header">
+                    <i class="fas fa-vote-yea"></i>
+                    <h3>Electronic Voting System</h3>
+                  </div>
+                  <p>Secure electronic voting system allowing students to cast votes remotely with efficient and user-friendly interface.</p>
+                  <div class="project-tech">
+                    <span>HTML</span>
+                    <span>CSS</span>
+                    <span>JavaScript</span>
+                  </div>
+                </div>
+                <div class="project-card">
+                  <div class="project-header">
+                    <i class="fas fa-tools"></i>
+                    <h3>Free Tools Suite</h3>
+                  </div>
+                  <p>Suite of tools for content creators including caption generators, blog writers, and YouTube tools.</p>
+                  <div class="project-tech">
+                    <span>ReactJS</span>
+                    <span>JavaScript</span>
+                    <span>API</span>
+                  </div>
+                </div>
+                <div class="project-card">
+                  <div class="project-header">
+                    <i class="fas fa-signature"></i>
+                    <h3>E-Signature App</h3>
+                  </div>
+                  <p>Digital signature solution for online document signing built with modern web technologies.</p>
+                  <div class="project-tech">
+                    <span>HTML</span>
+                    <span>CSS</span>
+                    <span>JavaScript</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section" id="contact">
+              <h2>Contact Me</h2>
+              <div class="contact-info">
+                <div class="contact-item">
+                  <i class="fas fa-envelope"></i>
+                  <span>janaksanjel12@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                  <i class="fab fa-github"></i>
+                  <span>github.com/janaksanjel</span>
+                </div>
+                <div class="contact-item">
+                  <i class="fas fa-phone"></i>
+                  <span>+977 9840748285</span>
+                </div>
+                <div class="contact-item">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>Godawari-11, Lalitpur, Nepal</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recycle Bin Window -->
+      <div class="window recycle-window" id="recycle-window" style="display: none;">
+        <div class="window-header">
+          <div class="window-title">
+            <img src="./img/recyclebin.png" alt="Recycle Bin" class="window-icon" />
+            <span>Recycle Bin</span>
+          </div>
+          <div class="window-controls">
+            <button class="minimize"><i class="fas fa-minus"></i></button>
+            <button class="maximize"><i class="fas fa-square"></i></button>
+            <button class="close"><i class="fas fa-times"></i></button>
+          </div>
+        </div>
+        <div class="recycle-content">
+          <div class="empty-recycle">
+            <i class="fas fa-trash" style="font-size: 64px; color: #ccc; margin-bottom: 16px;"></i>
+            <h3>Recycle Bin is empty</h3>
+            <p>Items you delete will appear here before being permanently removed.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- File Explorer Window -->
+      <div class="window explorer-window" id="explorer-window" style="display: none;">
+        <div class="window-header">
+          <div class="window-title">
+            <i class="fas fa-folder"></i>
+            <span>File Explorer</span>
+          </div>
+          <div class="window-controls">
+            <button class="minimize"><i class="fas fa-minus"></i></button>
+            <button class="maximize"><i class="fas fa-square"></i></button>
+            <button class="close"><i class="fas fa-times"></i></button>
+          </div>
+        </div>
+        <div class="explorer-content">
+          <div class="sidebar">
+            <div class="sidebar-item">
+              <i class="fas fa-desktop"></i>
+              <span>Desktop</span>
+            </div>
+            <div class="sidebar-item">
+              <i class="fas fa-download"></i>
+              <span>Downloads</span>
+            </div>
+            <div class="sidebar-item">
+              <i class="fas fa-file"></i>
+              <span>Documents</span>
+            </div>
+          </div>
+          <div class="main-content">
+            <div class="file-item">
+              <i class="fas fa-folder"></i>
+              <span>Projects</span>
+            </div>
+            <div class="file-item">
+              <i class="fas fa-file-code"></i>
+              <span>index.html</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Start Menu -->
+      <div class="start-menu" id="start-menu">
+        <div class="start-search">
+          <input type="text" placeholder="Search apps, settings, documents">
+        </div>
+        <div class="start-section">
+          <h3>Pinned</h3>
+          <div class="start-apps">
+            <div class="start-app" data-app="brave">
+              <img src="./img/brave.png" alt="Brave">
+              <span>Brave</span>
+            </div>
+            <div class="start-app">
+              <i class="fas fa-cog"></i>
+              <span>Settings</span>
+            </div>
+          </div>
+        </div>
+        <div class="start-section">
+          <h3>Recommended</h3>
+          <div class="start-recent">
+            <div class="recent-item">
+              <i class="fas fa-file-code"></i>
+              <div class="recent-info">
+                <span>index.html</span>
+                <small>Recently opened</small>
+              </div>
+            </div>
+            <div class="recent-item">
+              <i class="fas fa-file"></i>
+              <div class="recent-info">
+                <span>Document.docx</span>
+                <small>Recently created</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="start-footer">
+          <div class="user-profile">
+            <i class="fas fa-user-circle"></i>
+            <span>User</span>
+          </div>
+          <div class="power-button" onclick="showPowerMenu()">
+            <i class="fas fa-power-off"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div class="taskbar">
+      <div class="start-button" id="start-btn">
+        <i class="fab fa-windows"></i>
+      </div>
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input
+          type="text"
+          placeholder="Type here to search"
+          id="search-input"
+        />
+      </div>
+      <div class="taskbar-apps">
+        <div class="taskbar-app" data-app="brave">
+          <img src="./img/brave.png" alt="Brave" />
+        </div>
+        <div class="taskbar-app" data-app="explorer">
+          <i class="fas fa-folder" style="color: #FFD700; font-size: 24px;"></i>
+        </div>
+        <div class="taskbar-app" data-app="portfolio">
+          <img src="./img/portfolio.png" alt="My Portfolio" />
+        </div>
+
+      </div>
+      <div class="system-tray">
+        <div class="tray-icons">
+          <i class="fas fa-wifi" id="wifi-icon"></i>
+          <i class="fas fa-volume-up" id="volume-icon"></i>
+          <i class="fas fa-battery-three-quarters" id="battery-icon"></i>
+        </div>
+        <div class="datetime" id="datetime">
+          <div class="time">12:00 PM</div>
+          <div class="date">1/1/2024</div>
+        </div>
+      </div>
+    </div>
+
+    </div>
+
+    <!-- System Tray Popups -->
+    <div class="tray-popup" id="wifi-popup">
+      <div class="wifi-header">
+        <h4>Wi-Fi</h4>
+        <div class="wifi-toggle">
+          <input type="checkbox" id="wifi-switch" checked>
+          <label for="wifi-switch"></label>
+        </div>
+      </div>
+      <div class="network-list">
+        <div class="network-item connected" data-network="DESKTOP-PC_Network">
+          <div class="network-info">
+            <i class="fas fa-wifi"></i>
+            <div>
+              <span>PC_Network</span>
+              <small>Connected, secured</small>
+            </div>
+          </div>
+          <div class="network-actions">
+            <button class="disconnect-btn">Disconnect</button>
+          </div>
+        </div>
+        <div class="network-item" data-network="TP-Link_5G" data-secured="true">
+          <div class="network-info">
+            <i class="fas fa-wifi"></i>
+            <div>
+              <span>TP-Link_5G</span>
+              <small>Secured</small>
+            </div>
+          </div>
+          <div class="signal-strength">
+            <div class="signal-bars">
+              <span class="bar active"></span>
+              <span class="bar active"></span>
+              <span class="bar active"></span>
+              <span class="bar"></span>
+            </div>
+          </div>
+        </div>
+        <div class="network-item" data-network="Netgear_Guest" data-secured="false">
+          <div class="network-info">
+            <i class="fas fa-wifi"></i>
+            <div>
+              <span>Netgear_Guest</span>
+              <small>Open</small>
+            </div>
+          </div>
+          <div class="signal-strength">
+            <div class="signal-bars">
+              <span class="bar active"></span>
+              <span class="bar active"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wifi-footer">
+        <div class="wifi-options" onclick="openNetworkSettings()">
+          <i class="fas fa-cog"></i>
+          <span>Network & Internet settings</span>
+        </div>
+        <div class="wifi-actions">
+          <button class="wifi-btn" onclick="scanNetworks()">Refresh</button>
+          <button class="wifi-btn" onclick="addNetwork()">Add Network</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tray-popup" id="volume-popup">
+      <h4>Volume</h4>
+      <div class="volume-control">
+        <i class="fas fa-volume-up"></i>
+        <input type="range" min="0" max="100" value="75">
+        <span>75%</span>
+      </div>
+    </div>
+
+    <div class="tray-popup" id="battery-popup">
+      <h4>Battery</h4>
+      <div class="battery-info">
+        <i class="fas fa-battery-three-quarters"></i>
+        <div>
+          <span>75% available</span>
+          <small>3 hours remaining</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="tray-popup" id="clock-popup">
+      <div class="clock-widget">
+        <div class="digital-clock">
+          <div class="clock-time" id="popup-time">7:54:32 PM</div>
+          <div class="clock-date" id="popup-date">Thursday, January 9, 2025</div>
+        </div>
+        <div class="calendar-mini">
+          <div class="calendar-header">
+            <button class="calendar-nav" onclick="changeMonth(-1)">&lt;</button>
+            <span id="calendar-month">January 2025</span>
+            <button class="calendar-nav" onclick="changeMonth(1)">&gt;</button>
+          </div>
+          <div class="calendar-grid" id="calendar-grid">
+            <!-- Calendar will be generated by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Password Modal -->
+    <div class="password-modal" id="password-modal">
+      <div class="modal-content">
+        <h3>Enter network security key</h3>
+        <p>Network name: <span id="network-name"></span></p>
+        <input type="password" id="network-password" placeholder="Password">
+        <div class="modal-actions">
+          <button class="cancel-btn">Cancel</button>
+          <button class="connect-btn">Connect</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
