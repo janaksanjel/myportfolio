@@ -3,6 +3,7 @@ let activeWindow = null;
 let isDragging = false;
 let dragOffset = { x: 0, y: 0 };
 
+
 // Local storage for files and folders
 const fileSystem = {
     save: () => {
@@ -37,6 +38,19 @@ document.addEventListener('DOMContentLoaded', function() {
     updateTime();
     setInterval(updateTime, 1000);
     fileSystem.load();
+    
+    // Auto-open portfolio on desktop load (not on mobile)
+    if (window.innerWidth > 768) {
+        setTimeout(() => {
+            openWindow('portfolio');
+            // Position portfolio window on the right side
+            const portfolioWindow = document.getElementById('portfolio-window');
+            if (portfolioWindow) {
+                portfolioWindow.style.left = 'calc(100vw - 850px)';
+                portfolioWindow.style.top = '50px';
+            }
+        }, 1000);
+    }
     
     // Desktop icon functionality
     let selectedIcon = null;
