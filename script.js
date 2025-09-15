@@ -39,18 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(updateTime, 1000);
     fileSystem.load();
     
-    // Auto-open portfolio on desktop load (not on mobile)
-    if (window.innerWidth > 768) {
-        setTimeout(() => {
-            openWindow('portfolio');
-            // Position portfolio window on the right side
-            const portfolioWindow = document.getElementById('portfolio-window');
-            if (portfolioWindow) {
-                portfolioWindow.style.left = 'calc(100vw - 850px)';
-                portfolioWindow.style.top = '50px';
-            }
-        }, 1000);
-    }
+
     
     // Desktop icon functionality
     let selectedIcon = null;
@@ -188,6 +177,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Fullscreen button
+    const fullscreenBtn = document.getElementById('fullscreen-btn');
+    if (fullscreenBtn) {
+        fullscreenBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleWebsiteFullscreen();
+        });
+    }
+    
     // Close tray popups when clicking outside
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.tray-popup') && !e.target.closest('.tray-icons i')) {
@@ -225,6 +223,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const window = this.closest('.window');
             toggleMaximize(window);
         });
+    });
+    
+    // Fullscreen functionality
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'F11' && activeWindow) {
+            e.preventDefault();
+            toggleFullscreen(activeWindow);
+        }
     });
     
     // Double-click window header to maximize/restore
@@ -753,6 +759,47 @@ function toggleMaximize(window) {
         if (maxBtn) {
             maxBtn.className = 'fas fa-window-restore';
         }
+    }
+    
+    bringToFront(window);
+}
+
+function toggleFullscreen(window) {
+    if (window.classList.contains('fullscreen')) {
+        // Exit fullscreen
+        window.classList.remove('fullscreen');
+        document.querySelector('.taskbar').style.display = 'flex';
+        
+        // Restore previous state (maximized or normal)
+        if (window.dataset.wasMaximized === 'true') {
+            window.classList.add('maximized');
+        } else {
+            // Restore original dimensions
+            const originalTop = window.dataset.originalTop || '50px';
+            const originalLeft = window.dataset.originalLeft || '100px';
+            const originalWidth = window.dataset.originalWidth || '800px';
+            const originalHeight = window.dataset.originalHeight || '600px';
+            
+            window.style.top = originalTop;
+            window.style.left = originalLeft;
+            window.style.width = originalWidth;
+            window.style.height = originalHeight;
+        }
+    } else {
+        // Enter fullscreen
+        window.dataset.wasMaximized = window.classList.contains('maximized') ? 'true' : 'false';
+        
+        if (!window.classList.contains('maximized')) {
+            // Store original dimensions if not already maximized
+            window.dataset.originalTop = window.style.top || window.offsetTop + 'px';
+            window.dataset.originalLeft = window.style.left || window.offsetLeft + 'px';
+            window.dataset.originalWidth = window.style.width || window.offsetWidth + 'px';
+            window.dataset.originalHeight = window.style.height || window.offsetHeight + 'px';
+        }
+        
+        window.classList.remove('maximized');
+        window.classList.add('fullscreen');
+        document.querySelector('.taskbar').style.display = 'none';
     }
     
     bringToFront(window);
@@ -1602,7 +1649,7 @@ document.addEventListener('keydown', function(e) {
     // F11 for fullscreen toggle
     if (e.key === 'F11' && activeWindow) {
         e.preventDefault();
-        toggleMaximize(activeWindow);
+        toggleFullscreen(activeWindow);
     }
 });
 
@@ -2673,3 +2720,48 @@ function animateNetworkStatus() {
         });
     }, 5000 + Math.random() * 10000);
 }
+
+// Website Fullscreen Toggle
+function toggleWebsiteFullscreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+            console.log('Error attempting to enable fullscreen:', err.message);
+        });
+        // Update icon to exit fullscreen
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        if (fullscreenBtn) {
+            fullscreenBtn.className = 'fas fa-compress';
+            fullscreenBtn.title = 'Exit Fullscreen';
+        }
+    } else {
+        document.exitFullscreen();
+        // Update icon to enter fullscreen
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        if (fullscreenBtn) {
+            fullscreenBtn.className = 'fas fa-expand';
+            fullscreenBtn.title = 'Enter Fullscreen';
+        }
+    }
+}
+
+// Listen for fullscreen changes
+document.addEventListener('fullscreenchange', function() {
+    const fullscreenBtn = document.getElementById('fullscreen-btn');
+    if (fullscreenBtn) {
+        if (document.fullscreenElement) {
+            fullscreenBtn.className = 'fas fa-compress';
+            fullscreenBtn.title = 'Exit Fullscreen';
+        } else {
+            fullscreenBtn.className = 'fas fa-expand';
+            fullscreenBtn.title = 'Enter Fullscreen';
+        }
+    }
+});
+
+// F11 key for fullscreen toggle
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'F11') {
+        e.preventDefault();
+        toggleWebsiteFullscreen();
+    }
+});
