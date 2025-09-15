@@ -57,13 +57,20 @@ class MusicPlayer {
         this.tracks = [
             {
                 id: 1,
+                title: "One Piece OST Overtaken",
+                artist: "One Piece",
+                url: "./song/One Piece OST Overtaken.mp3",
+                duration: 180
+            },
+            {
+                id: 2,
                 title: "Bilionera",
                 artist: "Otilia",
                 url: "./song/Otilia - Bilionera (official video).mp3",
                 duration: 210
             },
             {
-                id: 2,
+                id: 3,
                 title: "Labon Ko (Slowed + Reverb)",
                 artist: "Artist",
                 url: "./song/Labon Ko (Slowed + Reverb).mp3",
@@ -83,15 +90,22 @@ class MusicPlayer {
         this.tracks = [
             {
                 id: 1,
+                title: "One Piece OST Overtaken",
+                artist: "One Piece",
+                url: "./song/One Piece OST Overtaken.mp3",
+                duration: 180
+            },
+            {
+                id: 2,
                 title: "Bilionera",
                 artist: "Otilia",
                 url: "./song/Otilia - Bilionera (official video).mp3",
                 duration: 210
             },
             {
-                id: 2,
+                id: 3,
                 title: "Labon Ko (Slowed + Reverb)",
-                artist: " Artist",
+                artist: "Artist",
                 url: "./song/Labon Ko (Slowed + Reverb).mp3",
                 duration: 240
             }
