@@ -37,6 +37,10 @@
           <img src="./img/portfolio.png" alt="My Portfolio" />
           <span>My Portfolio</span>
         </div>
+        <div class="desktop-icon" data-app="music">
+          <i class="fas fa-music" style="font-size: 48px; color: #ff6b6b; margin-bottom: 10px; display: block;"></i>
+          <span>Music Player</span>
+        </div>
       </div>
 
       <!-- Brave Window -->
@@ -450,6 +454,62 @@
         </div>
       </div>
 
+      <!-- Music Player Window -->
+      <div class="window music-window" id="music-window" style="display: none;">
+        <div class="window-header">
+          <div class="window-title">
+            <i class="fas fa-music" style="color: #ff6b6b;"></i>
+            <span>Music Player</span>
+          </div>
+          <div class="window-controls">
+            <button class="minimize"><i class="fas fa-minus"></i></button>
+            <button class="maximize"><i class="fas fa-square"></i></button>
+            <button class="close"><i class="fas fa-times"></i></button>
+          </div>
+        </div>
+        <div class="music-content">
+          <div class="music-header">
+            <h2>Free Music Player</h2>
+            <button id="load-music" class="load-btn">Load Music</button>
+          </div>
+          <div class="current-track">
+            <div class="track-info">
+              <div class="track-cover">
+                <i class="fas fa-music"></i>
+              </div>
+              <div class="track-details">
+                <h3 id="track-title">Select a track</h3>
+                <p id="track-artist">Artist</p>
+              </div>
+            </div>
+          </div>
+          <div class="music-controls">
+            <button id="prev-btn"><i class="fas fa-step-backward"></i></button>
+            <button id="play-btn"><i class="fas fa-play"></i></button>
+            <button id="next-btn"><i class="fas fa-step-forward"></i></button>
+            <button id="shuffle-btn"><i class="fas fa-random"></i></button>
+          </div>
+          <div class="progress-container">
+            <span id="current-time">0:00</span>
+            <div class="progress-bar">
+              <div class="progress" id="progress"></div>
+            </div>
+            <span id="duration">0:00</span>
+          </div>
+          <div class="volume-container">
+            <i class="fas fa-volume-up"></i>
+            <input type="range" id="volume-slider" min="0" max="100" value="50">
+          </div>
+          <div class="playlist">
+            <h3>Playlist</h3>
+            <div id="track-list" class="track-list">
+              <p>Click "Load Music" to get free tracks</p>
+            </div>
+          </div>
+          <audio id="audio-player" preload="metadata"></audio>
+        </div>
+      </div>
+
       <!-- Recycle Bin Window -->
       <div class="window recycle-window" id="recycle-window" style="display: none;">
         <div class="window-header">
@@ -585,7 +645,9 @@
         <div class="taskbar-app" data-app="portfolio">
           <img src="./img/portfolio.png" alt="My Portfolio" />
         </div>
-
+        <div class="taskbar-app" data-app="music">
+          <i class="fas fa-music" style="color: #ff6b6b; font-size: 24px;"></i>
+        </div>
       </div>
       <div class="system-tray">
         <div class="tray-icons">
@@ -725,5 +787,6 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="music-player.js"></script>
   </body>
 </html>
