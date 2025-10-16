@@ -85,6 +85,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Mobile taskbar app clicks
+    document.querySelectorAll('.mobile-app').forEach(app => {
+        app.addEventListener('click', function() {
+            const appName = this.dataset.app;
+            toggleWindow(appName);
+        });
+    });
+    
     // Portfolio navigation
     document.querySelectorAll('.nav-item').forEach(navItem => {
         navItem.addEventListener('click', function() {
@@ -277,6 +285,7 @@ function updateTime() {
     const now = new Date();
     const timeElement = document.querySelector('.time');
     const dateElement = document.querySelector('.date');
+    const mobileTimeElement = document.getElementById('mobile-time');
     
     if (timeElement) {
         timeElement.textContent = now.toLocaleTimeString('en-US', {
@@ -291,6 +300,15 @@ function updateTime() {
             month: 'numeric',
             day: 'numeric',
             year: 'numeric'
+        });
+    }
+    
+    // Update mobile time
+    if (mobileTimeElement) {
+        mobileTimeElement.textContent = now.toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: false
         });
     }
     

@@ -12,6 +12,13 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow: hidden;
     height: 100vh;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 /* Desktop */
@@ -66,6 +73,10 @@ body {
     position: relative;
     user-select: none;
     backdrop-filter: blur(5px);
+    min-height: 44px;
+    min-width: 44px;
+    -webkit-tap-highlight-color: rgba(255,255,255,0.2);
+    touch-action: manipulation;
 }
 
 
@@ -239,6 +250,8 @@ body {
     justify-content: center;
     font-size: 10px;
     transition: all 0.2s;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .minimize {
@@ -1868,19 +1881,22 @@ body {
 
 /* Taskbar */
 .taskbar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
     height: 48px;
-    background: linear-gradient(135deg, #2c3e50, #34495e);
+    background: linear-gradient(135deg, #2c3e50, #34495e) !important;
     backdrop-filter: blur(10px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
     padding: 0 16px;
-    z-index: 2000;
+    z-index: 9999 !important;
     border-top: 1px solid rgba(255,255,255,0.1);
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 .start-button {
@@ -2676,14 +2692,28 @@ body {
 
 /* Mobile Responsive Styles */
 @media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+        padding-bottom: 60px;
+    }
+    
     .desktop {
         height: calc(100vh - 60px);
+        overflow-x: hidden;
+        padding-bottom: 0;
     }
     
     .desktop-icons {
         grid-template-columns: repeat(4, 1fr);
         gap: 15px;
         padding: 15px;
+        justify-items: center;
+    }
+    
+    .desktop-icon {
+        padding: 8px;
+        width: 70px;
+        text-align: center;
     }
     
     .desktop-icon img {
@@ -2692,8 +2722,17 @@ body {
         margin-bottom: 6px;
     }
     
+    .desktop-icon i {
+        font-size: 40px !important;
+        width: 40px;
+        height: 40px;
+        margin-bottom: 6px;
+    }
+    
     .desktop-icon span {
-        font-size: 11px;
+        font-size: 10px;
+        line-height: 1.2;
+        word-break: break-word;
     }
     
     .window {
@@ -2704,28 +2743,141 @@ body {
         height: calc(100vh - 60px) !important;
         border-radius: 0 !important;
         min-width: unset;
+        max-width: 100vw;
+        overflow: hidden;
+    }
+    
+    .window-header {
+        border-radius: 0 !important;
+        padding: 8px 16px;
+        height: 44px;
+        min-height: 44px;
+    }
+    
+    .window-title {
+        font-size: 14px;
+    }
+    
+    .window-controls {
+        gap: 4px;
+    }
+    
+    .window-controls button {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+    
+    .brave-window {
+        width: 100vw !important;
+        height: calc(100vh - 60px) !important;
+    }
+    
+    .brave-tabs {
+        padding: 0 4px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    
+    .brave-tabs::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .tab {
+        min-width: 120px;
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+    
+    .brave-toolbar {
+        padding: 6px 12px;
+        gap: 8px;
+    }
+    
+    .address-bar {
+        padding: 6px 12px;
+        border-radius: 20px;
+    }
+    
+    .address-bar input {
+        font-size: 14px;
+    }
+    
+    .quick-links {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        max-width: 100%;
+    }
+    
+    .quick-link {
+        padding: 16px 12px;
+    }
+    
+    .thispc-window {
+        width: 100vw !important;
+        height: calc(100vh - 60px) !important;
+    }
+    
+    .thispc-main {
+        padding: 16px;
+    }
+    
+    .quick-items {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+    
+    .drives-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .portfolio-window {
+        width: 100vw !important;
+        height: calc(100vh - 60px) !important;
     }
     
     .portfolio-nav {
-        flex-wrap: wrap;
-        padding: 8px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding: 0;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    
+    .portfolio-nav::-webkit-scrollbar {
+        display: none;
     }
     
     .nav-item {
-        padding: 8px 12px;
+        padding: 12px 16px;
         font-size: 12px;
-        margin: 2px;
-        flex: 1;
+        white-space: nowrap;
+        min-width: fit-content;
+        border-bottom: 2px solid transparent;
     }
     
     .section {
         padding: 16px;
+        overflow-y: auto;
+        height: calc(100% - 60px);
+    }
+    
+    .section h2 {
+        font-size: 20px;
+        margin-bottom: 16px;
     }
     
     .profile-card {
         flex-direction: column;
         text-align: center;
         padding: 16px;
+        gap: 16px;
+    }
+    
+    .profile-avatar i {
+        font-size: 60px;
     }
     
     .profile-photo {
@@ -2733,17 +2885,60 @@ body {
         height: 60px;
     }
     
+    .profile-info h3 {
+        font-size: 18px;
+    }
+    
+    .profile-info .title {
+        font-size: 14px;
+    }
+    
+    .profile-info p {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+    
     .skills-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
     }
     
+    .skill-item {
+        padding: 16px 12px;
+    }
+    
+    .skill-item i {
+        font-size: 28px;
+    }
+    
+    .skill-item span {
+        font-size: 12px;
+    }
+    
     .projects-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .project-card {
+        padding: 16px;
+    }
+    
+    .project-header h3 {
+        font-size: 15px;
+    }
+    
+    .project-card p {
+        font-size: 13px;
     }
     
     .contact-info {
         grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .contact-item {
+        padding: 12px;
     }
     
     .experience-card {
@@ -2761,43 +2956,334 @@ body {
         height: 50px;
     }
     
+    .experience-info h3 {
+        font-size: 16px;
+    }
+    
+    .experience-info h4 {
+        font-size: 14px;
+    }
+    
     .qualification-card {
         flex-direction: column;
         text-align: center;
         padding: 16px;
+        gap: 12px;
     }
     
     .qualification-icon {
         width: 50px;
         height: 50px;
-        font-size: 20px;
+        font-size: 18px;
+    }
+    
+    .qualification-info h3 {
+        font-size: 16px;
+    }
+    
+    .qualification-info h4 {
+        font-size: 14px;
     }
     
     .taskbar {
         height: 60px;
         padding: 0 8px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 9999 !important;
+        display: flex !important;
+        background: linear-gradient(135deg, #2c3e50, #34495e) !important;
+    }
+    
+    .start-button {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        flex-shrink: 0;
     }
     
     .search-box {
-        width: 120px;
+        width: 100px;
+        height: 28px;
+        padding: 4px 12px;
+        font-size: 12px;
+        flex-shrink: 1;
+        min-width: 80px;
+    }
+    
+    .taskbar-apps {
+        gap: 2px;
+        flex-shrink: 0;
+    }
+    
+    .taskbar-app {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .taskbar-app img {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .system-tray {
+        gap: 4px;
+        flex-shrink: 0;
+    }
+    
+    .tray-icons {
+        gap: 2px;
+    }
+    
+    .tray-icons i {
+        padding: 6px;
+        font-size: 12px;
+    }
+    
+    .datetime {
+        font-size: 11px;
+        padding: 6px 8px;
+        min-width: 60px;
+    }
+    
+    .start-menu {
+        width: calc(100vw - 16px);
+        height: calc(100vh - 120px);
+        left: 8px;
+        right: 8px;
+    }
+    
+    .start-apps {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+    }
+    
+    .start-app {
+        padding: 12px 8px;
+    }
+    
+    .start-app img {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .start-app i {
+        font-size: 24px;
+    }
+    
+    .start-app span {
+        font-size: 9px;
+    }
+    
+    .tray-popup {
+        width: calc(100vw - 32px);
+        right: 16px;
+        left: 16px;
+    }
+    
+    .music-window {
+        width: 100vw !important;
+        height: calc(100vh - 60px) !important;
+    }
+    
+    .music-content {
+        padding: 16px;
+    }
+    
+    .music-header h2 {
+        font-size: 20px;
+    }
+    
+    .current-track {
+        padding: 16px;
+    }
+    
+    .track-cover {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+    
+    .track-details h3 {
+        font-size: 16px;
+    }
+    
+    .music-controls button {
+        width: 44px;
+        height: 44px;
+        font-size: 16px;
+    }
+    
+    #play-btn {
+        width: 54px;
+        height: 54px;
+        font-size: 20px;
+    }
+    
+    .track-list {
+        max-height: 200px;
+    }
+    
+    .track-item {
+        padding: 8px;
+        gap: 12px;
+    }
+    
+    .track-name {
+        font-size: 13px;
+    }
+    
+    .track-artist {
+        font-size: 11px;
+    }
+    
+    #floating-player {
+        width: calc(100vw - 40px);
+        right: 20px;
+        left: 20px;
+        bottom: 70px;
     }
     
     .minimize, .maximize {
         display: none;
     }
+    
+    .fullscreen {
+        display: none;
+    }
 }
 
 @media (max-width: 480px) {
+    body {
+        padding-bottom: 60px !important;
+    }
+    
+    .desktop {
+        height: calc(100vh - 60px) !important;
+    }
+    
     .desktop-icons {
         grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        padding: 12px;
+    }
+    
+    .desktop-icon {
+        width: 60px;
+    }
+    
+    .desktop-icon img {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .desktop-icon i {
+        font-size: 36px !important;
+        width: 36px;
+        height: 36px;
+    }
+    
+    .desktop-icon span {
+        font-size: 9px;
     }
     
     .skills-grid {
         grid-template-columns: 1fr;
     }
     
+    .quick-links {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-items {
+        grid-template-columns: 1fr;
+    }
+    
     .search-box {
         display: none;
+    }
+    
+    .start-apps {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .nav-item {
+        padding: 10px 12px;
+        font-size: 11px;
+    }
+    
+    .section {
+        padding: 12px;
+    }
+    
+    .profile-card {
+        padding: 12px;
+    }
+    
+    .skill-item {
+        padding: 12px;
+    }
+    
+    .project-card {
+        padding: 12px;
+    }
+    
+    .contact-item {
+        padding: 10px;
+    }
+    
+    .experience-card {
+        padding: 12px;
+    }
+    
+    .qualification-card {
+        padding: 12px;
+    }
+    
+    .taskbar {
+        padding: 0 4px;
+        height: 60px !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 9999 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        background: linear-gradient(135deg, #2c3e50, #34495e) !important;
+        border-top: 1px solid rgba(255,255,255,0.1) !important;
+    }
+    
+    .start-button {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+    
+    .taskbar-app {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .taskbar-app img {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .datetime {
+        font-size: 10px;
+        padding: 4px 6px;
+        min-width: 50px;
+    }
+    
+    .tray-icons i {
+        padding: 4px;
+        font-size: 11px;
     }
 }
 
@@ -3188,4 +3674,35 @@ body {
 
 #floating-close:hover {
     background: rgba(255, 0, 0, 0.3) !important;
+}
+
+/* Force taskbar visibility on mobile */
+@media screen and (max-width: 768px) {
+    .taskbar {
+        display: flex !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100vw !important;
+        height: 60px !important;
+        z-index: 99999 !important;
+        background: linear-gradient(135deg, #2c3e50, #34495e) !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+/* Hide taskbar on mobile */
+@media screen and (max-width: 768px) {
+    .taskbar {
+        display: none !important;
+    }
+    
+    .desktop {
+        height: 100vh !important;
+    }
+    
+    body {
+        padding-bottom: 0 !important;
+    }
 }
