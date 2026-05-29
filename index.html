@@ -3,396 +3,232 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="Janak Sanjel — Full Stack Developer. AI-powered portfolio assistant.">
+<meta name="description" content="Janak Sanjel — Full Stack Developer AI Portfolio Assistant">
 <title>Janak Sanjel · Portfolio AI</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%235b6ef5' rx='22'/%3E%3Ctext x='50' y='68' font-family='monospace' font-size='54' font-weight='700' fill='white' text-anchor='middle'%3EJS%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --r-card:20px;--r-sm:12px;--r-pill:40px;
-  --ease:cubic-bezier(0.22,1,0.36,1);
-  --trans:all 0.22s var(--ease);
-}
+:root{--r:20px;--rsm:12px;--rp:40px;--ease:cubic-bezier(0.22,1,0.36,1);--t:all .22s var(--ease);}
 [data-theme="dark"]{
-  --bg:hsl(224,18%,7%);
-  --surface:hsl(226,16%,10%);
-  --surface2:hsl(228,14%,13%);
-  --surface3:hsl(228,13%,17%);
-  --border:rgba(255,255,255,0.06);
-  --border-hi:rgba(255,255,255,0.12);
-  --text:hsl(220,30%,96%);
-  --text2:hsl(220,15%,65%);
-  --text3:hsl(220,12%,42%);
-  --accent:hsl(232,88%,68%);
-  --accent2:hsl(260,70%,70%);
-  --accent-bg:rgba(91,110,245,0.1);
-  --accent-border:rgba(91,110,245,0.25);
-  --user-bubble:hsl(228,18%,15%);
-  --green:hsl(152,60%,52%);
-  --gradient:linear-gradient(135deg,hsl(232,88%,65%),hsl(265,75%,68%));
-  --shadow:0 20px 40px rgba(0,0,0,0.4);
-  --shadow-sm:0 4px 16px rgba(0,0,0,0.25);
-  --invert-logo:0;
+  --bg:hsl(224,18%,7%);--s1:hsl(226,16%,10%);--s2:hsl(228,14%,13%);--s3:hsl(228,13%,17%);
+  --bd:rgba(255,255,255,0.06);--bdh:rgba(255,255,255,0.12);
+  --tx:hsl(220,30%,96%);--tx2:hsl(220,15%,65%);--tx3:hsl(220,12%,42%);
+  --ac:hsl(232,88%,68%);--ac2:hsl(260,70%,70%);
+  --acbg:rgba(91,110,245,0.1);--acbd:rgba(91,110,245,0.25);
+  --ubbl:hsl(228,18%,15%);--grn:hsl(152,60%,52%);
+  --grad:linear-gradient(135deg,hsl(232,88%,65%),hsl(265,75%,68%));
+  --shd:0 20px 40px rgba(0,0,0,.4);--shdsm:0 4px 16px rgba(0,0,0,.25);
 }
 [data-theme="light"]{
-  --bg:hsl(220,20%,97%);
-  --surface:hsl(0,0%,100%);
-  --surface2:hsl(220,20%,95%);
-  --surface3:hsl(220,18%,91%);
-  --border:rgba(0,0,0,0.07);
-  --border-hi:rgba(0,0,0,0.12);
-  --text:hsl(224,25%,10%);
-  --text2:hsl(224,12%,40%);
-  --text3:hsl(224,10%,60%);
-  --accent:hsl(232,82%,58%);
-  --accent2:hsl(265,65%,58%);
-  --accent-bg:rgba(79,102,235,0.07);
-  --accent-border:rgba(79,102,235,0.2);
-  --user-bubble:hsl(220,25%,95%);
-  --green:hsl(152,60%,38%);
-  --gradient:linear-gradient(135deg,hsl(232,82%,58%),hsl(265,65%,62%));
-  --shadow:0 8px 30px rgba(0,0,0,0.1);
-  --shadow-sm:0 2px 8px rgba(0,0,0,0.06);
-  --invert-logo:1;
+  --bg:hsl(220,20%,97%);--s1:hsl(0,0%,100%);--s2:hsl(220,20%,95%);--s3:hsl(220,18%,91%);
+  --bd:rgba(0,0,0,0.07);--bdh:rgba(0,0,0,0.12);
+  --tx:hsl(224,25%,10%);--tx2:hsl(224,12%,40%);--tx3:hsl(224,10%,60%);
+  --ac:hsl(232,82%,58%);--ac2:hsl(265,65%,58%);
+  --acbg:rgba(79,102,235,0.07);--acbd:rgba(79,102,235,0.2);
+  --ubbl:hsl(220,25%,95%);--grn:hsl(152,60%,38%);
+  --grad:linear-gradient(135deg,hsl(232,82%,58%),hsl(265,65%,62%));
+  --shd:0 8px 30px rgba(0,0,0,.1);--shdsm:0 2px 8px rgba(0,0,0,.06);
 }
-
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);height:100dvh;overflow:hidden;transition:background .25s,color .25s;-webkit-font-smoothing:antialiased;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);height:100dvh;overflow:hidden;transition:background .25s,color .25s;-webkit-font-smoothing:antialiased;}
 .app{display:flex;height:100%;position:relative;}
 
-/* ── SIDEBAR ── */
-.sidebar{
-  width:270px;background:var(--surface);
-  border-right:1px solid var(--border);
-  display:flex;flex-direction:column;
-  flex-shrink:0;z-index:20;
-  transition:transform .3s var(--ease);
-}
+/* sidebar */
+.sb{width:272px;background:var(--s1);border-right:1px solid var(--bd);display:flex;flex-direction:column;flex-shrink:0;z-index:20;transition:transform .3s var(--ease);}
 @media(max-width:768px){
-  .sidebar{position:fixed;left:0;top:0;height:100%;transform:translateX(-100%);box-shadow:24px 0 40px rgba(0,0,0,.3);}
-  .sidebar.open{transform:translateX(0);}
-  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);z-index:19;opacity:0;pointer-events:none;transition:opacity .25s;}
-  .overlay.active{opacity:1;pointer-events:auto;}
+  .sb{position:fixed;left:0;top:0;height:100%;transform:translateX(-100%);box-shadow:24px 0 40px rgba(0,0,0,.3);}
+  .sb.open{transform:translateX(0);}
+  .ov{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);z-index:19;opacity:0;pointer-events:none;transition:opacity .25s;}
+  .ov.on{opacity:1;pointer-events:auto;}
 }
-.sb-head{padding:20px 16px 16px;border-bottom:1px solid var(--border);}
+.sb-hd{padding:20px 16px 16px;border-bottom:1px solid var(--bd);}
 .logo{display:flex;align-items:center;gap:11px;margin-bottom:18px;}
-.logo-icon{
-  width:40px;height:40px;background:var(--gradient);
-  border-radius:14px;display:flex;align-items:center;justify-content:center;
-  font-family:'DM Mono',monospace;font-weight:500;font-size:17px;color:#fff;
-  flex-shrink:0;box-shadow:0 6px 18px rgba(91,110,245,.35);
-}
-.logo-name{font-weight:600;font-size:16px;letter-spacing:-.3px;}
-.logo-role{font-size:11px;color:var(--text3);margin-top:1px;letter-spacing:.02em;}
-
-.new-btn{
-  width:100%;background:var(--accent-bg);
-  border:1px solid var(--accent-border);
-  border-radius:var(--r-pill);padding:9px 14px;
-  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
-  color:var(--accent);cursor:pointer;
-  display:flex;align-items:center;gap:7px;justify-content:center;
-  transition:var(--trans);letter-spacing:-.1px;
-}
+.logo-ic{width:40px;height:40px;background:var(--grad);border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-weight:500;font-size:17px;color:#fff;flex-shrink:0;box-shadow:0 6px 18px rgba(91,110,245,.35);}
+.logo-nm{font-weight:600;font-size:16px;letter-spacing:-.3px;}
+.logo-rl{font-size:11px;color:var(--tx3);margin-top:1px;letter-spacing:.02em;}
+.new-btn{width:100%;background:var(--acbg);border:1px solid var(--acbd);border-radius:var(--rp);padding:9px 14px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--ac);cursor:pointer;display:flex;align-items:center;gap:7px;justify-content:center;transition:var(--t);}
 .new-btn:hover{background:rgba(91,110,245,.18);transform:translateY(-1px);}
-.new-btn svg{flex-shrink:0;}
+.sb-sec{padding:18px 18px 6px;font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);}
+.sb-ul{list-style:none;flex:1;overflow-y:auto;padding:0 10px;}
+.sb-ul::-webkit-scrollbar{width:3px;}
+.sb-ul::-webkit-scrollbar-thumb{background:var(--bdh);border-radius:10px;}
+.sb-ul li{padding:9px 12px;margin-bottom:2px;border-radius:var(--rsm);cursor:pointer;font-size:13px;display:flex;align-items:center;gap:9px;color:var(--tx2);transition:var(--t);}
+.sb-ul li:hover{background:var(--s2);color:var(--tx);}
+.sb-ul li.on{background:var(--acbg);color:var(--ac);border-left:2px solid var(--ac);}
+.cp{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.dbtn{opacity:0;background:transparent;border:none;cursor:pointer;color:var(--tx3);border-radius:6px;padding:3px 5px;font-size:12px;transition:var(--t);}
+.sb-ul li:hover .dbtn{opacity:1;}
+.dbtn:hover{background:rgba(239,68,68,.15);color:#f87171;}
+.sb-ft{padding:14px;border-top:1px solid var(--bd);}
+.prof{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--rsm);background:var(--s2);}
+.prof-av{width:34px;height:34px;background:var(--grad);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0;}
+.prof-nm{font-size:13px;font-weight:500;}
+.prof-tl{font-size:11px;color:var(--tx3);margin-top:1px;}
 
-.sb-section{padding:18px 18px 6px;font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);}
-.sb-list{list-style:none;flex:1;overflow-y:auto;padding:0 10px;}
-.sb-list li{
-  padding:9px 12px;margin-bottom:2px;border-radius:var(--r-sm);
-  cursor:pointer;font-size:13px;display:flex;align-items:center;gap:9px;
-  color:var(--text2);transition:var(--trans);
-}
-.sb-list li:hover{background:var(--surface2);color:var(--text);}
-.sb-list li.active{background:var(--accent-bg);color:var(--accent);border-left:2px solid var(--accent);}
-.chat-prev{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.del-btn{
-  opacity:0;background:transparent;border:none;cursor:pointer;
-  color:var(--text3);border-radius:6px;padding:3px 5px;font-size:13px;
-  transition:var(--trans);
-}
-.sb-list li:hover .del-btn{opacity:1;}
-.del-btn:hover{background:rgba(239,68,68,.15);color:#f87171;}
-
-.sb-foot{padding:14px 14px;border-top:1px solid var(--border);}
-.profile{
-  display:flex;align-items:center;gap:10px;padding:8px 10px;
-  border-radius:var(--r-sm);background:var(--surface2);
-}
-.profile-av{
-  width:34px;height:34px;background:var(--gradient);border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:600;color:#fff;flex-shrink:0;
-}
-.profile-name{font-size:13px;font-weight:500;}
-.profile-title{font-size:11px;color:var(--text3);margin-top:1px;}
-
-/* ── MAIN ── */
+/* main */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--bg);min-width:0;}
+.hdr{padding:12px 22px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;background:var(--bg);flex-shrink:0;}
+.mbtn{display:none;background:transparent;border:none;color:var(--tx);cursor:pointer;margin-right:10px;padding:4px;}
+@media(max-width:768px){.mbtn{display:flex;}}
+.hl{display:flex;align-items:center;}
+.htl{font-weight:600;font-size:14px;display:flex;align-items:center;gap:8px;letter-spacing:-.2px;}
+.dot{width:7px;height:7px;background:var(--grn);border-radius:50%;animation:pu 2.2s ease-in-out infinite;}
+@keyframes pu{0%,100%{opacity:.5;transform:scale(.85);}50%{opacity:1;transform:scale(1.15);}}
+.hlinks{display:flex;gap:8px;align-items:center;}
+.hlink{background:var(--s2);border:1px solid var(--bdh);border-radius:var(--rp);padding:6px 13px;font-size:12.5px;font-weight:500;text-decoration:none;color:var(--tx2);display:inline-flex;align-items:center;gap:5px;transition:var(--t);}
+.hlink:hover{border-color:var(--acbd);background:var(--acbg);color:var(--ac);}
+.thbtn{background:var(--s2);border:1px solid var(--bdh);border-radius:var(--rp);padding:5px 10px;font-size:15px;cursor:pointer;transition:var(--t);}
+.thbtn:hover{border-color:var(--acbd);background:var(--acbg);}
 
-.chat-header{
-  padding:12px 22px;border-bottom:1px solid var(--border);
-  display:flex;justify-content:space-between;align-items:center;
-  background:var(--bg);backdrop-filter:blur(10px);
-  position:sticky;top:0;z-index:10;flex-shrink:0;
-}
-.menu-btn{display:none;background:transparent;border:none;color:var(--text);cursor:pointer;margin-right:10px;padding:4px;}
-@media(max-width:768px){.menu-btn{display:flex;}}
-.hdr-left{display:flex;align-items:center;}
-.hdr-title{font-weight:600;font-size:14px;display:flex;align-items:center;gap:8px;letter-spacing:-.2px;}
-.pulse{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2.2s ease-in-out infinite;}
-@keyframes pulse{0%,100%{opacity:.5;transform:scale(.85);}50%{opacity:1;transform:scale(1.15);}}
-.hdr-links{display:flex;gap:8px;}
-.hdr-link{
-  background:var(--surface2);border:1px solid var(--border-hi);
-  border-radius:var(--r-pill);padding:6px 13px;
-  font-size:12.5px;font-weight:500;text-decoration:none;color:var(--text2);
-  display:inline-flex;align-items:center;gap:5px;transition:var(--trans);
-  letter-spacing:-.1px;
-}
-.hdr-link:hover{border-color:var(--accent-border);background:var(--accent-bg);color:var(--accent);}
-.theme-btn{
-  background:var(--surface2);border:1px solid var(--border-hi);
-  border-radius:var(--r-pill);padding:6px 10px;
-  font-size:15px;cursor:pointer;transition:var(--trans);
-  display:flex;align-items:center;justify-content:center;
-}
-.theme-btn:hover{border-color:var(--accent-border);background:var(--accent-bg);}
+/* messages */
+.msgs{flex:1;overflow-y:auto;padding:28px 0 10px;scroll-behavior:smooth;}
+.msgs::-webkit-scrollbar{width:4px;}
+.msgs::-webkit-scrollbar-thumb{background:var(--bdh);border-radius:10px;}
+.mw{max-width:760px;margin:0 auto 22px;padding:0 22px;animation:fu .32s var(--ease) both;}
+@keyframes fu{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.mw.user{display:flex;justify-content:flex-end;}
+.mw.ai{display:flex;gap:12px;}
+.aav{width:34px;height:34px;background:var(--grad);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#fff;flex-shrink:0;margin-top:2px;box-shadow:0 4px 12px rgba(91,110,245,.3);}
+.bbu{background:var(--ubbl);border:1px solid var(--bdh);border-radius:20px 20px 5px 20px;padding:11px 17px;max-width:72%;font-size:14px;line-height:1.6;}
+.bai{flex:1;min-width:0;}
+.albl{font-size:11.5px;font-weight:600;color:var(--ac);margin-bottom:5px;letter-spacing:-.1px;}
+.abody{font-size:14.5px;line-height:1.7;}
+.abody p{margin-bottom:10px;}
+.abody p:last-child{margin-bottom:0;}
+.abody strong{font-weight:600;color:var(--tx);}
+.abody a{color:var(--ac);text-decoration:none;}
+.abody a:hover{text-decoration:underline;}
 
-/* ── MESSAGES ── */
-.messages{flex:1;overflow-y:auto;padding:28px 0 10px;scroll-behavior:smooth;}
-.messages::-webkit-scrollbar{width:4px;}
-.messages::-webkit-scrollbar-track{background:transparent;}
-.messages::-webkit-scrollbar-thumb{background:var(--border-hi);border-radius:10px;}
-
-.msg-wrap{max-width:760px;margin:0 auto 22px;padding:0 22px;animation:fadeUp .32s var(--ease) both;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
-.msg-wrap.user{display:flex;justify-content:flex-end;}
-.msg-wrap.ai{display:flex;gap:12px;}
-.ai-av{
-  width:34px;height:34px;background:var(--gradient);border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'DM Mono',monospace;font-size:13px;font-weight:500;
-  color:#fff;flex-shrink:0;margin-top:2px;
-  box-shadow:0 4px 12px rgba(91,110,245,.3);
-}
-.bubble-user{
-  background:var(--user-bubble);border:1px solid var(--border-hi);
-  border-radius:20px 20px 5px 20px;padding:11px 17px;
-  max-width:72%;font-size:14px;line-height:1.6;
-}
-.bubble-ai{flex:1;min-width:0;}
-.ai-label{font-size:11.5px;font-weight:600;color:var(--accent);margin-bottom:5px;letter-spacing:-.1px;}
-.ai-body{font-size:14.5px;line-height:1.7;}
-.ai-body p{margin-bottom:10px;}
-.ai-body p:last-child{margin-bottom:0;}
-.ai-body strong{font-weight:600;color:var(--text);}
-
-/* CARDS */
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:14px;}
-.card{
-  background:var(--surface2);border:1px solid var(--border);
-  border-radius:var(--r-card);padding:14px 16px;
-  transition:var(--trans);font-size:13.5px;line-height:1.5;
-}
-.card:hover{border-color:var(--border-hi);transform:translateY(-2px);background:var(--surface3);}
-.card-title{font-weight:600;font-size:13px;margin-bottom:5px;display:flex;align-items:center;gap:7px;}
-.card-meta{font-size:12px;color:var(--text2);}
-
-/* STATS */
+/* rich elements */
+.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:10px;margin-top:14px;}
+.card{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;transition:var(--t);font-size:13.5px;line-height:1.55;}
+.card:hover{border-color:var(--bdh);transform:translateY(-2px);background:var(--s3);}
+.ctit{font-weight:600;font-size:13px;margin-bottom:6px;display:flex;align-items:center;gap:7px;color:var(--tx);}
+.cmeta{font-size:12.5px;color:var(--tx2);line-height:1.5;}
 .stats{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0;}
-.stat{
-  background:var(--surface2);border:1px solid var(--border);
-  border-radius:var(--r-card);padding:12px 18px;
-  flex:1;min-width:80px;text-align:center;transition:var(--trans);
-}
-.stat:hover{border-color:var(--accent-border);background:var(--accent-bg);}
-.stat-n{font-size:26px;font-weight:600;color:var(--accent);font-family:'DM Mono',monospace;letter-spacing:-.5px;}
-.stat-l{font-size:11px;color:var(--text2);margin-top:2px;}
-
-/* TAGS */
+.stat{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:12px 18px;flex:1;min-width:80px;text-align:center;transition:var(--t);}
+.stat:hover{border-color:var(--acbd);background:var(--acbg);}
+.sn{font-size:26px;font-weight:600;color:var(--ac);font-family:'DM Mono',monospace;letter-spacing:-.5px;}
+.sl{font-size:11px;color:var(--tx2);margin-top:2px;}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;}
-.tag{
-  padding:3px 11px;border-radius:var(--r-pill);font-size:11.5px;font-weight:500;
-  background:var(--accent-bg);color:var(--accent);
-  border:1px solid var(--accent-border);letter-spacing:-.1px;
-}
-
-/* CHIPS */
+.tag{padding:3px 11px;border-radius:var(--rp);font-size:11.5px;font-weight:500;background:var(--acbg);color:var(--ac);border:1px solid var(--acbd);}
 .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
-.chip{
-  background:var(--surface2);border:1px solid var(--border-hi);
-  border-radius:var(--r-pill);padding:9px 15px;font-size:13px;
-  display:inline-flex;gap:7px;align-items:center;
-  text-decoration:none;color:var(--text);transition:var(--trans);
-}
-.chip:hover{border-color:var(--accent-border);background:var(--accent-bg);color:var(--accent);}
+.chip{background:var(--s2);border:1px solid var(--bdh);border-radius:var(--rp);padding:9px 15px;font-size:13px;display:inline-flex;gap:7px;align-items:center;text-decoration:none;color:var(--tx);transition:var(--t);}
+.chip:hover{border-color:var(--acbd);background:var(--acbg);color:var(--ac);}
+.codeb{background:var(--s1);border:1px solid var(--bd);border-radius:var(--rsm);padding:14px 16px;margin-top:12px;font-family:'DM Mono',monospace;font-size:12.5px;line-height:1.8;color:var(--tx2);}
+.kw{color:var(--ac);}.str{color:hsl(152,55%,55%);}.key{color:var(--ac2);}
+.proj-list{display:flex;flex-direction:column;gap:10px;margin-top:14px;}
+.proj{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;transition:var(--t);}
+.proj:hover{border-color:var(--acbd);transform:translateX(3px);}
+.proj-hd{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.proj-nm{font-weight:600;font-size:13.5px;color:var(--tx);}
+.badge{background:var(--acbg);color:var(--ac);border:1px solid var(--acbd);border-radius:var(--rp);padding:2px 9px;font-size:11px;font-weight:500;}
+.proj-desc{font-size:13px;color:var(--tx2);line-height:1.55;margin-bottom:8px;}
+.edu-list{display:flex;flex-direction:column;gap:10px;margin-top:14px;}
+.edu{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;}
+.edu-deg{font-weight:600;font-size:14px;color:var(--tx);margin-bottom:3px;}
+.edu-inst{font-size:13px;color:var(--tx2);}
+.edu-meta{font-size:12px;color:var(--ac);margin-top:4px;font-family:'DM Mono',monospace;}
 
-/* CODE BLOCK */
-.code-block{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--r-sm);padding:14px;margin-top:12px;
-  font-family:'DM Mono',monospace;font-size:12px;
-  line-height:1.7;color:var(--text2);overflow-x:auto;
-}
-.code-block .kw{color:var(--accent);}
-.code-block .str{color:hsl(152,55%,55%);}
-.code-block .key{color:var(--accent2);}
-
-/* WELCOME */
+/* welcome */
 .welcome{max-width:680px;margin:28px auto;text-align:center;padding:0 20px;}
-.welcome-av{
-  width:72px;height:72px;background:var(--gradient);border-radius:24px;
-  margin:0 auto 18px;display:flex;align-items:center;justify-content:center;
-  font-size:28px;font-family:'DM Mono',monospace;font-weight:500;color:#fff;
-  box-shadow:0 10px 30px rgba(91,110,245,.35);
-}
+.wav{width:72px;height:72px;background:var(--grad);border-radius:24px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-size:28px;font-family:'DM Mono',monospace;font-weight:500;color:#fff;box-shadow:0 10px 30px rgba(91,110,245,.35);}
 .welcome h1{font-size:26px;font-weight:600;letter-spacing:-.5px;margin-bottom:8px;}
-.welcome p{font-size:14.5px;color:var(--text2);line-height:1.6;max-width:460px;margin:0 auto 28px;}
-.w-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
-@media(max-width:500px){.w-grid{grid-template-columns:repeat(2,1fr);}}
-.w-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--r-card);padding:16px 14px;text-align:left;
-  cursor:pointer;transition:var(--trans);
-}
-.w-card:hover{transform:translateY(-3px);border-color:var(--accent-border);background:var(--accent-bg);}
-.w-card-icon{font-size:20px;margin-bottom:8px;}
-.w-card-title{font-size:13px;font-weight:600;margin-bottom:3px;}
-.w-card-sub{font-size:11.5px;color:var(--text2);}
+.welcome p{font-size:14.5px;color:var(--tx2);line-height:1.6;max-width:460px;margin:0 auto 28px;}
+.wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+@media(max-width:500px){.wgrid{grid-template-columns:repeat(2,1fr);}}
+.wcard{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:16px 14px;text-align:left;cursor:pointer;transition:var(--t);}
+.wcard:hover{transform:translateY(-3px);border-color:var(--acbd);background:var(--acbg);}
+.wci{font-size:20px;margin-bottom:8px;}
+.wct{font-size:13px;font-weight:600;margin-bottom:3px;}
+.wcs{font-size:11.5px;color:var(--tx2);}
 
-/* INPUT AREA */
-.input-area{padding:14px 22px 24px;background:var(--bg);border-top:1px solid var(--border);flex-shrink:0;}
-.input-wrap{max-width:760px;margin:0 auto;}
-.suggestions{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px;}
-.sug-btn{
-  background:var(--surface);border:1px solid var(--border-hi);
-  border-radius:var(--r-pill);padding:5px 13px;font-size:12px;font-family:'DM Sans',sans-serif;
-  cursor:pointer;transition:var(--trans);color:var(--text2);
-}
-.sug-btn:hover{background:var(--accent-bg);border-color:var(--accent-border);color:var(--accent);}
-.input-row{
-  display:flex;gap:10px;background:var(--surface);
-  border:1px solid var(--border-hi);border-radius:24px;
-  padding:5px 5px 5px 18px;transition:var(--trans);position:relative;
-}
-.input-row:focus-within{border-color:var(--accent-border);box-shadow:0 0 0 3px var(--accent-bg);}
-textarea{
-  flex:1;background:transparent;border:none;outline:none;
-  color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;
-  resize:none;padding:9px 0;max-height:120px;
-  line-height:1.5;
-}
-textarea::placeholder{color:var(--text3);}
-.send-btn{
-  background:var(--gradient);border:none;
-  border-radius:20px;width:38px;height:38px;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;transition:var(--trans);flex-shrink:0;align-self:flex-end;
-  box-shadow:0 4px 12px rgba(91,110,245,.3);
-}
-.send-btn:hover{transform:scale(1.05);box-shadow:0 6px 18px rgba(91,110,245,.4);}
-.send-btn:disabled{opacity:.45;transform:none;box-shadow:none;cursor:not-allowed;}
+/* input */
+.inp-area{padding:14px 22px 24px;background:var(--bg);border-top:1px solid var(--bd);flex-shrink:0;}
+.inp-wrap{max-width:760px;margin:0 auto;}
+.sugs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px;}
+.sb2{background:var(--s1);border:1px solid var(--bdh);border-radius:var(--rp);padding:5px 13px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:var(--t);color:var(--tx2);}
+.sb2:hover{background:var(--acbg);border-color:var(--acbd);color:var(--ac);}
+.irow{display:flex;gap:10px;background:var(--s1);border:1px solid var(--bdh);border-radius:24px;padding:5px 5px 5px 18px;transition:var(--t);position:relative;}
+.irow:focus-within{border-color:var(--acbd);box-shadow:0 0 0 3px var(--acbg);}
+textarea{flex:1;background:transparent;border:none;outline:none;color:var(--tx);font-family:'DM Sans',sans-serif;font-size:14px;resize:none;padding:9px 0;max-height:120px;line-height:1.5;}
+textarea::placeholder{color:var(--tx3);}
+.sndbtn{background:var(--grad);border:none;border-radius:20px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--t);flex-shrink:0;align-self:flex-end;box-shadow:0 4px 12px rgba(91,110,245,.3);}
+.sndbtn:hover{transform:scale(1.05);box-shadow:0 6px 18px rgba(91,110,245,.4);}
+.sndbtn:disabled{opacity:.4;transform:none;box-shadow:none;cursor:not-allowed;}
+.acdrop{position:absolute;bottom:calc(100% + 6px);left:0;right:0;background:var(--s1);border:1px solid var(--bdh);border-radius:16px;max-height:190px;overflow-y:auto;z-index:10;box-shadow:var(--shdsm);display:none;}
+.aci{padding:9px 16px;cursor:pointer;font-size:13px;transition:var(--t);color:var(--tx2);}
+.aci:hover{background:var(--acbg);color:var(--ac);}
 
-/* AUTOCOMPLETE */
-.ac-drop{
-  position:absolute;bottom:calc(100% + 6px);left:0;right:0;
-  background:var(--surface);border:1px solid var(--border-hi);
-  border-radius:16px;max-height:190px;overflow-y:auto;
-  z-index:10;box-shadow:var(--shadow-sm);display:none;
-}
-.ac-item{padding:9px 16px;cursor:pointer;font-size:13px;transition:var(--trans);color:var(--text2);}
-.ac-item:hover{background:var(--accent-bg);color:var(--accent);}
-
-/* TYPING */
-.typing-dots span{
-  display:inline-block;width:6px;height:6px;border-radius:50%;
-  background:var(--text3);margin:0 2px;
-  animation:dot 1.3s infinite;
-}
-.typing-dots span:nth-child(2){animation-delay:.18s;}
-.typing-dots span:nth-child(3){animation-delay:.36s;}
-@keyframes dot{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}
-
-/* DIVIDER */
-.section-divider{height:1px;background:var(--border);margin:14px 0;}
-
-/* THINKING */
-.thinking-msg{font-size:13px;color:var(--text3);font-style:italic;margin-bottom:6px;}
+/* typing */
+.tdots span{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--tx3);margin:0 2px;animation:dw 1.3s infinite;}
+.tdots span:nth-child(2){animation-delay:.18s;}
+.tdots span:nth-child(3){animation-delay:.36s;}
+@keyframes dw{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}
 </style>
 </head>
 <body>
 <div class="app">
-  <div class="overlay" id="overlay"></div>
+  <div class="ov" id="ov"></div>
 
-  <aside class="sidebar" id="sidebar">
-    <div class="sb-head">
+  <aside class="sb" id="sb">
+    <div class="sb-hd">
       <div class="logo">
-        <div class="logo-icon">JS</div>
-        <div>
-          <div class="logo-name">Janak Sanjel</div>
-          <div class="logo-role">Portfolio Assistant</div>
-        </div>
+        <div class="logo-ic">JS</div>
+        <div><div class="logo-nm">Janak Sanjel</div><div class="logo-rl">Portfolio Assistant</div></div>
       </div>
-      <button class="new-btn" id="newChatBtn">
+      <button class="new-btn" id="newBtn">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         New conversation
       </button>
     </div>
-    <div class="sb-section">Recent</div>
-    <ul class="sb-list" id="sbList"></ul>
-    <div class="sb-foot">
-      <div class="profile">
-        <div class="profile-av">JS</div>
-        <div>
-          <div class="profile-name">Janak Sanjel</div>
-          <div class="profile-title">Full Stack Developer</div>
-        </div>
+    <div class="sb-sec">Recent</div>
+    <ul class="sb-ul" id="sbUl"></ul>
+    <div class="sb-ft">
+      <div class="prof">
+        <div class="prof-av">JS</div>
+        <div><div class="prof-nm">Janak Sanjel</div><div class="prof-tl">Full Stack Developer</div></div>
       </div>
     </div>
   </aside>
 
   <main class="main">
-    <div class="chat-header">
-      <div class="hdr-left">
-        <button class="menu-btn" id="menuBtn">
+    <div class="hdr">
+      <div class="hl">
+        <button class="mbtn" id="mbtn">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </button>
-        <div class="hdr-title">
-          <div class="pulse"></div>
-          <span id="chatTitle">Janak Sanjel · AI</span>
-        </div>
+        <div class="htl"><div class="dot"></div><span id="ctitle">Janak Sanjel · AI</span></div>
       </div>
-      <div class="hdr-links">
-        <a href="https://github.com/janaksanjel" target="_blank" class="hdr-link">
+      <div class="hlinks">
+        <a href="https://github.com/janaksanjel" target="_blank" class="hlink">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
           GitHub
         </a>
-        <a href="https://www.janak.info.np/" target="_blank" class="hdr-link">
+        <a href="https://www.janak.info.np/" target="_blank" class="hlink">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
           My CV
         </a>
-        <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">🌙</button>
+        <button class="thbtn" id="thbtn">🌙</button>
       </div>
     </div>
 
-    <div class="messages" id="messages"></div>
+    <div class="msgs" id="msgs"></div>
 
-    <div class="input-area">
-      <div class="input-wrap">
-        <div class="suggestions" id="suggestions">
-          <button class="sug-btn" data-q="Who is Janak Sanjel?">Who is Janak?</button>
-          <button class="sug-btn" data-q="Show me his projects">Projects</button>
-          <button class="sug-btn" data-q="What are his technical skills?">Skills</button>
-          <button class="sug-btn" data-q="Tell me about his work experience">Experience</button>
-          <button class="sug-btn" data-q="How can I contact Janak?">Contact</button>
-          <button class="sug-btn" data-q="Tell me about his education">Education</button>
+    <div class="inp-area">
+      <div class="inp-wrap">
+        <div class="sugs" id="sugs">
+          <button class="sb2" data-q="Who is Janak Sanjel?">Who is Janak?</button>
+          <button class="sb2" data-q="Show me his projects">Projects</button>
+          <button class="sb2" data-q="What are his technical skills?">Skills</button>
+          <button class="sb2" data-q="Tell me about his work experience">Experience</button>
+          <button class="sb2" data-q="How can I contact Janak?">Contact</button>
+          <button class="sb2" data-q="Tell me about his education">Education</button>
         </div>
-        <div class="input-row">
-          <textarea id="input" placeholder="Ask anything about Janak's career, projects, or skills…" rows="1"></textarea>
-          <div class="ac-drop" id="acDrop"></div>
-          <button class="send-btn" id="sendBtn" aria-label="Send">
+        <div class="irow">
+          <textarea id="inp" placeholder="Ask anything about Janak's career, projects, or skills…" rows="1"></textarea>
+          <div class="acdrop" id="acdrop"></div>
+          <button class="sndbtn" id="sndbtn">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
           </button>
         </div>
@@ -402,337 +238,409 @@ textarea::placeholder{color:var(--text3);}
 </div>
 
 <script>
-const CV_DATA = `
-You are Janak Sanjel's AI portfolio assistant. You have deep knowledge of Janak's background and answer questions in a warm, professional, and conversational tone. Here is Janak's complete profile:
+// ── RESPONSES ──────────────────────────────────────────────────────────────────
+const RESPONSES = {
 
-PERSONAL:
-- Full Name: Janak Sanjel
-- Location: Godawari-11, Lalitpur, Nepal
-- Email: janaksanjel12@gmail.com
-- Phone: +977 984 074 8285
-- GitHub: github.com/janaksanjel
-- Website: janak.info.np
+  intro: {
+    match: q => /who is|about janak|introduce|background|janak sanjel|^janak$|profile|summary|tell me about|overview/i.test(q),
+    title: 'About Janak Sanjel',
+    html: () => `
+      <p><strong>👋 Janak Sanjel</strong> is a dedicated Full Stack Developer based in <strong>Godawari-11, Lalitpur, Nepal</strong>. He builds production-ready web applications that real people use every day — across government, recruitment, and hospitality sectors.</p>
+      <p>Currently at <strong>NIRC (National Incubation & Research Center)</strong> in Kathmandu, he has shipped multiple client-facing systems using ReactJS, Django, Java, and MySQL. He writes clean, maintainable code, takes full ownership of features end-to-end, and thrives in collaborative team environments.</p>
+      <div class="stats">
+        <div class="stat"><div class="sn">5+</div><div class="sl">Live Projects</div></div>
+        <div class="stat"><div class="sn">3.19</div><div class="sl">BCA CGPA</div></div>
+        <div class="stat"><div class="sn">500+</div><div class="sl">Placements</div></div>
+        <div class="stat"><div class="sn">4</div><div class="sl">Active Products</div></div>
+      </div>
+      <div class="grid2">
+        <div class="card"><div class="ctit">📍 Location</div><div class="cmeta">Godawari-11, Lalitpur, Nepal</div></div>
+        <div class="card"><div class="ctit">💼 Current Role</div><div class="cmeta">Full Stack Dev @ NIRC · Dec 2024–Present</div></div>
+        <div class="card"><div class="ctit">🎓 Education</div><div class="cmeta">BCA Graduate 2025 · CGPA 3.19</div></div>
+        <div class="card"><div class="ctit">📧 Email</div><div class="cmeta">janaksanjel12@gmail.com</div></div>
+      </div>`
+  },
 
-CURRENT ROLE:
-- Full Stack Developer at NIRC (National Incubation & Research Center), Kathmandu
-- Started: December 2024 – Present
+  experience: {
+    match: q => /experience|work|job|career|nirc|professional|current role|what does he do|employed/i.test(q),
+    title: 'Work Experience',
+    html: () => `
+      <p><strong>💼 Full Stack Developer — NIRC</strong> (National Incubation & Research Center)<br>
+      <span style="color:var(--tx2);font-size:13px;">December 2024 – Present · Kathmandu, Nepal</span></p>
+      <div class="proj-list">
+        <div class="proj">
+          <div class="proj-hd"><span>✅</span><span class="proj-nm">Full-stack feature delivery</span></div>
+          <div class="proj-desc">Designed and delivered complete features for multiple live client projects — from database schema to responsive UI, owned end-to-end.</div>
+        </div>
+        <div class="proj">
+          <div class="proj-hd"><span>✅</span><span class="proj-nm">Client collaboration</span></div>
+          <div class="proj-desc">Worked directly with clients to translate requirements into technical solutions, reducing feedback cycles by approximately 30%.</div>
+        </div>
+        <div class="proj">
+          <div class="proj-hd"><span>✅</span><span class="proj-nm">REST API maintenance</span></div>
+          <div class="proj-desc">Maintained clean REST API contracts between Django backends and ReactJS frontends across 4 active products simultaneously.</div>
+        </div>
+        <div class="proj">
+          <div class="proj-hd"><span>✅</span><span class="proj-nm">Government platform</span></div>
+          <div class="proj-desc">Contributed to a Grails/Java-based municipal government platform (GWP – Palika Software) serving real users in local government offices.</div>
+        </div>
+      </div>
+      <div class="tags" style="margin-top:14px;">
+        <span class="tag">ReactJS</span><span class="tag">Django</span><span class="tag">Java</span>
+        <span class="tag">Grails</span><span class="tag">MySQL</span><span class="tag">Node.js</span><span class="tag">REST APIs</span>
+      </div>`
+  },
 
-WORK EXPERIENCE AT NIRC:
-- Designed and delivered full-stack features for multiple live client projects — from database schema to responsive UI
-- Worked directly with clients to translate requirements into technical solutions, reducing feedback cycles by 30%
-- Maintained clean REST API contracts between Django backends and ReactJS frontends across 4 active products
-- Contributed to a Grails/Java-based municipal government platform (GWP – Palika Software) serving real users in local government offices
+  projects: {
+    match: q => /project|built|portfolio|app|system|show|what has he|rakmina|gym|palika|gwp|orderup|voting|signature|training|kiran/i.test(q),
+    title: 'Projects',
+    html: () => `
+      <p>🚀 Here are the <strong>8 production-grade systems</strong> Janak has built — each solving real-world problems:</p>
+      <div class="proj-list">
+        <div class="proj">
+          <div class="proj-hd"><span>🏛️</span><span class="proj-nm">GWP – Palika Software</span><span class="badge">Government · Live</span></div>
+          <div class="proj-desc">Digital operations suite for local government offices. Manages citizen services, records & reporting.</div>
+          <div class="tags"><span class="tag">Java</span><span class="tag">Grails</span><span class="tag">MySQL</span></div>
+        </div>
+        <div class="proj">
+          <div class="proj-hd"><span>🌍</span><span class="proj-nm">Rakmina – Recruitment Platform</span><span class="badge">Lithuania · 500+ placements</span></div>
+          <div class="proj-desc">Full-featured staffing portal with applicant tracking, job listings & employer dashboards. Enabled 500+ international placements.</div>
+          <div class="tags"><span class="tag">Django</span><span class="tag">Next.js</span><span class="tag">MySQL</span></div>
+        </div>
+        <div class="proj">
+          <div class="proj-hd"><span>🏋️</span><span class="proj-nm">Gym Management System</span><span class="badge">NIRC · Live</span></div>
+          <div class="proj-desc">All-in-one gym platform: member registration, subscription billing, attendance check-in, staff management.</div>
+          <div class="tags"><span class="tag">ReactJS</span><span class="tag">Django</span></div>
+        </div>
+        <div class="proj">
+          <div class="proj-hd"><span>🍽️</span><span class="proj-nm">Kiran Restaurant & Dealership CRM</span></div>
+          <div class="proj-desc">Multi-vertical CRM with customer records, follow-ups & sales pipelines for a restaurant and a vehicle dealership.</div>
+          <div class="tags"><span class="tag">ReactJS</span><span class="tag">Django</span><span class="tag">MySQL</span></div>
+        </div>
+        <div class="proj">
+          <div class="proj-hd"><span>📋</span><span class="proj-nm">Training Management System</span></div>
+          <div class="proj-desc">Institute management platform: course scheduling, student enrolment, attendance & progress reporting.</div>
+          <div class="tags"><span class="tag">ReactJS</span><span class="tag">Django</span></div>
+        </div>
+        <div class="proj">
+          <div class="proj-hd"><span>🛵</span><span class="proj-nm">OrderUP – Food Delivery App</span></div>
+          <div class="proj-desc">Online ordering system with dynamic menus, real-time cart & checkout for small restaurants.</div>
+          <div class="tags"><span class="tag">ReactJS</span><span class="tag">Node.js</span></div>
+        </div>
+        <div class="proj">
+          <div class="proj-hd"><span>🗳️</span><span class="proj-nm">Electronic Voting System</span></div>
+          <div class="proj-desc">Secure browser-based e-voting for campus elections: candidate registration, ballot casting & live result tallying.</div>
+          <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+        </div>
+        <div class="proj">
+          <div class="proj-hd"><span>✍️</span><span class="proj-nm">E-Signature App</span></div>
+          <div class="proj-desc">Lightweight digital signature tool — draw, type or upload signatures with zero server dependency.</div>
+          <div class="tags"><span class="tag">Pure JavaScript</span></div>
+        </div>
+      </div>`
+  },
 
-PROJECTS (8+ production apps):
-1. GWP – Palika Software: Digital operations suite for local government offices. Manages citizen services, records & reporting. Stack: Java, Grails, MySQL.
-2. Rakmina – Recruitment Platform (Lithuania): Full-featured staffing portal enabling 500+ international placements. Stack: Django + Next.js + MySQL.
-3. Gym Management System (NIRC, Live): All-in-one gym platform: member registration, subscription billing, attendance check-in, staff management. Stack: ReactJS + Django.
-4. Kiran Restaurant & Dealership CRM: Multi-vertical CRM with customer records, follow-ups & sales pipelines.
-5. Training Management System: Institute management platform: course scheduling, student enrolment, attendance & progress reporting. Stack: ReactJS + Django.
-6. OrderUP – Food Delivery App: Online ordering system with dynamic menus, real-time cart & checkout. Stack: ReactJS + Node.js.
-7. Electronic Voting System: Secure browser-based e-voting for campus elections with live result tallying. Stack: HTML/CSS/JS.
-8. E-Signature App: Lightweight digital signature tool — draw, type or upload signatures. Stack: Pure JS.
+  skills: {
+    match: q => /skill|tech|stack|react|django|java|expertise|tools|language|technical|technologies|framework|programming/i.test(q),
+    title: 'Technical Skills',
+    html: () => `
+      <p><strong>⚡ Full-stack proficiency</strong> — Janak works across every layer, from database design to pixel-perfect UI.</p>
+      <div class="grid2">
+        <div class="card">
+          <div class="ctit">🎨 Frontend</div>
+          <div class="tags"><span class="tag">ReactJS</span><span class="tag">Next.js</span><span class="tag">JavaScript ES6+</span><span class="tag">HTML5</span><span class="tag">CSS3</span></div>
+        </div>
+        <div class="card">
+          <div class="ctit">⚙️ Backend</div>
+          <div class="tags"><span class="tag">Django</span><span class="tag">Python</span><span class="tag">Java</span><span class="tag">Grails</span><span class="tag">Node.js</span><span class="tag">REST APIs</span></div>
+        </div>
+        <div class="card">
+          <div class="ctit">🗄️ Database</div>
+          <div class="tags"><span class="tag">MySQL</span><span class="tag">Database Design</span><span class="tag">Schema Modeling</span></div>
+        </div>
+        <div class="card">
+          <div class="ctit">🛠️ Tools & Workflow</div>
+          <div class="tags"><span class="tag">Git / GitHub</span><span class="tag">Agile</span><span class="tag">Responsive Design</span><span class="tag">REST Architecture</span></div>
+        </div>
+      </div>
+      <div class="codeb">
+        <span class="kw">const</span> <span class="key">janak</span> = {<br>
+        &nbsp;&nbsp;<span class="key">frontend</span>: [<span class="str">"React"</span>, <span class="str">"Next.js"</span>, <span class="str">"JS ES6+"</span>],<br>
+        &nbsp;&nbsp;<span class="key">backend</span>: [<span class="str">"Django"</span>, <span class="str">"Java"</span>, <span class="str">"Node"</span>],<br>
+        &nbsp;&nbsp;<span class="key">database</span>: [<span class="str">"MySQL"</span>],<br>
+        &nbsp;&nbsp;<span class="key">philosophy</span>: <span class="str">"clean code, real impact"</span><br>
+        };
+      </div>`
+  },
 
-TECHNICAL SKILLS:
-- Frontend: ReactJS, Next.js, JavaScript ES6+, HTML5, CSS3
-- Backend: Django, Python, Java, Grails, Node.js, REST APIs
-- Database: MySQL, Database Design
-- Tools: Git/GitHub, Agile, Responsive Design
+  education: {
+    match: q => /education|degree|bca|college|cgpa|academic|study|school|qualification|slc|\+2|bachelor/i.test(q),
+    title: 'Education',
+    html: () => `
+      <p>📚 Strong academic foundation in computer science, algorithms, web technologies & database management — combined with real-world project experience.</p>
+      <div class="edu-list">
+        <div class="edu">
+          <div class="edu-deg">🎓 Bachelor of Computer Application (BCA)</div>
+          <div class="edu-inst">Jana Bhawana Campus, Chapagaun</div>
+          <div class="edu-meta">Completed 2025 · CGPA 3.19</div>
+        </div>
+        <div class="edu">
+          <div class="edu-deg">📘 +2 Science</div>
+          <div class="edu-inst">Advance Academy College</div>
+          <div class="edu-meta">Passed 2077 BS · GPA 2.97</div>
+        </div>
+        <div class="edu">
+          <div class="edu-deg">🏫 School Leaving Certificate (SLC)</div>
+          <div class="edu-inst">Bidhyadhishwari Secondary School</div>
+          <div class="edu-meta">Passed 2073 BS · GPA 3.15</div>
+        </div>
+      </div>`
+  },
 
-EDUCATION:
-- BCA (Bachelor of Computer Application) – Jana Bhawana Campus, Chapagaun – Completed 2025 – CGPA 3.19
-- +2 Science – Advance Academy College – Passed 2077 BS – GPA 2.97
-- SLC – Bidhyadhishwari Secondary School – Passed 2073 BS – GPA 3.15
+  contact: {
+    match: q => /contact|email|phone|reach|hire|github|website|social|connect|link|get in touch/i.test(q),
+    title: 'Contact Janak',
+    html: () => `
+      <p>💬 The best way to reach Janak is by email — he typically replies within 24 hours. Open to freelance projects, full-time roles, and tech collaborations!</p>
+      <div class="chips">
+        <a href="mailto:janaksanjel12@gmail.com" class="chip">📧 janaksanjel12@gmail.com</a>
+        <a href="tel:+9779840748285" class="chip">📞 +977 984 074 8285</a>
+        <a href="https://github.com/janaksanjel" target="_blank" class="chip">🐙 github.com/janaksanjel</a>
+        <a href="https://www.janak.info.np/" target="_blank" class="chip">🌐 janak.info.np</a>
+        <div class="chip">📍 Godawari-11, Lalitpur, Nepal</div>
+      </div>`
+  },
 
-KEY ACHIEVEMENTS:
-- 5+ live production projects shipped
-- 500+ international placements enabled via Rakmina platform
-- 4 active products maintained simultaneously at NIRC
-- BCA CGPA of 3.19
+  achievements: {
+    match: q => /achievement|accomplishment|highlight|impact|result|success|milestone/i.test(q),
+    title: 'Key Achievements',
+    html: () => `
+      <p>🏆 Here are some of Janak's standout professional highlights:</p>
+      <div class="proj-list">
+        <div class="proj"><div class="proj-hd"><span>🚀</span><span class="proj-nm">5+ live production systems shipped</span></div><div class="proj-desc">Every project is live and serving real users — not just demos or prototypes.</div></div>
+        <div class="proj"><div class="proj-hd"><span>🌍</span><span class="proj-nm">500+ international placements enabled</span></div><div class="proj-desc">The Rakmina recruitment platform directly facilitated over 500 successful international job placements.</div></div>
+        <div class="proj"><div class="proj-hd"><span>⚡</span><span class="proj-nm">4 products maintained simultaneously</span></div><div class="proj-desc">Actively maintains 4 different client-facing products at NIRC at the same time.</div></div>
+        <div class="proj"><div class="proj-hd"><span>🏛️</span><span class="proj-nm">Government-grade software delivery</span></div><div class="proj-desc">Contributed to GWP Palika Software used in actual local government offices in Nepal.</div></div>
+        <div class="proj"><div class="proj-hd"><span>📉</span><span class="proj-nm">30% reduction in client feedback cycles</span></div><div class="proj-desc">Direct client collaboration approach that significantly shortened requirement-to-delivery turnarounds.</div></div>
+      </div>`
+  },
 
-INSTRUCTIONS:
-- Answer questions about Janak in first person ("I am", "my projects", etc.) or third person depending on context
-- Be friendly, human, and professional
-- If asked about something not in the CV, politely say you don't have that information
-- If someone uses rude/offensive language, politely ask them to keep it respectful
-- Keep answers concise but informative
-- You can suggest follow-up questions at the end of your answers
-`;
+  rude: {
+    match: q => /fuck|shit|damn|stupid|idiot|dumb|crap|asshole|bitch|bastard/i.test(q),
+    title: 'Hey!',
+    html: () => `
+      <p>🙏 Hey, I appreciate you reaching out — but let's keep things respectful and professional here.</p>
+      <p>I'm here to tell you all about Janak's skills, projects, and experience. Feel free to ask anything about his work! 😊</p>`
+  },
+
+  default: {
+    title: 'Janak Sanjel · AI',
+    html: () => `
+      <p>Hi! I'm Janak's AI portfolio assistant. I can answer questions about his <strong>background, work experience, projects, technical skills, education</strong>, or <strong>contact information</strong>.</p>
+      <p>Try one of these to get started:</p>
+      <div class="tags">
+        <span class="tag">💼 Work experience</span>
+        <span class="tag">🚀 Projects</span>
+        <span class="tag">⚡ Tech skills</span>
+        <span class="tag">🎓 Education</span>
+        <span class="tag">📬 Contact</span>
+        <span class="tag">🏆 Achievements</span>
+      </div>`
+  }
+};
 
 const PHRASES = [
   "Who is Janak Sanjel?","Show me his projects","What are his technical skills?",
   "Tell me about his work experience","How can I contact Janak?","Tell me about his education",
-  "What technologies does he use?","What is his current job?","His achievements",
-  "Rakmina project","Gym management system","GWP Palika software"
+  "What technologies does he use?","What is his current job?","Key achievements",
+  "Rakmina project details","Gym management system","GWP Palika software",
+  "OrderUP food delivery","Electronic voting system","E-signature app"
 ];
 
-let chats = [], currentId = null, busy = false;
+// ── STATE ──────────────────────────────────────────────────────────────────────
+let chats = [], cid = null, busy = false;
+const esc = s => s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const sleep = ms => new Promise(r => setTimeout(r,ms));
+const resize = el => { el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,120)+'px'; };
 
-const esc = s => s.replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-const sleep = ms => new Promise(r => setTimeout(r, ms));
-const resize = el => { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight,120)+'px'; };
-
-function save() { localStorage.setItem('jcv3_chats', JSON.stringify(chats)); }
-function load() {
-  const s = localStorage.getItem('jcv3_chats');
-  if (s) { chats = JSON.parse(s); return true; }
-  return false;
+function getResp(q) {
+  for (const [, r] of Object.entries(RESPONSES)) {
+    if (r.match && r.match(q)) return r;
+  }
+  return RESPONSES.default;
 }
 
-function renderSidebar() {
-  const l = document.getElementById('sbList');
-  l.innerHTML = '';
+function save() { localStorage.setItem('jcv4_chats', JSON.stringify(chats)); }
+function load() { const s=localStorage.getItem('jcv4_chats'); if(s){chats=JSON.parse(s);return true;}return false; }
+
+function renderSb() {
+  const ul = document.getElementById('sbUl');
+  ul.innerHTML = '';
   chats.forEach(c => {
     const li = document.createElement('li');
-    li.className = c.id === currentId ? 'active' : '';
-    li.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="chat-prev">${esc(c.title)}</span><button class="del-btn" data-id="${c.id}" title="Delete">✕</button>`;
-    li.querySelector('.del-btn').onclick = e => { e.stopPropagation(); deleteChat(c.id); };
-    li.onclick = () => loadChat(c.id);
-    l.appendChild(li);
+    li.className = c.id===cid?'on':'';
+    li.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="cp">${esc(c.title)}</span><button class="dbtn" data-id="${c.id}">✕</button>`;
+    li.querySelector('.dbtn').onclick = e => { e.stopPropagation(); del(c.id); };
+    li.onclick = () => loadC(c.id);
+    ul.appendChild(li);
   });
 }
 
-function deleteChat(id) {
-  chats = chats.filter(c => c.id !== id);
-  if (currentId === id) { currentId = null; showWelcome(); }
-  save(); renderSidebar();
+function del(id) {
+  chats = chats.filter(c=>c.id!==id);
+  if(cid===id){cid=null;showWelcome();}
+  save(); renderSb();
 }
 
-function loadChat(id) {
-  const c = chats.find(x => x.id === id);
-  if (!c) return;
-  currentId = id;
-  const m = document.getElementById('messages');
+function loadC(id) {
+  const c = chats.find(x=>x.id===id);
+  if(!c) return;
+  cid = id;
+  const m = document.getElementById('msgs');
   m.innerHTML = '';
   c.messages.forEach(msg => appendMsg(msg.role, msg.html, false));
-  document.getElementById('chatTitle').textContent = c.title;
-  document.getElementById('suggestions').style.display = 'flex';
-  closeSidebar(); renderSidebar();
+  document.getElementById('ctitle').textContent = c.title;
+  document.getElementById('sugs').style.display = 'flex';
+  if(window.innerWidth<=768){document.getElementById('sb').classList.remove('open');document.getElementById('ov').classList.remove('on');}
+  renderSb();
 }
 
-function closeSidebar() {
-  if (window.innerWidth <= 768) {
-    document.getElementById('sidebar').classList.remove('open');
-    document.getElementById('overlay').classList.remove('active');
-  }
-}
-
-function appendMsg(role, html, anim = true) {
-  const m = document.getElementById('messages');
+function appendMsg(role, html, anim=true) {
+  const m = document.getElementById('msgs');
   const w = document.createElement('div');
-  w.className = `msg-wrap ${role}`;
-  if (!anim) w.style.animation = 'none';
-  if (role === 'user') {
-    w.innerHTML = `<div class="bubble-user">${html}</div>`;
+  w.className = `mw ${role}`;
+  if(!anim) w.style.animation='none';
+  if(role==='user'){
+    w.innerHTML = `<div class="bbu">${html}</div>`;
   } else {
-    w.innerHTML = `<div class="ai-av">JS</div><div class="bubble-ai"><div class="ai-label">Janak Sanjel</div><div class="ai-body">${html}</div></div>`;
+    w.innerHTML = `<div class="aav">JS</div><div class="bai"><div class="albl">Janak Sanjel</div><div class="abody">${html}</div></div>`;
   }
   m.appendChild(w);
   m.scrollTop = m.scrollHeight;
 }
 
 function showTyping() {
-  const m = document.getElementById('messages');
+  const m = document.getElementById('msgs');
   const w = document.createElement('div');
-  w.className = 'msg-wrap ai'; w.id = 'typing';
-  w.innerHTML = `<div class="ai-av">JS</div><div class="bubble-ai"><div class="ai-label">Janak Sanjel</div><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
-  m.appendChild(w); m.scrollTop = m.scrollHeight;
+  w.className='mw ai';w.id='typ';
+  w.innerHTML=`<div class="aav">JS</div><div class="bai"><div class="albl">Janak Sanjel</div><div class="tdots"><span></span><span></span><span></span></div></div>`;
+  m.appendChild(w);m.scrollTop=m.scrollHeight;
 }
-function removeTyping() { document.getElementById('typing')?.remove(); }
+function rmTyping(){document.getElementById('typ')?.remove();}
 
-function saveMsg(role, html) {
-  const c = chats.find(x => x.id === currentId);
-  if (c) { c.messages.push({role, html}); save(); }
-}
-
-async function callClaude(userMessage, history) {
-  const messages = [];
-  history.forEach(m => {
-    if (m.role === 'user') messages.push({role:'user', content: m.text || m.html.replace(/<[^>]+>/g,'')});
-    else messages.push({role:'assistant', content: m.text || m.html.replace(/<[^>]+>/g,'')});
-  });
-  messages.push({role:'user', content: userMessage});
-
-  const resp = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 1000,
-      system: CV_DATA,
-      messages
-    })
-  });
-  if (!resp.ok) throw new Error(`API error ${resp.status}`);
-  const data = await resp.json();
-  const text = data.content?.filter(b => b.type==='text').map(b => b.text).join('') || '';
-  return text;
-}
-
-function formatResponse(text) {
-  // Convert markdown-ish to HTML
-  let html = text
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, '<em>$1</em>')
-    .replace(/`(.+?)`/g, '<code style="background:var(--surface2);padding:1px 6px;border-radius:5px;font-family:\'DM Mono\',monospace;font-size:12.5px;">$1</code>');
-
-  const lines = html.split('\n');
-  const out = [];
-  let inList = false;
-  let listItems = [];
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
-    if (!line) {
-      if (inList) { out.push('<ul style="margin:6px 0 10px 18px;display:flex;flex-direction:column;gap:4px;">'+listItems.map(li=>`<li style="font-size:14px;line-height:1.6;">${li}</li>`).join('')+'</ul>'); inList=false;listItems=[];}
-      continue;
-    }
-    if (line.startsWith('- ') || line.startsWith('• ') || line.match(/^[\d]+\.\s/)) {
-      if (!inList) inList = true;
-      listItems.push(line.replace(/^[-•]\s/,'').replace(/^\d+\.\s/,''));
-    } else {
-      if (inList) { out.push('<ul style="margin:6px 0 10px 18px;display:flex;flex-direction:column;gap:4px;">'+listItems.map(li=>`<li style="font-size:14px;line-height:1.6;">${li}</li>`).join('')+'</ul>'); inList=false;listItems=[];}
-      out.push(`<p>${line}</p>`);
-    }
-  }
-  if (inList) out.push('<ul style="margin:6px 0 10px 18px;display:flex;flex-direction:column;gap:4px;">'+listItems.map(li=>`<li style="font-size:14px;line-height:1.6;">${li}</li>`).join('')+'</ul>');
-  return out.join('') || `<p>${html}</p>`;
+function saveMsg(role,html){
+  const c=chats.find(x=>x.id===cid);
+  if(c){c.messages.push({role,html});save();}
 }
 
 async function send(q) {
-  if (busy || !q.trim()) return;
-  busy = true;
-  document.getElementById('sendBtn').disabled = true;
-  document.getElementById('input').value = '';
-  document.getElementById('input').style.height = 'auto';
-  document.getElementById('suggestions').style.display = 'none';
-  document.getElementById('acDrop').style.display = 'none';
-
-  // Remove welcome screen
+  if(busy||!q.trim()) return;
+  busy=true;
+  const inp=document.getElementById('inp');
+  const btn=document.getElementById('sndbtn');
+  btn.disabled=true;
+  inp.value='';inp.style.height='auto';
+  document.getElementById('sugs').style.display='none';
+  document.getElementById('acdrop').style.display='none';
   document.querySelector('.welcome')?.remove();
 
-  // Create chat if needed
-  if (!currentId) {
-    currentId = Date.now().toString();
-    chats.unshift({id:currentId, title: q.slice(0,35)+'…', messages:[]});
-    save(); renderSidebar();
+  if(!cid){
+    cid=Date.now().toString();
+    chats.unshift({id:cid,title:q.slice(0,36)+(q.length>36?'…':''),messages:[]});
+    save();renderSb();
   }
 
-  const userHtml = esc(q);
-  appendMsg('user', userHtml);
-  saveMsg('user', userHtml);
+  const uHtml = esc(q);
+  appendMsg('user',uHtml);
+  saveMsg('user',uHtml);
   showTyping();
 
-  try {
-    const hist = (chats.find(c=>c.id===currentId)?.messages || []).slice(0,-1);
-    await sleep(300 + Math.random()*200);
-    const aiText = await callClaude(q, hist);
-    removeTyping();
-    const aiHtml = formatResponse(aiText);
-    appendMsg('ai', aiHtml);
-    saveMsg('ai', aiHtml);
+  const resp = getResp(q);
+  await sleep(500 + Math.random()*400);
+  rmTyping();
+  const aiHtml = resp.html();
+  appendMsg('ai',aiHtml);
+  saveMsg('ai',aiHtml);
 
-    // Update chat title after first exchange
-    const c = chats.find(x => x.id === currentId);
-    if (c && c.messages.filter(m=>m.role==='user').length === 1) {
-      c.title = q.slice(0, 38) + (q.length > 38 ? '…' : '');
-      document.getElementById('chatTitle').textContent = c.title;
-      save(); renderSidebar();
-    }
-  } catch(err) {
-    removeTyping();
-    const errHtml = `<p>Sorry, I couldn't get a response right now. Please try again in a moment.</p><p style="font-size:12px;color:var(--text3);margin-top:6px;">Error: ${esc(err.message)}</p>`;
-    appendMsg('ai', errHtml);
-    saveMsg('ai', errHtml);
+  const c=chats.find(x=>x.id===cid);
+  if(c&&c.messages.filter(m=>m.role==='user').length===1){
+    c.title=resp.title||q.slice(0,36);
+    document.getElementById('ctitle').textContent=c.title;
+    save();renderSb();
   }
 
-  busy = false;
-  document.getElementById('sendBtn').disabled = false;
-  document.getElementById('input').focus();
+  busy=false;btn.disabled=false;inp.focus();
 }
 
-function showWelcome() {
-  document.getElementById('messages').innerHTML = `
+function showWelcome(){
+  document.getElementById('msgs').innerHTML=`
     <div class="welcome">
-      <div class="welcome-av">JS</div>
-      <h1>Hi, I'm <span style="background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Janak Sanjel</span> 👋</h1>
-      <p>Full Stack Developer from Nepal. Ask me anything about my career, projects, or skills — I'm powered by real AI.</p>
-      <div class="w-grid">
-        <div class="w-card" data-q="Who is Janak Sanjel?"><div class="w-card-icon">🧑‍💻</div><div class="w-card-title">About Janak</div><div class="w-card-sub">Full profile & summary</div></div>
-        <div class="w-card" data-q="Show me his projects"><div class="w-card-icon">🚀</div><div class="w-card-title">Projects</div><div class="w-card-sub">8+ production apps</div></div>
-        <div class="w-card" data-q="What are his technical skills?"><div class="w-card-icon">⚡</div><div class="w-card-title">Tech Skills</div><div class="w-card-sub">React, Django, Java…</div></div>
-        <div class="w-card" data-q="Tell me about his work experience"><div class="w-card-icon">💼</div><div class="w-card-title">Experience</div><div class="w-card-sub">NIRC & client work</div></div>
-        <div class="w-card" data-q="How can I contact Janak?"><div class="w-card-icon">📬</div><div class="w-card-title">Contact</div><div class="w-card-sub">Let's connect</div></div>
-        <div class="w-card" data-q="Tell me about his education"><div class="w-card-icon">🎓</div><div class="w-card-title">Education</div><div class="w-card-sub">BCA, +2, SLC</div></div>
+      <div class="wav">JS</div>
+      <h1>Hi, I'm <span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Janak Sanjel</span> 👋</h1>
+      <p>Full Stack Developer from Nepal. Ask me anything about my career, projects, or skills.</p>
+      <div class="wgrid">
+        <div class="wcard" data-q="Who is Janak Sanjel?"><div class="wci">🧑‍💻</div><div class="wct">About Janak</div><div class="wcs">Full profile & summary</div></div>
+        <div class="wcard" data-q="Show me his projects"><div class="wci">🚀</div><div class="wct">Projects</div><div class="wcs">8+ production apps</div></div>
+        <div class="wcard" data-q="What are his technical skills?"><div class="wci">⚡</div><div class="wct">Tech Skills</div><div class="wcs">React, Django, Java…</div></div>
+        <div class="wcard" data-q="Tell me about his work experience"><div class="wci">💼</div><div class="wct">Experience</div><div class="wcs">NIRC & client work</div></div>
+        <div class="wcard" data-q="How can I contact Janak?"><div class="wci">📬</div><div class="wct">Contact</div><div class="wcs">Let's connect</div></div>
+        <div class="wcard" data-q="Tell me about his education"><div class="wci">🎓</div><div class="wct">Education</div><div class="wcs">BCA, +2, SLC</div></div>
       </div>
     </div>`;
-  document.querySelectorAll('.w-card').forEach(c => c.onclick = () => send(c.dataset.q));
-  document.getElementById('suggestions').style.display = 'flex';
-  document.getElementById('chatTitle').textContent = 'Janak Sanjel · AI';
-  currentId = null; renderSidebar();
+  document.querySelectorAll('.wcard').forEach(c=>c.onclick=()=>send(c.dataset.q));
+  document.getElementById('sugs').style.display='flex';
+  document.getElementById('ctitle').textContent='Janak Sanjel · AI';
+  cid=null;renderSb();
 }
 
-function setupAutocomplete() {
-  const inp = document.getElementById('input');
-  const drop = document.getElementById('acDrop');
-  inp.addEventListener('input', () => {
-    const v = inp.value.toLowerCase();
-    if (!v) { drop.style.display='none'; return; }
-    const m = PHRASES.filter(p => p.toLowerCase().includes(v));
-    if (!m.length) { drop.style.display='none'; return; }
-    drop.innerHTML = m.slice(0,5).map(p=>`<div class="ac-item">${esc(p)}</div>`).join('');
-    drop.style.display = 'block';
-    drop.querySelectorAll('.ac-item').forEach(item => {
-      item.onclick = () => { inp.value = item.textContent; drop.style.display='none'; resize(inp); inp.focus(); };
+function setupAC(){
+  const inp=document.getElementById('inp');
+  const drop=document.getElementById('acdrop');
+  inp.addEventListener('input',()=>{
+    const v=inp.value.toLowerCase();
+    if(!v){drop.style.display='none';return;}
+    const m=PHRASES.filter(p=>p.toLowerCase().includes(v)).slice(0,6);
+    if(!m.length){drop.style.display='none';return;}
+    drop.innerHTML=m.map(p=>`<div class="aci">${esc(p)}</div>`).join('');
+    drop.style.display='block';
+    drop.querySelectorAll('.aci').forEach(i=>{
+      i.onclick=()=>{inp.value=i.textContent;drop.style.display='none';resize(inp);inp.focus();};
     });
   });
-  inp.addEventListener('keydown', e => {
-    if (e.key === 'Tab' && drop.style.display === 'block' && drop.children.length) {
-      e.preventDefault(); inp.value = drop.children[0].textContent; drop.style.display='none'; resize(inp);
+  inp.addEventListener('keydown',e=>{
+    if(e.key==='Tab'&&drop.style.display==='block'&&drop.children.length){
+      e.preventDefault();inp.value=drop.children[0].textContent;drop.style.display='none';resize(inp);
     }
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(inp.value.trim()); }
+    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send(inp.value.trim());}
   });
-  document.addEventListener('click', e => { if (!inp.contains(e.target) && !drop.contains(e.target)) drop.style.display='none'; });
+  document.addEventListener('click',e=>{if(!inp.contains(e.target)&&!drop.contains(e.target))drop.style.display='none';});
 }
 
-function initTheme() {
-  const saved = localStorage.getItem('jcv3_theme');
-  if (saved) document.documentElement.setAttribute('data-theme', saved);
-  updateThemeBtn();
-}
-function toggleTheme() {
-  const d = document.documentElement;
-  const now = d.getAttribute('data-theme') === 'dark';
-  d.setAttribute('data-theme', now ? 'light' : 'dark');
-  localStorage.setItem('jcv3_theme', now ? 'light' : 'dark');
-  updateThemeBtn();
-}
-function updateThemeBtn() {
-  const dark = document.documentElement.getAttribute('data-theme') === 'dark';
-  document.getElementById('themeBtn').textContent = dark ? '🌙' : '☀️';
+function toggleTheme(){
+  const d=document.documentElement;
+  const dark=d.getAttribute('data-theme')==='dark';
+  d.setAttribute('data-theme',dark?'light':'dark');
+  localStorage.setItem('jcv4_theme',dark?'light':'dark');
+  document.getElementById('thbtn').textContent=dark?'☀️':'🌙';
 }
 
-function init() {
-  initTheme();
-  if (!load() || !chats.length) showWelcome();
-  else loadChat(chats[0].id);
+function init(){
+  const th=localStorage.getItem('jcv4_theme');
+  if(th){document.documentElement.setAttribute('data-theme',th);document.getElementById('thbtn').textContent=th==='dark'?'🌙':'☀️';}
 
-  document.getElementById('sendBtn').onclick = () => send(document.getElementById('input').value.trim());
-  document.getElementById('input').addEventListener('input', function(){ resize(this); });
-  document.getElementById('newChatBtn').onclick = () => { currentId=null; showWelcome(); };
-  document.getElementById('themeBtn').onclick = toggleTheme;
-  document.getElementById('menuBtn').onclick = () => {
-    document.getElementById('sidebar').classList.toggle('open');
-    document.getElementById('overlay').classList.toggle('active');
-  };
-  document.getElementById('overlay').onclick = () => {
-    document.getElementById('sidebar').classList.remove('open');
-    document.getElementById('overlay').classList.remove('active');
-  };
-  document.querySelectorAll('.sug-btn').forEach(b => b.onclick = () => send(b.dataset.q));
-  setupAutocomplete();
+  if(!load()||!chats.length) showWelcome();
+  else loadC(chats[0].id);
+
+  document.getElementById('sndbtn').onclick=()=>send(document.getElementById('inp').value.trim());
+  document.getElementById('inp').addEventListener('input',function(){resize(this);});
+  document.getElementById('newBtn').onclick=()=>{cid=null;showWelcome();};
+  document.getElementById('thbtn').onclick=toggleTheme;
+  document.getElementById('mbtn').onclick=()=>{document.getElementById('sb').classList.toggle('open');document.getElementById('ov').classList.toggle('on');};
+  document.getElementById('ov').onclick=()=>{document.getElementById('sb').classList.remove('open');document.getElementById('ov').classList.remove('on');};
+  document.querySelectorAll('.sb2').forEach(b=>b.onclick=()=>send(b.dataset.q));
+  setupAC();
 }
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded',init);
 </script>
 </body>
 </html>
