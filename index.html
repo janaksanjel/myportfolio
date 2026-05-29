@@ -1,812 +1,367 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="description" content="Janak Sanjel — Full Stack Developer. React, Django, Java. Building production-ready web applications from Kathmandu, Nepal." />
-  <title>Janak Sanjel • Full Stack Developer</title>
-  
-  <!-- Favicon (SVG inline) -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23080b10' rx='20'/%3E%3Ctext x='50' y='68' font-family='monospace' font-size='52' font-weight='bold' fill='%2300e5ff' text-anchor='middle'%3EJS%3C/text%3E%3C/svg%3E" />
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23080b10' rx='20'/%3E%3Ctext x='50' y='68' font-family='monospace' font-size='52' font-weight='bold' fill='%2300e5ff' text-anchor='middle'%3EJS%3C/text%3E%3C/svg%3E" />
-
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-/* ── THEME TOKENS ── */
-[data-theme="dark"] {
-  --bg: #0d0f14;
-  --surface: #13161e;
-  --surface2: #1a1e29;
-  --surface3: #222638;
-  --border: rgba(255,255,255,0.07);
-  --border2: rgba(255,255,255,0.12);
-  --text: #e8eaf0;
-  --text2: #c4c8d8;
-  --muted: #7b8199;
-  --user-bubble: #1e2236;
-  --shadow: rgba(0,0,0,0.4);
-  --code-bg: #0a0c12;
-}
-[data-theme="light"] {
-  --bg: #f5f6fa;
-  --surface: #ffffff;
-  --surface2: #f0f2f8;
-  --surface3: #e6e9f4;
-  --border: rgba(0,0,0,0.07);
-  --border2: rgba(0,0,0,0.12);
-  --text: #1a1d2e;
-  --text2: #3a3f5c;
-  --muted: #8892b0;
-  --user-bubble: #e8ecfa;
-  --shadow: rgba(0,0,0,0.08);
-  --code-bg: #f0f2f8;
-}
-
-/* shared tokens */
-:root {
-  --accent: #6c8cff;
-  --accent2: #a78bfa;
-  --green: #10b981;
-  --amber: #f59e0b;
-  --pink: #ec4899;
-  --teal: #06b6d4;
-  --radius: 16px;
-  --radius-sm: 8px;
-  --transition: 0.25s ease;
-}
-
-html, body {
-  height: 100%; background: var(--bg); color: var(--text);
-  font-family: 'Sora', sans-serif; font-size: 15px; line-height: 1.6;
-  overflow: hidden; transition: background var(--transition), color var(--transition);
-}
-
-.app { display: flex; height: 100vh; overflow: hidden; }
-
-/* ── SIDEBAR ── */
-.sidebar {
-  width: 260px; min-width: 260px;
-  background: var(--surface);
-  border-right: 1px solid var(--border);
-  display: flex; flex-direction: column;
-  transition: background var(--transition), border-color var(--transition);
-}
-
-.sidebar-header { padding: 18px 14px 12px; border-bottom: 1px solid var(--border); }
-
-.logo { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-.logo-icon {
-  width: 32px; height: 32px; border-radius: 8px;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #fff;
-  flex-shrink: 0;
-}
-.logo-text { font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: 0.02em; }
-.logo-sub { font-size: 10px; color: var(--muted); }
-
-.new-chat-btn {
-  width: 100%; padding: 8px 12px;
-  background: rgba(108,140,255,0.1); border: 1px solid rgba(108,140,255,0.22);
-  border-radius: var(--radius-sm); color: var(--accent);
-  font-family: 'Sora', sans-serif; font-size: 13px; cursor: pointer;
-  display: flex; align-items: center; gap: 8px; transition: background 0.2s;
-}
-.new-chat-btn:hover { background: rgba(108,140,255,0.18); }
-.new-chat-btn svg { flex-shrink: 0; }
-
-.sidebar-section {
-  padding: 12px 16px 4px; font-size: 10px; font-weight: 600;
-  letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase;
-}
-
-.sidebar-list { list-style: none; padding: 0 8px; overflow-y: auto; flex: 1; }
-.sidebar-list li {
-  padding: 8px 10px; border-radius: var(--radius-sm); cursor: pointer;
-  font-size: 12.5px; color: var(--muted); transition: all 0.15s;
-  display: flex; align-items: center; gap: 8px;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.sidebar-list li:hover { background: var(--surface2); color: var(--text); }
-.sidebar-list li.active { background: var(--surface2); color: var(--text); }
-.sidebar-list li svg { flex-shrink: 0; opacity: 0.45; }
-.sidebar-list li .chat-preview { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
-
-.sidebar-footer { padding: 10px 14px; border-top: 1px solid var(--border); }
-.profile-pill {
-  display: flex; align-items: center; gap: 10px;
-  padding: 8px 10px; border-radius: var(--radius-sm);
-  cursor: pointer; transition: background 0.15s;
-}
-.profile-pill:hover { background: var(--surface2); }
-.avatar {
-  width: 30px; height: 30px; border-radius: 50%;
-  background: linear-gradient(135deg, #6c8cff, #a78bfa);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0;
-}
-.profile-name { font-size: 13px; font-weight: 600; color: var(--text); }
-.profile-role { font-size: 11px; color: var(--muted); }
-
-/* ── MAIN ── */
-.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-
-.chat-header {
-  padding: 14px 22px; border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
-  background: var(--bg); transition: background var(--transition);
-}
-.chat-title { font-size: 14px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; }
-.status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
-@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
-
-.header-actions { display: flex; gap: 8px; align-items: center; }
-
-/* theme toggle */
-.theme-toggle {
-  width: 52px; height: 28px; border-radius: 14px;
-  background: var(--surface2); border: 1px solid var(--border2);
-  cursor: pointer; position: relative; transition: background 0.3s;
-  display: flex; align-items: center; padding: 3px;
-  flex-shrink: 0;
-}
-.theme-toggle-knob {
-  width: 20px; height: 20px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px;
-}
-[data-theme="dark"] .theme-toggle-knob { transform: translateX(0); }
-[data-theme="light"] .theme-toggle-knob { transform: translateX(24px); }
-
-.icon-btn {
-  width: 32px; height: 32px; border-radius: var(--radius-sm);
-  border: 1px solid var(--border2); background: transparent;
-  color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: all 0.15s;
-}
-.icon-btn:hover { background: var(--surface2); color: var(--text); }
-
-/* ── MESSAGES ── */
-.messages { flex: 1; overflow-y: auto; padding: 28px 0; scroll-behavior: smooth; }
-.messages::-webkit-scrollbar { width: 4px; }
-.messages::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
-
-.msg-wrap {
-  max-width: 760px; margin: 0 auto 26px; padding: 0 22px;
-  opacity: 0; transform: translateY(10px);
-  animation: fadeUp 0.35s ease forwards;
-}
-@keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
-
-.msg-wrap.user { display: flex; justify-content: flex-end; }
-.msg-wrap.ai { display: flex; gap: 12px; align-items: flex-start; }
-
-.ai-avatar {
-  width: 32px; height: 32px; border-radius: 10px; flex-shrink: 0; margin-top: 2px;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; color: #fff; font-weight: 700; font-family: 'JetBrains Mono', monospace;
-}
-.bubble-user {
-  background: var(--user-bubble); border: 1px solid var(--border2);
-  border-radius: 16px 16px 4px 16px; padding: 11px 15px;
-  font-size: 14px; max-width: 78%; color: var(--text);
-  transition: background var(--transition);
-}
-.bubble-ai { flex: 1; min-width: 0; }
-.ai-name { font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 6px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em; }
-.ai-text { font-size: 14.5px; color: var(--text); line-height: 1.75; }
-.ai-text p { margin-bottom: 12px; }
-.ai-text p:last-child { margin-bottom: 0; }
-.ai-text strong { color: var(--text); font-weight: 600; }
-
-/* typing */
-.typing-dots { display: inline-flex; gap: 4px; align-items: center; padding: 4px 0; }
-.typing-dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: bounce 1.2s infinite; }
-.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
-@keyframes bounce { 0%,80%,100%{transform:translateY(0);opacity:0.4} 40%{transform:translateY(-6px);opacity:1} }
-
-/* ── CARDS ── */
-.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; margin-top: 14px; }
-.info-card {
-  background: var(--surface2); border: 1px solid var(--border2); border-radius: 12px; padding: 13px;
-  transition: border-color 0.2s, background var(--transition);
-}
-.info-card:hover { border-color: rgba(108,140,255,0.4); }
-.card-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
-.card-value { font-size: 14px; font-weight: 600; color: var(--text); }
-.card-sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
-
-.tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-.tag { padding: 3px 10px; border-radius: 100px; font-size: 11.5px; font-weight: 500; border: 1px solid; }
-.tag-blue  { background: rgba(108,140,255,0.1); color: #8daeff; border-color: rgba(108,140,255,0.25); }
-.tag-purple{ background: rgba(167,139,250,0.1); color: #c4abff; border-color: rgba(167,139,250,0.25); }
-.tag-green { background: rgba(16,185,129,0.1);  color: #34d399; border-color: rgba(16,185,129,0.25); }
-.tag-amber { background: rgba(245,158,11,0.1);  color: #fcd059; border-color: rgba(245,158,11,0.25); }
-.tag-pink  { background: rgba(236,72,153,0.1);  color: #f472b6; border-color: rgba(236,72,153,0.25); }
-.tag-teal  { background: rgba(6,182,212,0.1);   color: #22d3ee; border-color: rgba(6,182,212,0.25); }
-
-[data-theme="light"] .tag-blue  { color: #3b5bdb; border-color: rgba(59,91,219,0.3); }
-[data-theme="light"] .tag-purple{ color: #7048e8; border-color: rgba(112,72,232,0.3); }
-[data-theme="light"] .tag-green { color: #0a7a4e; border-color: rgba(10,122,78,0.3); }
-[data-theme="light"] .tag-amber { color: #92530b; border-color: rgba(146,83,11,0.3); }
-[data-theme="light"] .tag-pink  { color: #a01b5a; border-color: rgba(160,27,90,0.3); }
-[data-theme="light"] .tag-teal  { color: #0874a6; border-color: rgba(8,116,166,0.3); }
-
-.stat-row { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
-.stat { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; text-align: center; flex: 1; min-width: 85px; transition: background var(--transition); }
-.stat-num { font-size: 22px; font-weight: 700; color: var(--accent); font-family: 'JetBrains Mono', monospace; }
-.stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
-
-.project-card {
-  background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 15px; margin-top: 10px;
-  transition: border-color 0.2s, transform 0.2s, background var(--transition);
-}
-.project-card:hover { border-color: rgba(108,140,255,0.35); transform: translateY(-1px); }
-.project-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 5px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.project-badge { font-size: 10px; padding: 2px 8px; border-radius: 100px; background: rgba(108,140,255,0.12); color: var(--accent); border: 1px solid rgba(108,140,255,0.2); white-space: nowrap; }
-.project-desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
-
-.code-block {
-  background: var(--code-bg); border: 1px solid var(--border); border-radius: 10px;
-  padding: 14px 16px; font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
-  line-height: 1.65; margin-top: 10px; overflow-x: auto; color: var(--text2);
-  transition: background var(--transition);
-}
-.code-block .k { color: var(--accent2); }
-.code-block .s { color: var(--green); }
-.code-block .n { color: var(--accent); }
-.code-block .c { color: var(--muted); font-style: italic; }
-
-.contact-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-.contact-chip {
-  display: flex; align-items: center; gap: 7px; padding: 7px 12px;
-  background: var(--surface2); border: 1px solid var(--border2); border-radius: 100px;
-  font-size: 13px; color: var(--text); text-decoration: none; transition: all 0.15s;
-}
-.contact-chip:hover { border-color: var(--accent); color: var(--accent); }
-
-/* ── WELCOME ── */
-.welcome {
-  max-width: 640px; margin: 50px auto 0; padding: 0 22px; text-align: center;
-  opacity: 0; animation: fadeUp 0.6s 0.2s ease forwards;
-}
-.welcome-avatar {
-  width: 66px; height: 66px; border-radius: 20px;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  display: flex; align-items: center; justify-content: center;
-  font-size: 24px; font-weight: 700; color: #fff; font-family: 'JetBrains Mono', monospace;
-  margin: 0 auto 18px; box-shadow: 0 8px 28px rgba(108,140,255,0.28);
-}
-.welcome h1 { font-size: 25px; font-weight: 700; margin-bottom: 9px; color: var(--text); }
-.welcome h1 span { color: var(--accent); }
-.welcome p { font-size: 14.5px; color: var(--muted); max-width: 400px; margin: 0 auto 24px; }
-.welcome-cards { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; text-align: left; }
-.welcome-card {
-  background: var(--surface); border: 1px solid var(--border2); border-radius: 12px;
-  padding: 14px 15px; cursor: pointer; transition: all 0.2s;
-}
-.welcome-card:hover { border-color: rgba(108,140,255,0.4); background: var(--surface2); transform: translateY(-2px); }
-.welcome-card-icon { font-size: 18px; margin-bottom: 7px; }
-.welcome-card-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
-.welcome-card-desc { font-size: 12px; color: var(--muted); }
-
-/* ── INPUT AREA ── */
-.input-area {
-  padding: 14px 22px 20px; background: var(--bg);
-  border-top: 1px solid var(--border); transition: background var(--transition);
-}
-.input-wrap { max-width: 760px; margin: 0 auto; }
-.suggestions { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 9px; }
-.suggest-btn {
-  padding: 5px 11px; background: var(--surface); border: 1px solid var(--border2);
-  border-radius: 100px; color: var(--muted); font-family: 'Sora', sans-serif;
-  font-size: 12px; cursor: pointer; transition: all 0.15s; white-space: nowrap;
-}
-.suggest-btn:hover { background: var(--surface2); color: var(--text); border-color: rgba(108,140,255,0.3); }
-.input-box {
-  display: flex; align-items: flex-end; gap: 10px;
-  background: var(--surface); border: 1px solid var(--border2);
-  border-radius: 14px; padding: 11px 13px; transition: border-color 0.2s, background var(--transition);
-}
-.input-box:focus-within { border-color: rgba(108,140,255,0.45); }
-textarea {
-  flex: 1; background: transparent; border: none; outline: none;
-  color: var(--text); font-family: 'Sora', sans-serif; font-size: 14px;
-  resize: none; line-height: 1.5; max-height: 120px; min-height: 22px;
-}
-textarea::placeholder { color: var(--muted); }
-.send-btn {
-  width: 34px; height: 34px; flex-shrink: 0; background: var(--accent);
-  border: none; border-radius: 9px; cursor: pointer; display: flex;
-  align-items: center; justify-content: center; transition: all 0.15s; color: #fff;
-}
-.send-btn:hover { background: #5a7aff; transform: scale(1.05); }
-.send-btn:disabled { background: var(--border2); cursor: not-allowed; transform: none; }
-.input-footer { text-align: center; font-size: 11px; color: var(--muted); margin-top: 7px; }
-.input-footer a { color: var(--accent); text-decoration: none; }
-
-* { scrollbar-width: thin; scrollbar-color: var(--border2) transparent; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Janak Sanjel — Full Stack Developer. AI portfolio with complete CV, projects, experience.">
+  <title>Janak Sanjel · AI CV Portfolio</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%236c8cff' rx='24'/%3E%3Ctext x='50' y='68' font-family='monospace' font-size='52' font-weight='bold' fill='white' text-anchor='middle'%3EJS%3C/text%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --radius-card: 24px; --radius-sm: 16px;
+      --transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    [data-theme="dark"] {
+      --bg-primary: #070b12; --bg-surface: #0f131c; --bg-surface-2: #181e2a;
+      --bg-elevated: #1c2332; --border: rgba(108, 140, 255, 0.15);
+      --border-glow: rgba(108, 140, 255, 0.3); --text-primary: #f0f3ff;
+      --text-secondary: #b9c3e6; --text-muted: #6b7aa3; --accent: #6c8cff;
+      --accent-soft: rgba(108, 140, 255, 0.12); --accent-glow: #8cabff;
+      --bubble-user: #1e2538; --shadow-sm: 0 8px 20px rgba(0,0,0,0.3);
+      --gradient: linear-gradient(135deg, #6c8cff, #a48aff);
+    }
+    [data-theme="light"] {
+      --bg-primary: #f8fafd; --bg-surface: #ffffff; --bg-surface-2: #f1f5f9;
+      --bg-elevated: #ffffff; --border: rgba(0,0,0,0.08);
+      --border-glow: rgba(79, 109, 245, 0.25); --text-primary: #0a0f1c;
+      --text-secondary: #2c3a5e; --text-muted: #6b7c93; --accent: #4f6df5;
+      --accent-soft: rgba(79, 109, 245, 0.08); --accent-glow: #6c8cff;
+      --bubble-user: #eef3ff; --shadow-sm: 0 6px 14px rgba(0,0,0,0.05);
+      --gradient: linear-gradient(135deg, #4f6df5, #8b74ff);
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); height: 100vh; overflow: hidden; transition: background 0.2s, color 0.2s; }
+    .app { display: flex; height: 100%; position: relative; }
+    .sidebar { width: 280px; background: var(--bg-surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; transition: var(--transition); z-index: 20; flex-shrink: 0; }
+    @media (max-width: 768px) {
+      .sidebar { position: fixed; left: 0; top: 0; height: 100%; transform: translateX(-100%); transition: transform 0.3s ease; box-shadow: 2rem 0 2rem rgba(0,0,0,0.2); z-index: 1000; }
+      .sidebar.open { transform: translateX(0); }
+      .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+      .overlay.active { opacity: 1; pointer-events: auto; }
+    }
+    .sidebar-header { padding: 24px 20px 16px; border-bottom: 1px solid var(--border); }
+    .logo { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+    .logo-icon { width: 42px; height: 42px; background: var(--gradient); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 20px; color: white; box-shadow: 0 8px 18px rgba(108,140,255,0.3); }
+    .logo-text { font-weight: 700; font-size: 18px; }
+    .logo-sub { font-size: 11px; color: var(--text-muted); }
+    .new-chat-btn { width: 100%; background: var(--accent-soft); border: 1px solid var(--border-glow); border-radius: 40px; padding: 10px 12px; font-weight: 500; font-size: 13px; color: var(--accent); cursor: pointer; display: flex; align-items: center; gap: 8px; justify-content: center; transition: all 0.2s; }
+    .new-chat-btn:hover { background: rgba(108, 140, 255, 0.2); transform: translateY(-1px); }
+    .sidebar-section { padding: 20px 20px 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; color: var(--text-muted); }
+    .sidebar-list { list-style: none; flex: 1; overflow-y: auto; padding: 0 12px; }
+    .sidebar-list li { padding: 10px 12px; margin-bottom: 4px; border-radius: 14px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 10px; color: var(--text-secondary); transition: all 0.15s; }
+    .sidebar-list li:hover { background: var(--bg-surface-2); color: var(--text-primary); }
+    .sidebar-list li.active { background: var(--accent-soft); color: var(--accent); border-left: 3px solid var(--accent); }
+    .chat-preview { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .delete-chat { opacity: 0; background: transparent; border: none; cursor: pointer; color: var(--text-muted); border-radius: 8px; padding: 4px; }
+    .sidebar-list li:hover .delete-chat { opacity: 1; }
+    .delete-chat:hover { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+    .sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--border); }
+    .profile-pill { display: flex; align-items: center; gap: 12px; padding: 8px 12px; border-radius: 60px; background: var(--bg-surface-2); }
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: var(--bg-primary); }
+    .chat-header { padding: 14px 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--bg-primary); }
+    .menu-icon { display: none; background: transparent; border: none; color: var(--text-primary); cursor: pointer; margin-right: 12px; }
+    @media (max-width: 768px) { .menu-icon { display: flex; } }
+    .chat-title { font-weight: 600; display: flex; gap: 8px; align-items: center; }
+    .status-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0% { opacity: 0.4; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1.2); } }
+    .header-actions { display: flex; gap: 10px; align-items: center; }
+    .header-link { background: var(--bg-surface-2); border-radius: 30px; padding: 6px 14px; font-size: 13px; text-decoration: none; color: var(--text-primary); display: inline-flex; align-items: center; gap: 6px; transition: 0.2s; border: 1px solid var(--border); }
+    .header-link:hover { border-color: var(--accent); background: var(--accent-soft); }
+    .messages { flex: 1; overflow-y: auto; padding: 24px 0; scroll-behavior: smooth; }
+    .msg-wrap { max-width: 780px; margin: 0 auto 24px; padding: 0 24px; animation: fadeSlide 0.3s ease; }
+    @keyframes fadeSlide { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .msg-wrap.user { display: flex; justify-content: flex-end; }
+    .msg-wrap.ai { display: flex; gap: 14px; }
+    .ai-avatar { width: 36px; height: 36px; background: var(--gradient); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; color: white; }
+    .bubble-user { background: var(--bubble-user); border: 1px solid var(--border); border-radius: 24px 24px 6px 24px; padding: 12px 18px; max-width: 75%; font-size: 14px; }
+    .bubble-ai { flex: 1; }
+    .ai-name { font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 6px; letter-spacing: -0.2px; }
+    .ai-text { font-size: 14.5px; line-height: 1.65; }
+    .glass-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 20px; padding: 16px; margin-top: 12px; transition: all 0.2s; }
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-top: 16px; }
+    .stat-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0; }
+    .stat { background: var(--bg-surface-2); border-radius: 20px; padding: 12px 16px; text-align: center; flex: 1; }
+    .stat-num { font-size: 26px; font-weight: 700; color: var(--accent); font-family: 'JetBrains Mono', monospace; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+    .tag { padding: 4px 12px; border-radius: 40px; font-size: 11px; font-weight: 500; background: var(--accent-soft); color: var(--accent); border: 1px solid var(--border-glow); }
+    .contact-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+    .contact-chip { background: var(--bg-surface-2); border-radius: 60px; padding: 8px 14px; font-size: 13px; display: inline-flex; gap: 8px; align-items: center; text-decoration: none; color: var(--text-primary); border: 1px solid var(--border); transition: 0.2s; }
+    .contact-chip:hover { border-color: var(--accent); background: var(--accent-soft); }
+    .welcome { max-width: 720px; margin: 30px auto; text-align: center; padding: 0 20px; }
+    .welcome-avatar { width: 80px; height: 80px; background: var(--gradient); border-radius: 28px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: bold; box-shadow: 0 12px 28px rgba(108,140,255,0.3); }
+    .welcome-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 28px; }
+    .welcome-card { background: var(--bg-surface); border-radius: 20px; padding: 18px; cursor: pointer; transition: 0.2s; border: 1px solid var(--border); }
+    .welcome-card:hover { transform: translateY(-4px); border-color: var(--accent); background: var(--accent-soft); }
+    .input-area { padding: 16px 24px 28px; background: var(--bg-primary); border-top: 1px solid var(--border); }
+    .input-wrap { max-width: 780px; margin: 0 auto; }
+    .suggestions { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .suggest-btn { background: var(--bg-surface-2); border: 1px solid var(--border); border-radius: 40px; padding: 6px 14px; font-size: 12px; cursor: pointer; transition: 0.2s; }
+    .suggest-btn:hover { background: var(--accent-soft); border-color: var(--accent); }
+    .input-box { display: flex; gap: 12px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 32px; padding: 6px 16px; transition: 0.2s; position: relative; }
+    .input-box:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+    textarea { flex: 1; background: transparent; border: none; outline: none; color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 14px; resize: none; padding: 10px 0; max-height: 120px; }
+    .send-btn { background: var(--accent); border: none; border-radius: 40px; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; color: white; }
+    .send-btn:hover { background: var(--accent-glow); transform: scale(1.02); }
+    .typing-dots span { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--text-muted); margin: 0 2px; animation: wave 1.2s infinite; }
+    @keyframes wave { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
+    .floating-theme { position: fixed; bottom: 90px; right: 24px; width: 48px; height: 48px; border-radius: 60px; background: var(--bg-surface); border: 1px solid var(--border-glow); backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 100; box-shadow: var(--shadow-sm); transition: all 0.2s; font-size: 22px; }
+    @media (max-width: 768px) { .floating-theme { bottom: 80px; right: 16px; width: 44px; height: 44px; } }
+    .floating-theme:hover { transform: scale(1.08); border-color: var(--accent); }
+    .suggestion-dropdown { position: absolute; bottom: 100%; left: 0; right: 0; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 20px; margin-bottom: 8px; max-height: 200px; overflow-y: auto; z-index: 10; box-shadow: var(--shadow-sm); display: none; }
+    .suggestion-item { padding: 10px 16px; cursor: pointer; font-size: 13px; transition: 0.1s; }
+    .suggestion-item:hover { background: var(--accent-soft); color: var(--accent); }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border-glow); border-radius: 10px; }
+  </style>
 </head>
 <body>
 <div class="app">
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
+  <div class="overlay" id="overlay"></div>
+  <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
-      <div class="logo">
-        <div class="logo-icon">JS</div>
-        <div>
-          <div class="logo-text">JanakAI</div>
-          <div class="logo-sub">Portfolio Assistant</div>
-        </div>
-      </div>
-      <button class="new-chat-btn" onclick="newChat()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        New Conversation
-      </button>
+      <div class="logo"><div class="logo-icon">JS</div><div><div class="logo-text">JanakAI</div><div class="logo-sub">human-like CV assistant</div></div></div>
+      <button class="new-chat-btn" id="newChatBtn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New conversation</button>
     </div>
-
-    <div class="sidebar-section">Recent</div>
+    <div class="sidebar-section">Recent chats</div>
     <ul class="sidebar-list" id="sidebarList"></ul>
-
-    <div class="sidebar-footer">
-      <div class="profile-pill">
-        <div class="avatar">JS</div>
-        <div>
-          <div class="profile-name">Janak Sanjel</div>
-          <div class="profile-role">Full Stack Developer</div>
-        </div>
-      </div>
-    </div>
+    <div class="sidebar-footer"><div class="profile-pill"><div class="avatar" style="background:var(--gradient); width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;">JS</div><div><div class="profile-name">Janak Sanjel</div><div class="profile-role" style="font-size:11px;color:var(--text-muted);">Full Stack Developer</div></div></div></div>
   </aside>
-
-  <!-- MAIN -->
   <main class="main">
     <div class="chat-header">
-      <div class="chat-title">
-        <div class="status-dot"></div>
-        <span id="chatHeaderTitle">Janak Sanjel — Portfolio</span>
-      </div>
+      <div style="display: flex; align-items: center;"><button class="menu-icon" id="menuToggle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button><div class="chat-title"><div class="status-dot"></div><span id="chatHeaderTitle">Janak Sanjel · CV AI</span></div></div>
       <div class="header-actions">
-        <!-- theme toggle -->
-        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode" aria-label="Toggle theme">
-          <div class="theme-toggle-knob" id="themeKnob">🌙</div>
-        </button>
-        <button class="icon-btn" title="GitHub" onclick="window.open('https://github.com/janaksanjel','_blank')">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-        </button>
-        <button class="icon-btn" title="Website" onclick="window.open('https://janaksanjel.com.np','_blank')">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-        </button>
+        <a href="https://github.com/janaksanjel" target="_blank" class="header-link">🐙 GitHub</a>
+        <a href="https://www.janak.info.np/" target="_blank" class="header-link">📄 CV Website</a>
       </div>
     </div>
-
     <div class="messages" id="messages"></div>
-
-    <div class="input-area">
-      <div class="input-wrap">
-        <div class="suggestions" id="suggestions">
-          <button class="suggest-btn" onclick="ask('Who is Janak Sanjel?')">Who is Janak?</button>
-          <button class="suggest-btn" onclick="ask('Show me his projects')">Projects</button>
-          <button class="suggest-btn" onclick="ask('What are his skills?')">Skills</button>
-          <button class="suggest-btn" onclick="ask('His work experience')">Experience</button>
-          <button class="suggest-btn" onclick="ask('How to contact him?')">Contact</button>
-          <button class="suggest-btn" onclick="ask('Tell me about his education')">Education</button>
-        </div>
-        <div class="input-box">
-          <textarea id="input" placeholder="Ask me anything about Janak..." rows="1"
-            onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
-          <button class="send-btn" id="sendBtn" onclick="sendMessage()">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-          </button>
-        </div>
-        <div class="input-footer">Janak's AI Portfolio · <a href="mailto:janaksanjel12@gmail.com">janaksanjel12@gmail.com</a></div>
-      </div>
-    </div>
+    <div class="input-area"><div class="input-wrap"><div class="suggestions" id="suggestions"><button class="suggest-btn" data-ask="Who is Janak Sanjel?">Who is Janak?</button><button class="suggest-btn" data-ask="Show me his projects">Projects</button><button class="suggest-btn" data-ask="What are his skills?">Skills</button><button class="suggest-btn" data-ask="His work experience">Experience</button><button class="suggest-btn" data-ask="How to contact him?">Contact</button><button class="suggest-btn" data-ask="Tell me about his education">Education</button></div><div class="input-box"><textarea id="input" placeholder="Ask me anything about Janak's career, projects, skills..." rows="1"></textarea><div class="suggestion-dropdown" id="suggestionDropdown"></div><button class="send-btn" id="sendBtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button></div></div></div>
   </main>
 </div>
+<div class="floating-theme" id="floatingThemeToggle">🌙</div>
 
 <script>
-/* ──────────────────────────────────────────
-   STATE
-────────────────────────────────────────── */
-let isTyping = false;
-let currentChatId = null;
-
-// conversations: { id, title, messages: [{role,html,text}] }
-const conversations = [];
-
-/* ──────────────────────────────────────────
-   RESPONSE DATA
-────────────────────────────────────────── */
-const responses = {
-  intro: {
-    trigger: ['who is','about janak','introduce','tell me about','who are you','background','janak sanjel'],
-    title: 'Who is Janak Sanjel?',
-    render: () => `
-      <div class="ai-text">
-        <p>Hey there! 👋 I'm <strong>Janak Sanjel</strong> — a Full Stack Developer based in <strong>Godawari-11, Lalitpur, Nepal</strong>. I build production-ready web apps that real people use every day.</p>
-        <p>Currently at <strong>NIRC (National Incubation & Research Center)</strong> in Kathmandu, where I've shipped systems across government, recruitment, and hospitality sectors.</p>
-      </div>
-      <div class="stat-row">
-        <div class="stat"><div class="stat-num">5+</div><div class="stat-label">Live Projects</div></div>
-        <div class="stat"><div class="stat-num">3.19</div><div class="stat-label">CGPA</div></div>
-        <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Placements</div></div>
-        <div class="stat"><div class="stat-num">4</div><div class="stat-label">Active Products</div></div>
-      </div>
-      <div class="card-grid">
-        <div class="info-card"><div class="card-label">Location</div><div class="card-value">Lalitpur, Nepal 🇳🇵</div></div>
-        <div class="info-card"><div class="card-label">Current Role</div><div class="card-value">Full Stack Dev</div><div class="card-sub">NIRC · Dec 2024–Present</div></div>
-        <div class="info-card"><div class="card-label">Education</div><div class="card-value">BCA Graduate</div><div class="card-sub">Jana Bhawana Campus, 2025</div></div>
-        <div class="info-card"><div class="card-label">Email</div><div class="card-value" style="font-size:12px;word-break:break-all"><a href="mailto:janaksanjel12@gmail.com" style="color:var(--accent);text-decoration:none">janaksanjel12@gmail.com</a></div></div>
-      </div>`
-  },
-  projects: {
-    trigger: ['project','built','portfolio','app','system','show me'],
-    title: 'Projects & Portfolio',
-    render: () => `
-      <div class="ai-text"><p>Here's what I've built — all real production systems with actual users. 🚀</p></div>
-      <div class="project-card">
-        <div class="project-title">📋 Training Management System <span class="project-badge">NIRC · Live</span></div>
-        <div class="project-desc">Full institute management platform — course scheduling, student enrolment, attendance & progress reporting. Designed DB schema + led frontend.</div>
-        <div class="tag-list"><span class="tag tag-blue">ReactJS</span><span class="tag tag-purple">Django</span><span class="tag tag-amber">MySQL</span></div>
-      </div>
-      <div class="project-card">
-        <div class="project-title">🏛️ GWP – Palika Software <span class="project-badge">Government · Live</span></div>
-        <div class="project-desc">Digital operations suite for local government offices in Nepal. Manages citizen services, records & reporting in one unified system.</div>
-        <div class="tag-list"><span class="tag tag-teal">Java</span><span class="tag tag-green">Grails</span><span class="tag tag-amber">MySQL</span></div>
-      </div>
-      <div class="project-card">
-        <div class="project-title">🌍 Rakmina – Recruitment Platform <span class="project-badge">Lithuania · 500+ placements</span></div>
-        <div class="project-desc">Full-featured staffing portal with applicant tracking, job listings & employer dashboards. Supported 500+ successful international placements.</div>
-        <div class="tag-list"><span class="tag tag-purple">Django</span><span class="tag tag-blue">Next.js</span><span class="tag tag-amber">MySQL</span></div>
-      </div>
-      <div class="project-card">
-        <div class="project-title">🏋️ Gym Management System <span class="project-badge">NIRC · Live</span></div>
-        <div class="project-desc">All-in-one gym platform — member registration, subscription billing, attendance check-in, staff management + clean dashboard.</div>
-        <div class="tag-list"><span class="tag tag-blue">ReactJS</span><span class="tag tag-purple">Django</span><span class="tag tag-amber">MySQL</span></div>
-      </div>
-      <div class="project-card">
-        <div class="project-title">🍽️ CRM – Kiran Restaurant & Dealership <span class="project-badge">Multi-vertical</span></div>
-        <div class="project-desc">Multi-vertical CRM with customer records, follow-ups & sales pipelines for both a restaurant and a vehicle dealership under one roof.</div>
-        <div class="tag-list"><span class="tag tag-blue">ReactJS</span><span class="tag tag-purple">Django</span><span class="tag tag-pink">Python</span></div>
-      </div>
-      <div class="project-card">
-        <div class="project-title">🛵 OrderUP – Food Delivery App <span class="project-badge">Personal</span></div>
-        <div class="project-desc">Online ordering system with dynamic menus, real-time cart & checkout — designed for small restaurants going digital.</div>
-        <div class="tag-list"><span class="tag tag-blue">ReactJS</span><span class="tag tag-green">Node.js</span></div>
-      </div>
-      <div class="project-card">
-        <div class="project-title">🗳️ Electronic Voting System <span class="project-badge">Campus</span></div>
-        <div class="project-desc">Secure browser-based e-voting app for campus student elections — candidate registration, ballot casting & live result tallying.</div>
-        <div class="tag-list"><span class="tag tag-teal">HTML</span><span class="tag tag-teal">CSS</span><span class="tag tag-amber">JavaScript</span></div>
-      </div>
-      <div class="project-card">
-        <div class="project-title">✍️ E-Signature App <span class="project-badge">Personal</span></div>
-        <div class="project-desc">Lightweight digital signature tool — draw, type or upload signatures and embed into documents. Zero server dependency.</div>
-        <div class="tag-list"><span class="tag tag-teal">HTML</span><span class="tag tag-teal">CSS</span><span class="tag tag-amber">JavaScript</span></div>
-      </div>`
-  },
-  skills: {
-    trigger: ['skill','tech','stack','language','framework','tool','know','expertise','react','django'],
-    title: 'Technical Skills',
-    render: () => `
-      <div class="ai-text"><p>My full tech stack — I work across every layer from DB design to pixel-perfect UI. ⚡</p></div>
-      <div class="code-block">
-<span class="k">const</span> <span class="n">janakSanjel</span> = {
-  <span class="s">frontend</span>: [<span class="s">"ReactJS"</span>, <span class="s">"Next.js"</span>, <span class="s">"JavaScript ES6+"</span>, <span class="s">"HTML5"</span>, <span class="s">"CSS3"</span>],
-  <span class="s">backend</span>:  [<span class="s">"Django"</span>, <span class="s">"Python"</span>, <span class="s">"Java"</span>, <span class="s">"Grails"</span>, <span class="s">"Node.js"</span>, <span class="s">"REST APIs"</span>],
-  <span class="s">database</span>: [<span class="s">"MySQL"</span>, <span class="s">"Database Design"</span>],
-  <span class="s">tools</span>:    [<span class="s">"Git"</span>, <span class="s">"GitHub"</span>, <span class="s">"Agile"</span>, <span class="s">"Responsive Design"</span>],
-  <span class="c">// Based in Kathmandu, Nepal 🇳🇵</span>
-};</div>
-      <div class="card-grid">
-        <div class="info-card">
-          <div class="card-label">Frontend</div>
-          <div class="tag-list"><span class="tag tag-blue">ReactJS</span><span class="tag tag-blue">Next.js</span><span class="tag tag-teal">JavaScript</span><span class="tag tag-teal">HTML5</span><span class="tag tag-teal">CSS3</span></div>
-        </div>
-        <div class="info-card">
-          <div class="card-label">Backend</div>
-          <div class="tag-list"><span class="tag tag-purple">Django</span><span class="tag tag-purple">Python</span><span class="tag tag-green">Java</span><span class="tag tag-green">Grails</span><span class="tag tag-green">Node.js</span></div>
-        </div>
-        <div class="info-card">
-          <div class="card-label">Database & Tools</div>
-          <div class="tag-list"><span class="tag tag-amber">MySQL</span><span class="tag tag-pink">Git</span><span class="tag tag-pink">GitHub</span><span class="tag tag-amber">Agile</span></div>
-        </div>
-      </div>`
-  },
-  experience: {
-    trigger: ['experience','job','nirc','work experience','company','career','professional'],
-    title: 'Work Experience at NIRC',
-    render: () => `
-      <div class="ai-text"><p>My professional journey — building real products that serve real users. 💼</p></div>
-      <div class="project-card" style="border-left: 3px solid var(--accent);">
-        <div class="project-title">🏢 Full Stack Developer — NIRC</div>
-        <div class="card-sub" style="margin-bottom:10px;color:var(--green);font-size:12px;font-family:'JetBrains Mono',monospace">December 2024 – Present · Kathmandu, Nepal</div>
-        <div class="project-desc">
-          <p style="margin-bottom:8px">✅ Designed and delivered full-stack features for multiple live client projects — from DB schema to responsive UI.</p>
-          <p style="margin-bottom:8px">✅ Worked directly with clients to translate requirements into technical solutions, reducing feedback cycles.</p>
-          <p style="margin-bottom:8px">✅ Maintained clean REST API contracts between Django backends and ReactJS frontends across 4 active products.</p>
-          <p>✅ Contributed to a Grails/Java municipal government platform serving real users in local government offices.</p>
-        </div>
-        <div class="tag-list" style="margin-top:12px"><span class="tag tag-blue">ReactJS</span><span class="tag tag-purple">Django</span><span class="tag tag-pink">Python</span><span class="tag tag-green">Java</span><span class="tag tag-green">Grails</span><span class="tag tag-amber">MySQL</span><span class="tag tag-teal">Node.js</span></div>
-      </div>
-      <div class="ai-text" style="margin-top:12px"><p style="color:var(--muted);font-size:13px">💡 Open to freelance collaborations and full-time opportunities. Let's build something great!</p></div>`
-  },
-  education: {
-    trigger: ['education','study','degree','college','university','bca','campus','academic','cgpa','school'],
-    title: "Janak's Education",
-    render: () => `
-      <div class="ai-text"><p>My academic journey — from school to shipping production systems. 🎓</p></div>
-      <div class="project-card">
-        <div class="project-title">🎓 Bachelor of Computer Application</div>
-        <div class="card-sub" style="margin-bottom:8px;color:var(--green);font-size:12px;font-family:'JetBrains Mono',monospace">Jana Bhawana Campus, Chapagaun · Completed 2025 · CGPA 3.19</div>
-        <div class="project-desc">Strong foundation in CS, algorithms, web tech & DB management. Balanced academics with real-world project work at NIRC.</div>
-      </div>
-      <div class="project-card">
-        <div class="project-title">📚 +2 Science</div>
-        <div class="card-sub" style="margin-bottom:8px;color:var(--muted);font-size:12px;font-family:'JetBrains Mono',monospace">Advance Academy College · 2077 BS · GPA 2.97</div>
-        <div class="project-desc">Higher secondary with science stream — foundation for computer science studies.</div>
-      </div>
-      <div class="project-card">
-        <div class="project-title">🏫 School Leaving Certificate</div>
-        <div class="card-sub" style="margin-bottom:8px;color:var(--muted);font-size:12px;font-family:'JetBrains Mono',monospace">Bidhyadhishwari Secondary School · 2073 BS · GPA 3.15</div>
-        <div class="project-desc">Consistent academic performance demonstrating discipline and foundational learning skills.</div>
-      </div>`
-  },
-  contact: {
-    trigger: ['contact','email','phone','reach','hire','message','connect','github','website','social'],
-    title: 'Contact Janak',
-    render: () => `
-      <div class="ai-text"><p>Always open to new opportunities and collaborations! Here's how to reach me. 📬</p></div>
-      <div class="contact-row">
-        <a href="mailto:janaksanjel12@gmail.com" class="contact-chip">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          janaksanjel12@gmail.com
-        </a>
-        <a href="tel:+9779840748285" class="contact-chip">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91A16 16 0 0 0 13 14.93l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
-          +977 984 074 8285
-        </a>
-        <a href="https://github.com/janaksanjel" target="_blank" class="contact-chip">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-          github.com/janaksanjel
-        </a>
-        <a href="https://janaksanjel.com.np" target="_blank" class="contact-chip">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          janaksanjel.com.np
-        </a>
-        <a href="https://www.google.com/maps/place/Lalitpur+Nepal" target="_blank" class="contact-chip">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Godawari-11, Lalitpur
-        </a>
-      </div>
-      <div class="ai-text" style="margin-top:14px"><p style="color:var(--muted);font-size:13px">💡 Best way: email. Typically reply within 24 hours. Open to freelance, full-time & collaborations!</p></div>`
-  },
-  default: {
-    title: 'Chat',
-    render: () => `
-      <div class="ai-text">
-        <p>I'm Janak's portfolio assistant! I can tell you about his <strong>background</strong>, <strong>projects</strong>, <strong>tech skills</strong>, <strong>work experience</strong>, <strong>education</strong>, or <strong>contact info</strong>.</p>
-        <p>Try: "Who is Janak?", "Show me his projects", or "What are his skills?"</p>
-      </div>`
+  // ---------- ENHANCED CV DATA (human-like, polite, handles bad words) ----------
+  const badWords = ["fuck", "shit", "damn", "stupid", "idiot", "dumb", "crap", "hell"];
+  function containsBadWord(text) {
+    return badWords.some(word => text.toLowerCase().includes(word));
   }
-};
-
-/* ──────────────────────────────────────────
-   THEME
-────────────────────────────────────────── */
-function toggleTheme() {
-  const html = document.documentElement;
-  const isDark = html.getAttribute('data-theme') === 'dark';
-  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-  document.getElementById('themeKnob').textContent = isDark ? '☀️' : '🌙';
-}
-
-/* ──────────────────────────────────────────
-   RESPONSE MATCHING
-────────────────────────────────────────── */
-function getResponseData(input) {
-  const q = input.toLowerCase();
-  for (const [key, val] of Object.entries(responses)) {
-    if (key === 'default') continue;
-    if (val.trigger.some(t => q.includes(t))) return val;
-  }
-  return responses.default;
-}
-
-/* ──────────────────────────────────────────
-   SIDEBAR / HISTORY
-────────────────────────────────────────── */
-function renderSidebar() {
-  const list = document.getElementById('sidebarList');
-  list.innerHTML = '';
-  conversations.forEach(conv => {
-    const li = document.createElement('li');
-    li.className = conv.id === currentChatId ? 'active' : '';
-    li.dataset.id = conv.id;
-    li.innerHTML = `
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      <span class="chat-preview">${escHtml(conv.title)}</span>`;
-    li.addEventListener('click', () => loadConversation(conv.id));
-    list.appendChild(li);
-  });
-}
-
-function loadConversation(id) {
-  const conv = conversations.find(c => c.id === id);
-  if (!conv) return;
-  currentChatId = id;
-
-  const msgs = document.getElementById('messages');
-  msgs.innerHTML = '';
-  document.getElementById('suggestions').style.display = 'none';
-  document.getElementById('chatHeaderTitle').textContent = conv.title;
-
-  conv.messages.forEach(m => {
-    appendMsgDOM(m.role, m.html, false);
-  });
-  msgs.scrollTop = msgs.scrollHeight;
-  renderSidebar();
-}
-
-function createConversation(title) {
-  const id = Date.now().toString();
-  conversations.unshift({ id, title, messages: [] });
-  currentChatId = id;
-  renderSidebar();
-  return id;
-}
-
-function saveMessage(role, html, text) {
-  const conv = conversations.find(c => c.id === currentChatId);
-  if (conv) conv.messages.push({ role, html, text });
-}
-
-/* ──────────────────────────────────────────
-   WELCOME
-────────────────────────────────────────── */
-function showWelcome() {
-  const msgs = document.getElementById('messages');
-  msgs.innerHTML = `
-    <div class="welcome" id="welcome">
-      <div class="welcome-avatar">JS</div>
-      <h1>Hi, I'm <span>Janak Sanjel</span> 👋</h1>
-      <p>Full Stack Developer from Nepal. Ask me anything about my work, skills, or projects.</p>
-      <div class="welcome-cards">
-        <div class="welcome-card" onclick="ask('Who is Janak Sanjel?')"><div class="welcome-card-icon">🧑‍💻</div><div class="welcome-card-title">Who is Janak?</div><div class="welcome-card-desc">Background & experience</div></div>
-        <div class="welcome-card" onclick="ask('Show me his projects')"><div class="welcome-card-icon">🚀</div><div class="welcome-card-title">My Projects</div><div class="welcome-card-desc">What I've built at NIRC</div></div>
-        <div class="welcome-card" onclick="ask('What are his skills?')"><div class="welcome-card-icon">⚡</div><div class="welcome-card-title">Tech Skills</div><div class="welcome-card-desc">React, Django, Java & more</div></div>
-        <div class="welcome-card" onclick="ask('How to contact him?')"><div class="welcome-card-icon">📬</div><div class="welcome-card-title">Contact Me</div><div class="welcome-card-desc">Let's work together</div></div>
-      </div>
-    </div>`;
-  document.getElementById('suggestions').style.display = 'flex';
-  document.getElementById('chatHeaderTitle').textContent = 'Janak Sanjel — Portfolio';
-}
-
-function newChat() {
-  currentChatId = null;
-  showWelcome();
-  renderSidebar();
-}
-
-/* ──────────────────────────────────────────
-   MESSAGES DOM
-────────────────────────────────────────── */
-function appendMsgDOM(role, html, animate = true) {
-  const msgs = document.getElementById('messages');
-  const wrap = document.createElement('div');
-  wrap.className = `msg-wrap ${role}`;
-  if (!animate) wrap.style.animation = 'none', wrap.style.opacity = '1', wrap.style.transform = 'none';
-
-  if (role === 'user') {
-    wrap.innerHTML = `<div class="bubble-user">${html}</div>`;
-  } else {
-    wrap.innerHTML = `
-      <div class="ai-avatar">JS</div>
-      <div class="bubble-ai">
-        <div class="ai-name">Janak Sanjel</div>
-        <div>${html}</div>
-      </div>`;
-  }
-  msgs.appendChild(wrap);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-function showTyping() {
-  const msgs = document.getElementById('messages');
-  const wrap = document.createElement('div');
-  wrap.className = 'msg-wrap ai'; wrap.id = 'typing';
-  wrap.innerHTML = `
-    <div class="ai-avatar">JS</div>
-    <div class="bubble-ai">
-      <div class="ai-name">Janak Sanjel</div>
-      <div class="typing-dots"><span></span><span></span><span></span></div>
-    </div>`;
-  msgs.appendChild(wrap);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-function removeTyping() { const t = document.getElementById('typing'); if(t) t.remove(); }
-
-/* ──────────────────────────────────────────
-   SEND
-────────────────────────────────────────── */
-function ask(q) { if(isTyping) return; document.getElementById('input').value = q; sendMessage(); }
-
-async function sendMessage() {
-  if (isTyping) return;
-  const input = document.getElementById('input');
-  const q = input.value.trim();
-  if (!q) return;
-
-  isTyping = true;
-  document.getElementById('sendBtn').disabled = true;
-
-  // hide welcome
-  const welcome = document.getElementById('welcome');
-  if (welcome) welcome.remove();
-  document.getElementById('suggestions').style.display = 'none';
-
-  // If no active chat, create one
-  const respData = getResponseData(q);
-  if (!currentChatId) {
-    createConversation(respData.title || q.slice(0, 36));
+  function humanLikeResponseForBadWord() {
+    return `<div class="ai-text"><p>🙏 Hey, I appreciate you reaching out — but let's keep the conversation respectful and professional. I'm here to share Janak's real skills, projects, and experience. Feel free to ask anything about his work or background!</p><p>Want to know about his projects or tech stack instead? 😊</p></div>`;
   }
 
-  const userHtml = escHtml(q);
-  appendMsgDOM('user', userHtml);
-  saveMessage('user', userHtml, q);
-  input.value = ''; input.style.height = 'auto';
+  const responses = {
+    intro: { trigger: ['who is','about janak','introduce','background','janak sanjel','janak','profile','summary','tell me about yourself'], title: 'Janak Sanjel · Full Stack Developer', render: () => `<div class="ai-text"><p><strong>👋 I'm Janak Sanjel</strong> — a dedicated Full Stack Developer based in <strong>Godawari-11, Lalitpur, Nepal</strong>. I build production-ready web applications that real people use every day across government, recruitment, and hospitality sectors.</p><p>Currently at <strong>NIRC (National Incubation & Research Center)</strong> in Kathmandu, where I've shipped multiple client-facing systems using ReactJS, Django, Java, and MySQL. I write clean, maintainable code, take ownership of features end-to-end, and thrive in collaborative team environments.</p><p>🎓 I hold a Bachelor of Computer Application (CGPA 3.19) and have successfully delivered 5+ live projects, including a municipal government platform and a recruitment system that enabled 500+ international placements.</p></div><div class="stat-row"><div class="stat"><div class="stat-num">5+</div><div class="stat-label">Live Projects</div></div><div class="stat"><div class="stat-num">3.19</div><div class="stat-label">BCA CGPA</div></div><div class="stat"><div class="stat-num">500+</div><div class="stat-label">Placements</div></div><div class="stat"><div class="stat-num">4</div><div class="stat-label">Active Products</div></div></div><div class="card-grid"><div class="glass-card">📍 Godawari-11, Lalitpur, Nepal</div><div class="glass-card">💼 Full Stack Dev @ NIRC (Dec 2024 – Present)</div><div class="glass-card">🎓 BCA Graduate 2025 · CGPA 3.19</div><div class="glass-card">📧 janaksanjel12@gmail.com</div></div>` },
+    experience: { trigger: ['experience','job','nirc','work','career','professional','professional experience','what does he do'], title: 'Work Experience', render: () => `<div class="ai-text"><p><strong>💼 Full Stack Developer at NIRC</strong> (December 2024 – Present) · Kathmandu, Nepal</p></div><div class="glass-card"><ul style="margin-left: 20px; margin-top: 6px; display: flex; flex-direction: column; gap: 8px;"><li>✅ Designed and delivered full-stack features for multiple live client projects — from database schema to responsive UI.</li><li>✅ Worked directly with clients to translate requirements into technical solutions, reducing feedback cycles by 30%.</li><li>✅ Maintained clean REST API contracts between Django backends and ReactJS frontends across 4 active products.</li><li>✅ Contributed to a Grails/Java-based municipal government platform (GWP – Palika Software) serving real users in local government offices.</li></ul><div class="tag-list" style="margin-top: 12px;"><span class="tag">ReactJS</span><span class="tag">Django</span><span class="tag">Java</span><span class="tag">Grails</span><span class="tag">MySQL</span><span class="tag">Node.js</span></div></div><div class="ai-text" style="margin-top: 10px;"><p>✨ Open for freelance collaborations and full-time opportunities. Let's build something great!</p></div>` },
+    projects: { trigger: ['project','built','portfolio','app','system','show me','projects','selected projects','what has he built'], title: 'Selected Projects', render: () => `<div class="ai-text"><p>🚀 Here are the production-grade systems I've built — each solving real problems:</p></div><div class="glass-card"><strong>🏛️ GWP – Palika Software</strong> <span class="tag">Government · Live</span><div style="font-size:13px; margin-top:6px;">Digital operations suite for local government offices. Manages citizen services, records & reporting. Stack: Java, Grails, MySQL.</div></div><div class="glass-card"><strong>🌍 Rakmina – Recruitment Platform</strong> <span class="tag">Lithuania · 500+ placements</span><div>Full-featured staffing portal with applicant tracking, job listings & employer dashboards. Django + Next.js + MySQL.</div></div><div class="glass-card"><strong>🏋️ Gym Management System</strong> <span class="tag">NIRC · Live</span><div>All-in-one gym platform: member registration, subscription billing, attendance check-in, staff management. ReactJS + Django.</div></div><div class="glass-card"><strong>🍽️ Kiran Restaurant & Dealership CRM</strong><div>Multi-vertical CRM with customer records, follow-ups & sales pipelines for both a restaurant and a vehicle dealership.</div></div><div class="glass-card"><strong>📋 Training Management System</strong><div>Institute management platform: course scheduling, student enrolment, attendance & progress reporting. ReactJS + Django.</div></div><div class="glass-card"><strong>🛵 OrderUP – Food Delivery App</strong><div>Online ordering system with dynamic menus, real-time cart & checkout — designed for small restaurants. ReactJS + Node.js.</div></div><div class="glass-card"><strong>🗳️ Electronic Voting System</strong><div>Secure browser-based e-voting for campus elections: candidate registration, ballot casting & live result tallying. HTML/CSS/JS.</div></div><div class="glass-card"><strong>✍️ E-Signature App</strong><div>Lightweight digital signature tool — draw, type or upload signatures with zero server dependency. Pure JS.</div></div>` },
+    skills: { trigger: ['skill','tech','stack','react','django','expertise','tools','languages','technical skills','what technologies'], title: 'Technical Skills', render: () => `<div class="ai-text"><strong>⚡ Full-stack proficiency — I work across every layer from DB design to pixel-perfect UI.</strong></div><div class="card-grid"><div class="glass-card"><div style="font-weight:600;">Frontend</div><div class="tag-list"><span class="tag">ReactJS</span><span class="tag">Next.js</span><span class="tag">JavaScript ES6+</span><span class="tag">HTML5</span><span class="tag">CSS3</span></div></div><div class="glass-card"><div style="font-weight:600;">Backend</div><div class="tag-list"><span class="tag">Django</span><span class="tag">Python</span><span class="tag">Java</span><span class="tag">Grails</span><span class="tag">Node.js</span><span class="tag">REST APIs</span></div></div><div class="glass-card"><div style="font-weight:600;">Database & Tools</div><div class="tag-list"><span class="tag">MySQL</span><span class="tag">Database Design</span><span class="tag">Git/GitHub</span><span class="tag">Agile</span><span class="tag">Responsive Design</span></div></div></div><div class="glass-card" style="font-family:'JetBrains Mono',monospace; font-size:12px;">const janak = { frontend: ["React","Next.js"], backend: ["Django","Java","Node"], databases: ["MySQL"], philosophy: "clean code, real impact" };</div>` },
+    education: { trigger: ['education','degree','bca','college','cgpa','academic','study','school'], title: 'Education', render: () => `<div class="glass-card"><strong>🎓 Bachelor of Computer Application (BCA)</strong><br/>Jana Bhawana Campus, Chapagaun · Completed 2025 · CGPA 3.19<br/><strong>📘 +2 Science</strong><br/>Advance Academy College · Passed 2077 BS · GPA 2.97<br/><strong>🏫 School Leaving Certificate (SLC)</strong><br/>Bidhyadhishwari Secondary School · Passed 2073 BS · GPA 3.15</div><div class="ai-text" style="margin-top:10px;">📚 Strong foundation in computer science, algorithms, web technologies & database management — balanced with real-world project experience.</div>` },
+    contact: { trigger: ['contact','email','phone','reach','hire','github','website','social','connect'], title: 'Connect with Janak', render: () => `<div class="contact-row"><a href="mailto:janaksanjel12@gmail.com" class="contact-chip">📧 janaksanjel12@gmail.com</a><a href="tel:+9779840748285" class="contact-chip">📞 +977 984 074 8285</a><a href="https://github.com/janaksanjel" target="_blank" class="contact-chip">🐙 github.com/janaksanjel</a><a href="https://www.janak.info.np/" target="_blank" class="contact-chip">🌐 janak.info.np</a><a href="#" class="contact-chip">📍 Godawari-11, Lalitpur, Nepal</a></div><div class="ai-text" style="margin-top:14px;"><p>💬 Best way to reach me is email — I typically reply within 24 hours. Open to freelance, full-time roles, and tech collaborations!</p></div>` },
+    default: { title: 'Assistant', render: () => `<div class="ai-text"><p>Hi! I'm Janak's AI portfolio assistant, trained on his complete CV. I can tell you about his <strong>background, professional experience, projects, technical skills, education, or contact info</strong>.</p><p>Try asking: "Who is Janak?", "Show me his projects", "What are his skills?" or "Tell me about his work experience".</p><div class="tag-list"><span class="tag">💼 Experience</span><span class="tag">🚀 Projects</span><span class="tag">⚡ Skills</span><span class="tag">📚 Education</span><span class="tag">📬 Contact</span></div></div>` }
+  };
 
-  showTyping();
-  await delay(650 + Math.random() * 450);
-  removeTyping();
+  // ---------- STATE ----------
+  let conversations = [];
+  let currentChatId = null;
+  let isTyping = false;
 
-  const aiHtml = respData.render();
-  appendMsgDOM('ai', aiHtml);
-  saveMessage('ai', aiHtml, '');
+  // suggestion list for autocomplete
+  const suggestionPhrases = ["Who is Janak Sanjel?", "Show me his projects", "What are his skills?", "His work experience", "How to contact him?", "Tell me about his education", "What technologies does he use?", "What is his current role?"];
 
-  // update sidebar title to first user question if default
-  const conv = conversations.find(c => c.id === currentChatId);
-  if (conv && conv.messages.filter(m=>m.role==='user').length === 1) {
-    conv.title = respData.title || q.slice(0, 36);
+  // helpers
+  const escHtml = s => s.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m]));
+  const delay = ms => new Promise(r => setTimeout(r, ms));
+  const autoResize = (el) => { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 120) + 'px'; };
+
+  function getResponseData(input) {
+    if (containsBadWord(input)) return { render: humanLikeResponseForBadWord, title: "Respectful response" };
+    const q = input.toLowerCase();
+    for (let key of Object.keys(responses)) {
+      if (key !== 'default' && responses[key].trigger.some(t => q.includes(t))) return responses[key];
+    }
+    return responses.default;
+  }
+
+  // DOM message functions
+  function appendMsgDOM(role, html, animate = true) {
+    const container = document.getElementById('messages');
+    const wrap = document.createElement('div');
+    wrap.className = `msg-wrap ${role}`;
+    if (!animate) wrap.style.animation = 'none';
+    if (role === 'user') wrap.innerHTML = `<div class="bubble-user">${html}</div>`;
+    else wrap.innerHTML = `<div class="ai-avatar">JS</div><div class="bubble-ai"><div class="ai-name">Janak Sanjel</div><div>${html}</div></div>`;
+    container.appendChild(wrap);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  async function showRealisticTyping(aiHtml, callback) {
+    const container = document.getElementById('messages');
+    const typingDiv = document.createElement('div'); typingDiv.className = 'msg-wrap ai'; typingDiv.id = 'typingIndicator';
+    typingDiv.innerHTML = `<div class="ai-avatar">JS</div><div class="bubble-ai"><div class="ai-name">Janak Sanjel</div><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
+    container.appendChild(typingDiv); container.scrollTop = container.scrollHeight;
+    await delay(600 + Math.random() * 400);
+    removeTyping();
+    appendMsgDOM('ai', aiHtml);
+    callback();
+  }
+  function removeTyping() { document.getElementById('typingIndicator')?.remove(); }
+
+  // Storage
+  function persist() { localStorage.setItem('janak_cv_chats_v2', JSON.stringify(conversations)); }
+  function loadStorage() { const stored = localStorage.getItem('janak_cv_chats_v2'); if(stored) { conversations = JSON.parse(stored); return true; } return false; }
+
+  function saveMessage(role, html, text) {
+    const conv = conversations.find(c => c.id === currentChatId);
+    if (conv) { conv.messages.push({ role, html, text }); persist(); }
+  }
+
+  function renderSidebar() {
+    const list = document.getElementById('sidebarList');
+    list.innerHTML = '';
+    conversations.forEach(conv => {
+      const li = document.createElement('li');
+      li.className = conv.id === currentChatId ? 'active' : '';
+      li.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="chat-preview">${escHtml(conv.title)}</span><button class="delete-chat" data-id="${conv.id}">✕</button>`;
+      li.querySelector('.delete-chat').addEventListener('click', (e) => { e.stopPropagation(); deleteConversation(conv.id); });
+      li.addEventListener('click', () => loadConversation(conv.id));
+      list.appendChild(li);
+    });
+  }
+
+  function loadConversation(id) {
+    const conv = conversations.find(c => c.id === id);
+    if (!conv) return;
+    currentChatId = id;
+    const msgsDiv = document.getElementById('messages');
+    msgsDiv.innerHTML = '';
+    conv.messages.forEach(m => appendMsgDOM(m.role, m.html, false));
     document.getElementById('chatHeaderTitle').textContent = conv.title;
+    document.getElementById('suggestions').style.display = 'flex';
+    if (window.innerWidth <= 768) { document.getElementById('sidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('active'); }
+    renderSidebar();
   }
-  renderSidebar();
 
-  isTyping = false;
-  document.getElementById('sendBtn').disabled = false;
-  input.focus();
-}
-
-function handleKey(e) { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();} }
-function autoResize(el) { el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,120)+'px'; }
-function delay(ms) { return new Promise(r=>setTimeout(r,ms)); }
-function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-/* ──────────────────────────────────────────
-   INIT — auto-type on load
-────────────────────────────────────────── */
-window.addEventListener('load', async () => {
-  showWelcome();
-  await delay(1100);
-  const input = document.getElementById('input');
-  const text = 'Who is Janak Sanjel?';
-  for (let i = 0; i <= text.length; i++) {
-    input.value = text.slice(0, i);
-    await delay(55 + Math.random() * 35);
+  function deleteConversation(id) {
+    conversations = conversations.filter(c => c.id !== id);
+    if (currentChatId === id) { currentChatId = null; showWelcomeScreen(); }
+    persist();
+    renderSidebar();
   }
-  await delay(480);
-  sendMessage();
-});
+
+  function showWelcomeScreen() {
+    document.getElementById('messages').innerHTML = `<div class="welcome"><div class="welcome-avatar">JS</div><h1>Hi, I'm <span style="color:var(--accent)">Janak Sanjel</span> 👋</h1><p>Full Stack Developer from Nepal. Ask me anything about my career, projects, skills — I respond like a real human.</p><div class="welcome-cards"><div class="welcome-card" data-question="Who is Janak Sanjel?"><div>🧑‍💻</div><strong>Who is Janak?</strong><div style="font-size:12px;">Full profile & summary</div></div><div class="welcome-card" data-question="Show me his projects"><div>🚀</div><strong>Projects</strong><div style="font-size:12px;">8+ production apps</div></div><div class="welcome-card" data-question="What are his skills?"><div>⚡</div><strong>Technical skills</strong><div style="font-size:12px;">React, Django, Java, etc.</div></div><div class="welcome-card" data-question="His work experience"><div>💼</div><strong>Experience</strong><div style="font-size:12px;">NIRC & client work</div></div><div class="welcome-card" data-question="How to contact him?"><div>📬</div><strong>Contact</strong><div style="font-size:12px;">Let's connect</div></div><div class="welcome-card" data-question="Tell me about his education"><div>🎓</div><strong>Education</strong><div style="font-size:12px;">BCA, +2, SLC</div></div></div></div>`;
+    document.querySelectorAll('.welcome-card').forEach(card => { card.addEventListener('click', () => { sendMessageWithText(card.getAttribute('data-question')); }); });
+    document.getElementById('suggestions').style.display = 'flex';
+    document.getElementById('chatHeaderTitle').textContent = 'Janak Sanjel · CV AI';
+    currentChatId = null;
+    renderSidebar();
+  }
+
+  async function sendMessageWithText(userText) {
+    if (isTyping) return;
+    const inputField = document.getElementById('input');
+    inputField.value = userText;
+    await sendMessage();
+  }
+
+  async function sendMessage() {
+    if (isTyping) return;
+    const input = document.getElementById('input');
+    const q = input.value.trim();
+    if (!q) return;
+    isTyping = true;
+    document.getElementById('sendBtn').disabled = true;
+    if (document.querySelector('.welcome')) document.querySelector('.welcome').remove();
+    document.getElementById('suggestions').style.display = 'none';
+    document.getElementById('suggestionDropdown').style.display = 'none';
+
+    const respData = getResponseData(q);
+    if (!currentChatId) {
+      const newId = Date.now().toString();
+      conversations.unshift({ id: newId, title: respData.title || q.slice(0, 32), messages: [] });
+      currentChatId = newId;
+      persist();
+      renderSidebar();
+    }
+    const userHtml = escHtml(q);
+    appendMsgDOM('user', userHtml);
+    saveMessage('user', userHtml, q);
+    input.value = ''; input.style.height = 'auto';
+    const aiHtml = respData.render();
+    await showRealisticTyping(aiHtml, () => { saveMessage('ai', aiHtml, ''); });
+    const conv = conversations.find(c => c.id === currentChatId);
+    if (conv && conv.messages.filter(m => m.role === 'user').length === 1) {
+      conv.title = respData.title || q.slice(0, 32);
+      document.getElementById('chatHeaderTitle').textContent = conv.title;
+      persist();
+      renderSidebar();
+    }
+    isTyping = false;
+    document.getElementById('sendBtn').disabled = false;
+    input.focus();
+  }
+
+  // Autocomplete with Tab key
+  function setupAutocomplete() {
+    const textarea = document.getElementById('input');
+    const dropdown = document.getElementById('suggestionDropdown');
+    textarea.addEventListener('input', function() {
+      const val = this.value.toLowerCase();
+      if (val.length === 0) { dropdown.style.display = 'none'; return; }
+      const matches = suggestionPhrases.filter(phrase => phrase.toLowerCase().includes(val));
+      if (matches.length === 0) { dropdown.style.display = 'none'; return; }
+      dropdown.innerHTML = matches.map(m => `<div class="suggestion-item">${escHtml(m)}</div>`).join('');
+      dropdown.style.display = 'block';
+      document.querySelectorAll('.suggestion-item').forEach(item => {
+        item.addEventListener('click', () => { textarea.value = item.textContent; dropdown.style.display = 'none'; textarea.focus(); autoResize(textarea); });
+      });
+    });
+    textarea.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        if (dropdown.style.display === 'block' && dropdown.children.length > 0) {
+          textarea.value = dropdown.children[0].textContent;
+          dropdown.style.display = 'none';
+          autoResize(textarea);
+        }
+      }
+    });
+    document.addEventListener('click', (e) => { if (!textarea.contains(e.target) && !dropdown.contains(e.target)) dropdown.style.display = 'none'; });
+  }
+
+  // Theme + floating button
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    updateFloatingIcon();
+  }
+  function updateFloatingIcon() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const btn = document.getElementById('floatingThemeToggle');
+    if (btn) btn.textContent = isDark ? '🌙' : '☀️';
+  }
+
+  function init() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+    updateFloatingIcon();
+    if (!loadStorage() || conversations.length === 0) showWelcomeScreen();
+    else loadConversation(conversations[0].id);
+    document.getElementById('sendBtn').addEventListener('click', sendMessage);
+    document.getElementById('input').addEventListener('keydown', (e) => { if(e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } });
+    document.getElementById('input').addEventListener('input', function() { autoResize(this); });
+    document.getElementById('newChatBtn').addEventListener('click', () => { currentChatId = null; showWelcomeScreen(); });
+    document.querySelectorAll('.suggest-btn').forEach(btn => { btn.addEventListener('click', () => sendMessageWithText(btn.getAttribute('data-ask'))); });
+    document.getElementById('menuToggle').addEventListener('click', () => { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('overlay').classList.toggle('active'); });
+    document.getElementById('overlay').addEventListener('click', () => { document.getElementById('sidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('active'); });
+    document.getElementById('floatingThemeToggle').addEventListener('click', toggleTheme);
+    setupAutocomplete();
+  }
+  window.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>
