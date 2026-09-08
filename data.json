@@ -1,0 +1,223 @@
+{
+  "profile": {
+    "name": "Janak Sanjel",
+    "title": "Backend Software Engineer (Python/JAVA) · Project Delivery Lead",
+    "photo": "./img/myphoto.jpg",
+    "summary": "Full-stack developer and project manager with hands-on production experience delivering 10+ live backend systems at NIRC, primarily on Python/Django with ReactJS frontends. Owns REST API design, relational schema design, and deployment end-to-end, and has applied event-driven patterns in production. Currently building applied AWS and PostgreSQL skills alongside a MySQL-heavy background. Combines individual-contributor backend ownership with real project-management experience — sprint planning, client delivery, and mentoring junior engineers — and is looking to grow into larger-scale, cloud-native backend systems.",
+    "location": "Godawari-11, Lalitpur, Nepal"
+  },
+  "stats": [
+    { "value": "10+", "label": "Live Production Systems" },
+    { "value": "500+", "label": "Job Placements Facilitated" },
+    { "value": "10+", "label": "Concurrent Client Projects" },
+    { "value": "1", "label": "App on Google Play" }
+  ],
+  "aboutSkills": [
+    { "name": "Python", "icon": "fab fa-python", "color": "#3776ab" },
+    { "name": "Django", "icon": "fas fa-server", "color": "#092e20" },
+    { "name": "ReactJS", "icon": "fab fa-react", "color": "#61dafb" },
+    { "name": "MySQL", "icon": "fas fa-database", "color": "#00758f" }
+  ],
+  "skillCategories": [
+    {
+      "name": "Languages",
+      "icon": "fas fa-code",
+      "skills": ["Python (primary)", "JavaScript / TypeScript", "Java", "Dart", "SQL"]
+    },
+    {
+      "name": "Backend",
+      "icon": "fas fa-server",
+      "skills": ["Django", "Django REST Framework", "REST API Design", "Event-driven patterns", "Node.js", "Grails"]
+    },
+    {
+      "name": "Databases",
+      "icon": "fas fa-database",
+      "skills": ["MySQL — schema design, query optimisation, indexing", "Django ORM", "PostgreSQL (developing)"]
+    },
+    {
+      "name": "Cloud / Infra",
+      "icon": "fas fa-cloud",
+      "skills": ["AWS (actively developing)", "Git", "GitHub", "Deployment & rollback workflows"]
+    },
+    {
+      "name": "Frontend",
+      "icon": "fas fa-laptop-code",
+      "skills": ["ReactJS", "Next.js", "HTML5", "CSS3"]
+    },
+    {
+      "name": "Mobile",
+      "icon": "fas fa-mobile-screen",
+      "skills": ["Flutter", "Dart", "Android", "Google Play Store published"]
+    },
+    {
+      "name": "Delivery & Leadership",
+      "icon": "fas fa-people-group",
+      "skills": ["Project Management", "Sprint Planning", "Client Communication", "Agile / Scrum", "Mentoring"]
+    }
+  ],
+  "qualifications": [
+    {
+      "icon": "fas fa-graduation-cap",
+      "degree": "Bachelor of Computer Application (BCA)",
+      "institution": "Jana Bhawana Campus, Chapagaun",
+      "year": "Graduated 2025",
+      "details": "CGPA 3.19 / 4.0"
+    },
+    {
+      "icon": "fas fa-certificate",
+      "degree": "+2 (Science)",
+      "institution": "Advance Academy College",
+      "year": "Passed 2077 BS",
+      "details": "GPA 2.97"
+    },
+    {
+      "icon": "fas fa-school",
+      "degree": "School Leaving Certificate (SLC)",
+      "institution": "Bidhyadhishwari Secondary School",
+      "year": "Passed 2073 BS",
+      "details": "GPA 3.15"
+    }
+  ],
+  "experience": [
+    {
+      "role": "Project Manager & Full Stack Developer",
+      "company": "NIRC (National Incubation & Research Center)",
+      "logo": "./img/company.png",
+      "startDate": "2024-12-05",
+      "durationLabel": "Dec 2024 – Present · Kathmandu, Nepal",
+      "description": "Owning backend delivery and project leadership across a portfolio of live client systems.",
+      "highlights": [
+        "Served as both Project Manager and Full Stack Developer across 10+ concurrent client projects — led requirement gathering, sprint planning, client communication, and end-to-end technical delivery.",
+        "Designed and delivered complete backend features for 10+ live production systems, owning database schema design, REST API contracts, and deployment.",
+        "Built and maintained Django REST Framework backends integrated with ReactJS frontends; reduced client feedback cycles by ~30% through direct client collaboration.",
+        "Designed and optimised MySQL relational schemas for complex domains: accounting ledgers, recruitment pipelines, gym subscriptions, training institute records, and government municipal data.",
+        "Applied event-driven patterns to decouple long-running workflows (notifications, report generation) from request/response cycles across client systems.",
+        "Managed project timelines and coordinated cross-functional delivery for the Accounting Software, Gym Management System, and Training Management System simultaneously.",
+        "Contributed backend modules to GWP Palika Software (Grails/Java), a government municipal platform live in real Nepali local government offices.",
+        "Led Rakmina (Django + Next.js), an international recruitment portal that facilitated 500+ job placements in Lithuania — architected the ATS backend and employer dashboard APIs.",
+        "Built and published a Flutter mobile application on the Google Play Store, managing the full lifecycle from development to release.",
+        "Mentored junior engineers on API design and Django best practices; led code reviews and technical planning sessions."
+      ],
+      "tech": ["Python", "Django", "Django REST Framework", "ReactJS", "MySQL", "Grails", "Java", "Flutter"]
+    }
+  ],
+  "projects": [
+    {
+      "icon": "fas fa-building",
+      "title": "GWP — Palika Software",
+      "badge": "Government · Official",
+      "description": "Digital operations suite for Nepali local government offices. Contributed backend modules for citizen records, reporting, and service workflows.",
+      "role": "Backend Developer",
+      "tech": ["Java", "Grails", "MySQL"],
+      "status": ["Live in municipal offices"],
+      "featured": true
+    },
+    {
+      "icon": "fas fa-users",
+      "title": "Rakmina — Recruitment Platform",
+      "badge": "International · 500+ Placements",
+      "description": "Full-featured staffing portal with ATS, job listings, and employer dashboards for a Lithuania-based recruitment agency. Designed all backend APIs and data models.",
+      "role": "Project Manager & Full Stack Developer",
+      "tech": ["Django", "Next.js", "MySQL"],
+      "status": ["Live in production"],
+      "featured": true
+    },
+    {
+      "icon": "fas fa-file-invoice-dollar",
+      "title": "Accounting Software",
+      "badge": "Production",
+      "description": "SMB accounting system: income/expense tracking, invoicing, ledger management, financial reports, and balance sheets.",
+      "role": "Project Manager & Full Stack Developer",
+      "tech": ["Django", "ReactJS", "MySQL"],
+      "status": ["Live & in active use"],
+      "featured": true
+    },
+    {
+      "icon": "fas fa-dumbbell",
+      "title": "Gym Management System",
+      "badge": "Production",
+      "description": "Member registration, subscription billing, attendance tracking, and staff management with full end-to-end ownership.",
+      "role": "Project Manager & Full Stack Developer",
+      "tech": ["Django", "ReactJS", "MySQL"],
+      "status": ["Live in production"],
+      "featured": true
+    },
+    {
+      "icon": "fas fa-chalkboard-teacher",
+      "title": "Training Management System",
+      "badge": "Production",
+      "description": "Institute management platform: course scheduling, student enrolment, attendance tracking, and progress reporting.",
+      "role": "Project Manager & Full Stack Developer",
+      "tech": ["Django", "ReactJS", "MySQL"],
+      "status": ["Live in production"],
+      "featured": true
+    },
+    {
+      "icon": "fas fa-users-cog",
+      "title": "Kiran Restaurant & Dealership CRM",
+      "badge": "Client Project",
+      "description": "Multi-vertical CRM with customer records, sales pipelines, and follow-up workflows for a restaurant and a vehicle dealership client.",
+      "role": "Full Stack Developer",
+      "tech": ["Django", "ReactJS", "MySQL"],
+      "status": ["Delivered"],
+      "featured": true
+    },
+    {
+      "icon": "fas fa-utensils",
+      "title": "OrderUP — Food Delivery App",
+      "badge": "Client Project",
+      "description": "Online ordering system with dynamic menus, real-time cart management, and checkout flow for restaurant clients.",
+      "role": "Full Stack Developer",
+      "tech": ["Node.js", "ReactJS"],
+      "status": ["Delivered"],
+      "featured": true
+    },
+    {
+      "icon": "fas fa-vote-yea",
+      "title": "Electronic Voting System",
+      "badge": "Personal Project",
+      "description": "Secure electronic voting system allowing students to cast votes remotely with an efficient and user-friendly interface.",
+      "role": "Developer",
+      "tech": ["HTML", "CSS", "JavaScript"],
+      "status": ["Completed"],
+      "featured": false
+    },
+    {
+      "icon": "fas fa-tools",
+      "title": "Free Tools Suite",
+      "badge": "Personal Project",
+      "description": "Suite of tools for content creators including caption generators, blog writers, and YouTube tools.",
+      "role": "Developer",
+      "tech": ["ReactJS", "JavaScript", "API"],
+      "status": ["Completed"],
+      "featured": false
+    },
+    {
+      "icon": "fas fa-signature",
+      "title": "E-Signature App",
+      "badge": "Personal Project",
+      "description": "Digital signature solution for online document signing built with modern web technologies.",
+      "role": "Developer",
+      "tech": ["HTML", "CSS", "JavaScript"],
+      "status": ["Completed"],
+      "featured": false
+    }
+  ],
+  "contact": {
+    "email": "janaksanjel12@gmail.com",
+    "phone": "+977 984 074 8285",
+    "location": "Godawari-11, Lalitpur, Nepal",
+    "github": "https://github.com/janaksanjel",
+    "githubLabel": "github.com/janaksanjel",
+    "website": "https://janak.info.np",
+    "websiteLabel": "janak.info.np"
+  },
+  "availability": ["Open to relocation", "Available immediately", "References available on request"],
+  "socials": [
+    { "name": "GitHub", "icon": "fab fa-github", "url": "https://github.com/janaksanjel" },
+    { "name": "Website", "icon": "fas fa-globe", "url": "https://janak.info.np" },
+    { "name": "LinkedIn", "icon": "fab fa-linkedin", "url": "https://linkedin.com/in/janaksanjel" },
+    { "name": "Twitter", "icon": "fab fa-twitter", "url": "https://twitter.com/janaksanjel" },
+    { "name": "Instagram", "icon": "fab fa-instagram", "url": "https://instagram.com/janaksanjel" }
+  ]
+}
