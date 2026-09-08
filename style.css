@@ -2893,7 +2893,7 @@ body {
 /* ================= Responsive ================= */
 @media (max-width: 900px) {
     .window {
-        min-width: 320px;
+        min-width: 0;
     }
 
     .finder-window,
@@ -2937,15 +2937,262 @@ body {
     }
 }
 
+/* ---------- Tablet & below: full-width windows ---------- */
+@media (max-width: 768px) {
+    .window {
+        left: 8px !important;
+        right: 8px;
+        width: calc(100vw - 16px) !important;
+        max-width: calc(100vw - 16px);
+        min-width: 0 !important;
+        min-height: 0 !important;
+        top: 40px !important;
+        height: calc(100dvh - 118px) !important;
+        max-height: calc(100dvh - 118px);
+    }
+
+    .window.maximized {
+        top: 26px !important;
+        height: calc(100dvh - 26px) !important;
+    }
+
+    /* Finder */
+    .finder-body {
+        height: calc(100% - 37px);
+    }
+
+    .finder-sidebar {
+        width: 52px;
+    }
+
+    /* Safari */
+    .brave-content {
+        height: calc(100% - 108px);
+    }
+
+    .tab {
+        min-width: 0;
+        flex: 1;
+        padding: 7px 8px;
+    }
+
+    .tab span {
+        font-size: 11px;
+    }
+
+    .webpage {
+        padding: 20px;
+    }
+
+    .search-container {
+        padding: 10px 12px;
+    }
+
+    /* Portfolio */
+    .portfolio-nav {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .portfolio-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-item {
+        padding: 11px 14px;
+        font-size: 12px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .section {
+        padding: 16px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .profile-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 18px;
+    }
+
+    .skills-grid,
+    .stats-row {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .skill-categories,
+    .projects-grid,
+    .contact-info {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Music */
+    .music-content {
+        padding: 14px;
+    }
+
+    .music-controls {
+        gap: 14px;
+    }
+
+    .music-controls button {
+        font-size: 18px;
+    }
+
+    /* VS Code */
+    .vscode-sidebar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 5;
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+        box-shadow: 6px 0 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .vscode-sidebar.mobile-open {
+        transform: translateX(0);
+    }
+
+    .vscode-activity {
+        z-index: 6;
+    }
+
+    /* Desktop icons */
+    .desktop-icons {
+        top: 8px;
+        right: 8px;
+        gap: 6px;
+    }
+
+    .desktop-icon {
+        width: 72px;
+        padding: 6px 2px;
+    }
+
+    .desktop-icon img,
+    .desktop-icon i {
+        width: 42px;
+        height: 42px;
+        font-size: 36px;
+    }
+
+    .desktop-icon span {
+        font-size: 10px;
+    }
+
+    /* Lock screen */
+    .lockscreen-clock .ls-time {
+        font-size: 64px;
+    }
+
+    .lockscreen-clock .ls-date {
+        font-size: 17px;
+    }
+
+    .lockscreen-avatar {
+        width: 76px;
+        height: 76px;
+    }
+
+    .lockscreen-name {
+        font-size: 17px;
+    }
+
+    .lockscreen-user {
+        bottom: 22%;
+    }
+
+    /* Menubar */
+    .menubar {
+        height: 30px;
+        padding: 0 6px;
+        font-size: 12px;
+    }
+
+    .desktop {
+        top: 30px;
+    }
+
+    .menubar-item {
+        padding: 2px 7px;
+    }
+
+    .menubar-datetime .mb-date {
+        display: none;
+    }
+
+    .apple-dropdown {
+        top: 32px;
+    }
+
+    .control-center {
+        top: 36px;
+        right: 8px;
+        left: 8px;
+        width: auto;
+    }
+
+    /* Dialogs & notifications */
+    .dialog-content,
+    .properties-content {
+        width: calc(100vw - 32px);
+        max-width: 360px;
+    }
+
+    .desktop-notification {
+        left: 12px;
+        right: 12px;
+        min-width: 0;
+    }
+
+    #floating-player {
+        right: 10px;
+        left: 10px;
+        bottom: 84px;
+    }
+
+    .floating-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .floating-title,
+    .floating-artist {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Context menu stays on screen */
+    .context-menu {
+        max-width: calc(100vw - 24px);
+    }
+}
+
+/* ---------- Phones ---------- */
 @media (max-width: 600px) {
     .dock {
         gap: 4px;
         padding: 6px 8px;
+        bottom: 6px;
+        max-width: calc(100vw - 16px);
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .dock::-webkit-scrollbar {
+        display: none;
     }
 
     .dock-item {
         width: 40px;
         height: 40px;
+        flex-shrink: 0;
     }
 
     .dock-item img,
@@ -2955,12 +3202,356 @@ body {
         font-size: 28px;
     }
 
+    .dock-item:hover {
+        transform: none;
+    }
+
+    .dock-separator {
+        height: 36px;
+    }
+
+    .window {
+        top: 36px !important;
+        height: calc(100dvh - 106px) !important;
+        max-height: calc(100dvh - 106px);
+        border-radius: 10px;
+    }
+
+    .window.maximized {
+        top: 30px !important;
+        height: calc(100dvh - 30px) !important;
+    }
+
+    .window-header {
+        padding: 8px 10px;
+    }
+
+    .tl {
+        width: 15px;
+        height: 15px;
+    }
+
+    .traffic-lights {
+        gap: 6px;
+    }
+
+    .window-title span {
+        max-width: 44vw;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 12px;
+    }
+
+    .header-spacer {
+        width: 58px;
+    }
+
     .section {
-        padding: 18px;
+        padding: 14px;
     }
 
     .profile-card {
+        padding: 14px;
+    }
+
+    .profile-photo {
+        width: 68px;
+        height: 68px;
+    }
+
+    .profile-info h3 {
+        font-size: 17px;
+    }
+
+    .skills-grid,
+    .stats-row {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .stat-value {
+        font-size: 18px;
+    }
+
+    .section h2 {
+        font-size: 18px;
+    }
+
+    .qualification-card {
         flex-direction: column;
         text-align: center;
+        gap: 10px;
+    }
+
+    .experience-header {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .experience-info {
+        text-align: center;
+    }
+
+    .experience-highlights {
+        margin-left: 14px;
+    }
+
+    .socials-row,
+    .availability-row {
+        justify-content: center;
+    }
+
+    .contact-item {
+        padding: 12px;
+    }
+
+    .contact-item span {
+        font-size: 12px;
+        word-break: break-all;
+    }
+
+    .quick-links {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .brave-logo h1 {
+        font-size: 20px;
+    }
+
+    .homepage-search {
+        margin-bottom: 24px;
+    }
+
+    .brave-toolbar {
+        padding: 6px 8px;
+        gap: 8px;
+    }
+
+    .address-bar {
+        padding: 6px 10px;
+    }
+
+    .address-bar input {
+        font-size: 12px;
+    }
+
+    .navigation {
+        gap: 0;
+    }
+
+    .nav-btn,
+    .menu-btn {
+        padding: 5px;
+    }
+
+    .music-window .music-content {
+        padding: 12px;
+    }
+
+    .track-cover {
+        width: 52px;
+        height: 52px;
+        font-size: 20px;
+    }
+
+    .music-controls {
+        gap: 12px;
+    }
+
+    .music-controls button {
+        font-size: 16px;
+    }
+
+    .volume-container {
+        flex-wrap: wrap;
+    }
+
+    .volume-container input[type="range"] {
+        width: 100%;
+    }
+
+    .lockscreen-clock .ls-time {
+        font-size: 52px;
+        letter-spacing: -1px;
+    }
+
+    .lockscreen-clock .ls-date {
+        font-size: 15px;
+    }
+
+    .lockscreen-user {
+        bottom: 26%;
+    }
+
+    .lockscreen-signin {
+        padding: 10px 30px;
+        font-size: 15px;
+    }
+
+    .lockscreen-hint {
+        font-size: 11px;
+        padding: 0 20px;
+        text-align: center;
+    }
+
+    .cc-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .vscode-welcome h1 {
+        font-size: 20px;
+    }
+
+    .vscode-welcome-keys {
+        display: none;
+    }
+
+    .vscode-statusbar {
+        font-size: 10px;
+    }
+}
+
+/* ---------- Very small phones ---------- */
+@media (max-width: 380px) {
+    .dock-item {
+        width: 36px;
+        height: 36px;
+    }
+
+    .dock-item img,
+    .dock-item i {
+        width: 30px;
+        height: 30px;
+        font-size: 24px;
+    }
+
+    .desktop-icon {
+        width: 62px;
+    }
+
+    .skills-grid,
+    .stats-row {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    .ls-time {
+        font-size: 44px !important;
+    }
+}
+
+/* ---------- Landscape phones ---------- */
+@media (max-height: 480px) and (orientation: landscape) {
+    .window {
+        top: 34px !important;
+        height: calc(100dvh - 96px) !important;
+        max-height: calc(100dvh - 96px);
+    }
+
+    .window.maximized {
+        height: calc(100dvh - 26px) !important;
+    }
+
+    .dock {
+        bottom: 2px;
+        padding: 4px 8px;
+    }
+
+    .dock-item {
+        width: 34px;
+        height: 34px;
+    }
+
+    .dock-item img,
+    .dock-item i {
+        width: 28px;
+        height: 28px;
+        font-size: 24px;
+    }
+
+    .lockscreen-clock .ls-time {
+        font-size: 44px;
+    }
+
+    .lockscreen-user {
+        bottom: 12%;
+    }
+
+    .desktop-icons {
+        flex-direction: row;
+        top: 6px;
+        right: 8px;
+    }
+
+    .desktop-icon {
+        width: 60px;
+        padding: 4px 2px;
+    }
+
+    .desktop-icon img,
+    .desktop-icon i {
+        width: 32px;
+        height: 32px;
+        font-size: 28px;
+    }
+}
+
+/* ---------- Touch friendliness ---------- */
+@media (pointer: coarse) {
+    .tl {
+        width: 16px;
+        height: 16px;
+    }
+
+    .traffic-lights {
+        gap: 8px;
+    }
+
+    .sidebar-item,
+    .apple-dd-item,
+    .context-item,
+    .dock-item,
+    .nav-item,
+    .tab {
+        min-height: 40px;
+    }
+
+    .sidebar-item {
+        padding: 8px;
+    }
+
+    .toolbar-btn,
+    .finder-nav-btn,
+    .nav-btn,
+    .menu-btn,
+    .tab-close {
+        min-width: 36px;
+        min-height: 36px;
+    }
+
+    .dock-item:hover {
+        transform: none;
+    }
+
+    .dock-item::after {
+        display: none;
+    }
+
+    input,
+    select,
+    textarea {
+        font-size: 16px;
+    }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }

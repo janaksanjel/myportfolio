@@ -8,6 +8,7 @@ let activeWindow = null;
 let isDragging = false;
 let dragOffset = { x: 0, y: 0 };
 let selectedIcon = null;
+let touchDragState = { active: false, win: null, offsetX: 0, offsetY: 0 };
 
 // ------------------------------------------------------------
 // Virtual file system for Finder
@@ -975,6 +976,16 @@ function openNotepadWindow(fileName, content, fileRef) {
     }
 
     if (notepadWindow) {
+        if (isMobileDevice() && !notepadWindow.classList.contains('maximized')) {
+            notepadWindow.dataset.originalRect = JSON.stringify({
+                top: notepadWindow.style.top || '',
+                left: notepadWindow.style.left || '',
+                width: notepadWindow.style.width || '',
+                height: notepadWindow.style.height || '',
+                transform: ''
+            });
+            notepadWindow.classList.add('maximized');
+        }
         notepadWindow.classList.add('active');
         notepadWindow.style.display = 'block';
         bringToFront(notepadWindow);
@@ -1766,6 +1777,16 @@ const vscodeExts = [
 function openVSCode() {
     const win = document.getElementById('vscode-window');
     if (!win) return;
+    if (isMobileDevice() && !win.classList.contains('maximized')) {
+        win.dataset.originalRect = JSON.stringify({
+            top: win.style.top || '',
+            left: win.style.left || '',
+            width: win.style.width || '',
+            height: win.style.height || '',
+            transform: ''
+        });
+        win.classList.add('maximized');
+    }
     win.style.display = 'block';
     bringToFront(win);
     activeWindow = win;
@@ -2111,7 +2132,22 @@ function initVSCodeUI() {
             } else if (view === 'extensions') {
                 vscodeShowExtensions();
             }
+            // On mobile, tapping an activity-bar icon opens the side panel as an overlay
+            if (isMobileDevice()) {
+                const sb = document.getElementById('vscode-sidebar');
+                if (sb && btn.classList.contains('active')) sb.classList.add('mobile-open');
+            }
         });
+    });
+
+    // Tap outside closes the mobile side-panel overlay
+    document.addEventListener('click', function (e) {
+        if (!isMobileDevice()) return;
+        const sb = document.getElementById('vscode-sidebar');
+        if (!sb || !sb.classList.contains('mobile-open')) return;
+        if (!e.target.closest('.vscode-sidebar') && !e.target.closest('.vscode-act-btn')) {
+            sb.classList.remove('mobile-open');
+        }
     });
 
     // Terminal toggle (Ctrl + `)
@@ -2384,3 +2420,97 @@ function vscodeSetStatusRight(text) {
     const el = document.getElementById('vscode-status-right');
     if (el) el.textContent = text;
 }
+
+// ------------------------------------------------------------
+// Mobile / touch support
+// ------------------------------------------------------------
+
+function isMobileDevice() {
+    return window.matchMedia('(max-width: 768px)').matches ||
+        (('ontouchstart' in window || navigator.maxTouchPoints > 0) &&
+            window.matchMedia('(pointer: coarse)').matches);
+}
+
+// On mobile, always open windows maximized (full-screen style)
+const _origOpenWindow = openWindow;
+openWindow = function (appName) {
+    if (isMobileDevice()) {
+        const id = appName === 'recycle' ? 'recycle-window' : appName + '-window';
+        const win = document.getElementById(id);
+        if (win && !win.classList.contains('maximized')) {
+            win.dataset.originalRect = JSON.stringify({
+                top: win.style.top || '',
+                left: win.style.left || '',
+                width: win.style.width || '',
+                height: win.style.height || '',
+                transform: ''
+            });
+            win.classList.add('maximized');
+        }
+    }
+    _origOpenWindow(appName);
+};
+
+const _origOpenFinder = openFinder;
+openFinder = function () {
+    if (isMobileDevice()) {
+        const win = document.getElementById('finder-window');
+        if (win && !win.classList.contains('maximized')) {
+            win.dataset.originalRect = JSON.stringify({
+                top: win.style.top || '',
+                left: win.style.left || '',
+                width: win.style.width || '',
+                height: win.style.height || '',
+                transform: ''
+            });
+            win.classList.add('maximized');
+        }
+    }
+    _origOpenFinder();
+};
+
+// Touch drag for window headers (when not maximized)
+document.addEventListener('touchstart', function (e) {
+    const header = e.target.closest('.window-header');
+    if (!header || header.closest('.vscode-header')) return;
+    const win = header.closest('.window');
+    if (!win || win.classList.contains('maximized')) return;
+    const t = e.touches[0];
+    touchDragState.win = win;
+    touchDragState.offsetX = t.clientX - win.getBoundingClientRect().left;
+    touchDragState.offsetY = t.clientY - win.getBoundingClientRect().top;
+    touchDragState.active = true;
+    bringToFront(win);
+    activeWindow = win;
+}, { passive: true });
+
+document.addEventListener('touchmove', function (e) {
+    if (!touchDragState.active || !touchDragState.win) return;
+    e.preventDefault();
+    const t = e.touches[0];
+    const win = touchDragState.win;
+    const maxX = window.innerWidth - win.offsetWidth;
+    const maxY = window.innerHeight - win.offsetHeight - 90;
+    win.style.left = Math.max(-win.offsetWidth + 80, Math.min(t.clientX - touchDragState.offsetX, maxX)) + 'px';
+    win.style.top = Math.max(26, Math.min(t.clientY - touchDragState.offsetY, maxY)) + 'px';
+}, { passive: false });
+
+document.addEventListener('touchend', function () {
+    touchDragState.active = false;
+    touchDragState.win = null;
+});
+
+// Keep maximized windows correct on rotate / resize
+let _mobileResizeTimer;
+window.addEventListener('resize', function () {
+    if (!isMobileDevice()) return;
+    clearTimeout(_mobileResizeTimer);
+    _mobileResizeTimer = setTimeout(function () {
+        document.querySelectorAll('.window.maximized').forEach(function (w) {
+            w.style.top = '';
+            w.style.left = '';
+            w.style.width = '';
+            w.style.height = '';
+        });
+    }, 200);
+});
