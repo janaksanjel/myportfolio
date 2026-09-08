@@ -364,6 +364,66 @@
         </div>
       </div>
 
+      <!-- VS Code Window -->
+      <div class="window vscode-window" id="vscode-window" style="display: none;">
+        <div class="window-header vscode-header">
+          <div class="traffic-lights">
+            <button class="tl close"></button>
+            <button class="tl minimize"></button>
+            <button class="tl maximize"></button>
+          </div>
+          <div class="window-title">
+            <img src="./img/vscode.png" alt="VS Code" class="window-icon" />
+            <span>Visual Studio Code</span>
+          </div>
+          <div class="header-spacer"></div>
+        </div>
+        <div class="vscode-body">
+          <div class="vscode-activity">
+            <div class="vscode-act-btn active" data-view="explorer" title="Explorer"><i class="far fa-copy"></i></div>
+            <div class="vscode-act-btn" data-view="search" title="Search"><i class="fas fa-search"></i></div>
+            <div class="vscode-act-btn" data-view="run" title="Run and Debug"><i class="fas fa-play"></i></div>
+            <div class="vscode-act-btn" data-view="extensions" title="Extensions"><i class="fas fa-cubes"></i></div>
+          </div>
+          <div class="vscode-sidebar" id="vscode-sidebar">
+            <div class="vscode-side-title">EXPLORER</div>
+            <div class="vscode-tree" id="vscode-tree"></div>
+          </div>
+          <div class="vscode-main">
+            <div class="vscode-tabs" id="vscode-tabs">
+              <div class="vscode-welcome-tabs-hint">No editors open</div>
+            </div>
+            <div class="vscode-editor-area" id="vscode-editor-area">
+              <div class="vscode-welcome">
+                <img src="./img/vscode.png" alt="VS Code" />
+                <h1>Visual Studio Code</h1>
+                <p>Web Edition — Janak Sanjel's workspace</p>
+                <div class="vscode-welcome-keys">
+                  <div><span>Open a file</span><kbd>Click a file in the Explorer</kbd></div>
+                  <div><span>Terminal</span><kbd>Ctrl + `</kbd></div>
+                  <div><span>Command Palette</span><kbd>Ctrl + Shift + P</kbd></div>
+                </div>
+              </div>
+            </div>
+            <div class="vscode-terminal" id="vscode-terminal" style="display: none;">
+              <div class="vscode-terminal-header">
+                <span><i class="fas fa-terminal"></i> TERMINAL</span>
+                <button id="vscode-term-close" title="Close terminal"><i class="fas fa-times"></i></button>
+              </div>
+              <div class="vscode-terminal-output" id="vscode-term-output"></div>
+              <div class="vscode-terminal-input-row">
+                <span class="vscode-prompt">janak@mac ~ %</span>
+                <input type="text" id="vscode-term-input" autocomplete="off" spellcheck="false" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="vscode-statusbar">
+          <span id="vscode-status-left">Ready</span>
+          <span id="vscode-status-right">UTF-8 · Ln 1, Col 1</span>
+        </div>
+      </div>
+
       <!-- Notepad (TextEdit) Window template target -->
       <div id="dynamic-windows"></div>
 

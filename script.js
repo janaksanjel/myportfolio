@@ -448,7 +448,7 @@ function openWindow(appName) {
         return;
     }
     if (appName === 'vscode') {
-        showNotification('VS Code is not installed on this Mac', 'fas fa-code');
+        openVSCode();
         return;
     }
 
@@ -567,7 +567,8 @@ function updateMenubarAppName(win) {
         'portfolio-window': 'Portfolio',
         'music-window': 'Music',
         'recycle-window': 'Trash',
-        'about-window': 'Finder'
+        'about-window': 'Finder',
+        'vscode-window': 'Visual Studio Code'
     };
     el.textContent = names[win.id] || 'Finder';
 }
@@ -1643,6 +1644,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const lock = document.getElementById('lockscreen');
     if (!lock) return;
 
+    // Auto request fullscreen when lock screen is visible
+    function requestLockFullscreen() {
+        const el = document.documentElement;
+        const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+        if (req && !document.fullscreenElement && !document.webkitFullscreenElement) {
+            try {
+                const p = req.call(el);
+                if (p && p.catch) p.catch(() => {});
+            } catch (err) {
+                /* fullscreen not allowed yet */
+            }
+        }
+    }
+    requestLockFullscreen();
+    // Browsers block fullscreen without a user gesture, so also try on
+    // the first interaction while the lock screen is showing.
+    document.addEventListener('click', requestLockFullscreen, { once: true });
+    document.addEventListener('keydown', requestLockFullscreen, { once: true });
+
     const timeEl = lock.querySelector('.ls-time');
     const dateEl = lock.querySelector('.ls-date');
 
@@ -1661,6 +1681,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function unlockDesktop() {
         lock.classList.add('hidden');
         setTimeout(() => lock.remove(), 700);
+        // Fullscreen is kept for the whole website (see enterSiteFullscreen below)
     }
 
     lock.addEventListener('click', function() {
@@ -1686,3 +1707,680 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 })();
+
+// ------------------------------------------------------------
+// Fullscreen for the whole website (not just the lock screen)
+// ------------------------------------------------------------
+function enterSiteFullscreen() {
+    const el = document.documentElement;
+    const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+    if (req && !document.fullscreenElement && !document.webkitFullscreenElement) {
+        try {
+            const p = req.call(el);
+            if (p && p.catch) p.catch(() => {});
+        } catch (err) {
+            /* fullscreen not allowed yet */
+        }
+    }
+}
+
+// Try immediately on load (works if the browser already granted permission,
+// e.g. after a reload in the same tab).
+document.addEventListener('DOMContentLoaded', enterSiteFullscreen);
+
+// Browsers require a user gesture for fullscreen, so also trigger on the
+// first click or keypress anywhere on the site.
+document.addEventListener('click', enterSiteFullscreen, { once: true });
+document.addEventListener('keydown', enterSiteFullscreen, { once: true });
+
+// If the user leaves fullscreen (Esc or F11), re-enter on their next click/keypress.
+document.addEventListener('fullscreenchange', function() {
+    if (!document.fullscreenElement) {
+        document.addEventListener('click', enterSiteFullscreen, { once: true });
+        document.addEventListener('keydown', enterSiteFullscreen, { once: true });
+    }
+});
+
+// ============================================================
+// VS Code — fully working web edition
+// Explorer (real Finder FS), tabs, syntax-highlighted editor,
+// search, run, extensions, terminal with commands, status bar.
+// ============================================================
+const vscodeState = {
+    openTabs: [],      // { id, name, content, dirty }
+    activeTabId: null,
+    expanded: {},      // folderId -> bool
+    selectedId: null,
+    initialized: false
+};
+
+const vscodeExts = [
+    { name: 'Python', desc: 'IntelliSense, linting, debugging for Python', icon: 'fab fa-python', color: '#3572A5', meta: 'Microsoft · Installed' },
+    { name: 'Java Extension Pack', desc: 'Java language support for VS Code', icon: 'fab fa-java', color: '#b07219', meta: 'Microsoft · Installed' },
+    { name: 'Django', desc: 'Django template & ORM snippets', icon: 'fas fa-database', color: '#0c4b33', meta: 'Baptiste Darthenay · Installed' },
+    { name: 'Prettier', desc: 'Code formatter using prettier', icon: 'fas fa-align-left', color: '#1a2b34', meta: 'Prettier · Installed' },
+    { name: 'GitLens', desc: 'Supercharge Git in VS Code', icon: 'fab fa-git-alt', color: '#f14e32', meta: 'GitKraken · Available' },
+    { name: 'Live Share', desc: 'Real-time collaborative editing', icon: 'fas fa-users', color: '#5c2d91', meta: 'Microsoft · Available' }
+];
+
+function openVSCode() {
+    const win = document.getElementById('vscode-window');
+    if (!win) return;
+    win.style.display = 'block';
+    bringToFront(win);
+    activeWindow = win;
+    updateDockState();
+    updateMenubarAppName(win);
+    if (!vscodeState.initialized) {
+        vscodeState.initialized = true;
+        renderVSCodeTree();
+        initVSCodeUI();
+    }
+}
+
+// ---------- Explorer tree (reads the same virtual FS as Finder) ----------
+function vscodeCollectFiles() {
+    const files = [];
+    function walk(node, path) {
+        (node.children || []).forEach(child => {
+            const p = path ? path + '/' + child.name : child.name;
+            if (child.type === 'folder') walk(child, p);
+            else files.push({ node: child, path: p });
+        });
+    }
+    Object.values(finderFS).forEach(node => {
+        if (node && node.children) walk(node, node.id);
+    });
+    return files;
+}
+
+function vscodeFindNode(id) {
+    let found = null;
+    function walk(node) {
+        if (found) return;
+        if (node.id === id) { found = node; return; }
+        (node.children || []).forEach(walk);
+    }
+    Object.values(finderFS).forEach(node => {
+        if (node && node.children) walk(node);
+    });
+    return found;
+}
+
+function vscodeDisplayName(id) {
+    const f = vscodeCollectFiles().find(x => x.node.id === id);
+    return f ? f.path : (vscodeFindNode(id) || {}).name || id;
+}
+
+function vscodeFileIcon(node) {
+    const n = node.name.toLowerCase();
+    if (n.endsWith('.html')) return 'fab fa-html5';
+    if (n.endsWith('.css')) return 'fab fa-css3-alt';
+    if (n.endsWith('.js')) return 'fab fa-js';
+    if (n.endsWith('.py')) return 'fab fa-python';
+    if (n.endsWith('.java')) return 'fab fa-java';
+    if (n.endsWith('.sql')) return 'fas fa-database';
+    if (n.endsWith('.md')) return 'fab fa-markdown';
+    if (n.endsWith('.json')) return 'fas fa-brackets-curly';
+    if (n.includes('.txt') || n.endsWith('.notes')) return 'far fa-file-alt';
+    return node.icon || 'far fa-file-alt';
+}
+
+function renderVSCodeTree() {
+    const tree = document.getElementById('vscode-tree');
+    if (!tree) return;
+    tree.innerHTML = '';
+    Object.values(finderFS).forEach(node => {
+        if (node && node.children) tree.appendChild(vscodeBuildNode(node, 0));
+    });
+}
+
+function vscodeBuildNode(node, depth) {
+    const row = document.createElement('div');
+    row.className = 'vscode-tree-item ' + node.type;
+    row.dataset.id = node.id;
+    row.style.paddingLeft = (12 + depth * 14) + 'px';
+    if (vscodeState.selectedId === node.id) row.classList.add('selected');
+
+    const twisty = document.createElement('span');
+    twisty.className = 'twisty';
+    twisty.textContent = node.type === 'folder' ? (vscodeState.expanded[node.id] ? '▾' : '▸') : '';
+    row.appendChild(twisty);
+
+    const icon = document.createElement('i');
+    icon.className = node.type === 'folder' ? 'fas fa-folder' : vscodeFileIcon(node);
+    row.appendChild(icon);
+
+    const label = document.createElement('span');
+    label.textContent = node.name;
+    row.appendChild(label);
+
+    row.addEventListener('click', function(e) {
+        e.stopPropagation();
+        document.querySelectorAll('.vscode-tree-item.selected').forEach(el => el.classList.remove('selected'));
+        row.classList.add('selected');
+        vscodeState.selectedId = node.id;
+        if (node.type === 'folder') {
+            vscodeState.expanded[node.id] = !vscodeState.expanded[node.id];
+            renderVSCodeTree();
+        } else {
+            vscodeOpenFile(node.id);
+        }
+    });
+
+    if (node.type === 'folder' && vscodeState.expanded[node.id]) {
+        const frag = document.createDocumentFragment();
+        frag.appendChild(row);
+        (node.children || []).forEach(child => frag.appendChild(vscodeBuildNode(child, depth + 1)));
+        return frag;
+    }
+    return row;
+}
+
+// ---------- Tabs + editor ----------
+function vscodeOpenFile(id) {
+    const node = vscodeFindNode(id);
+    if (!node) return;
+    let tab = vscodeState.openTabs.find(t => t.id === id);
+    if (!tab) {
+        tab = { id: id, name: node.name, content: node.content || '', dirty: false };
+        vscodeState.openTabs.push(tab);
+    }
+    vscodeState.activeTabId = id;
+    vscodeRenderTabs();
+    vscodeRenderEditor(tab);
+    vscodeSetStatus('Opened ' + vscodeDisplayName(id));
+}
+
+function vscodeRenderTabs() {
+    const bar = document.getElementById('vscode-tabs');
+    if (!bar) return;
+    bar.innerHTML = '';
+    if (!vscodeState.openTabs.length) {
+        const hint = document.createElement('div');
+        hint.className = 'vscode-welcome-tabs-hint';
+        hint.textContent = 'No editors open';
+        bar.appendChild(hint);
+        return;
+    }
+    vscodeState.openTabs.forEach(tab => {
+        const el = document.createElement('div');
+        el.className = 'vscode-tab' + (tab.id === vscodeState.activeTabId ? ' active' : '');
+        const icon = document.createElement('i');
+        icon.className = vscodeFileIcon(vscodeFindNode(tab.id) || { name: tab.name });
+        el.appendChild(icon);
+        const name = document.createElement('span');
+        name.textContent = (tab.dirty ? '● ' : '') + tab.name;
+        el.appendChild(name);
+        const close = document.createElement('button');
+        close.className = 'vscode-tab-close';
+        close.textContent = '×';
+        close.addEventListener('click', function(e) {
+            e.stopPropagation();
+            vscodeCloseTab(tab.id);
+        });
+        el.appendChild(close);
+        el.addEventListener('click', function() {
+            vscodeState.activeTabId = tab.id;
+            vscodeRenderTabs();
+            vscodeRenderEditor(tab);
+        });
+        bar.appendChild(el);
+    });
+}
+
+function vscodeRenderEditor(tab) {
+    const area = document.getElementById('vscode-editor-area');
+    if (!area) return;
+    area.innerHTML = '';
+    if (!tab) {
+        area.innerHTML = vscodeWelcomeHTML();
+        return;
+    }
+    const editor = document.createElement('div');
+    editor.className = 'vscode-editor active';
+    const code = document.createElement('div');
+    code.className = 'vscode-code';
+    code.contentEditable = 'true';
+    code.spellcheck = false;
+    vscodeRebuildRows(code, tab);
+    editor.appendChild(code);
+    area.appendChild(editor);
+
+    // Live editing: caret-offset based, then rebuild rows + re-highlight
+    code.addEventListener('beforeinput', function(e) {
+        const supported = ['insertText', 'insertParagraph', 'insertLineBreak', 'insertFromPaste', 'deleteContentBackward', 'deleteContentForward'];
+        if (!supported.includes(e.inputType)) { e.preventDefault(); return; }
+        e.preventDefault();
+        const offset = vscodeGetCaretOffset(code);
+        let newOffset = offset;
+        let edited = true;
+        if (e.inputType === 'insertText' && e.data) {
+            tab.content = tab.content.slice(0, offset) + e.data + tab.content.slice(offset);
+            newOffset = offset + e.data.length;
+        } else if (e.inputType === 'insertParagraph' || e.inputType === 'insertLineBreak') {
+            tab.content = tab.content.slice(0, offset) + '\n' + tab.content.slice(offset);
+            newOffset = offset + 1;
+        } else if (e.inputType === 'insertFromPaste' && e.dataTransfer) {
+            const text = e.dataTransfer.getData('text/plain') || '';
+            tab.content = tab.content.slice(0, offset) + text + tab.content.slice(offset);
+            newOffset = offset + text.length;
+        } else if (e.inputType === 'deleteContentBackward' && offset > 0) {
+            tab.content = tab.content.slice(0, offset - 1) + tab.content.slice(offset);
+            newOffset = offset - 1;
+        } else if (e.inputType === 'deleteContentForward' && offset < tab.content.length) {
+            tab.content = tab.content.slice(0, offset) + tab.content.slice(offset + 1);
+            newOffset = offset;
+        } else {
+            edited = false;
+        }
+        if (!edited) return;
+        tab.dirty = true;
+        vscodeRebuildRows(code, tab);
+        vscodeSetCaretOffset(code, newOffset);
+        vscodePersistTab(tab);
+        vscodeUpdateTabLabel(tab);
+        const file = vscodeCollectFiles().find(x => x.node.id === tab.id);
+        const before = tab.content.slice(0, newOffset);
+        const ln = before.split('\n').length;
+        const col = newOffset - before.lastIndexOf('\n') ;
+        vscodeSetStatusRight((file ? file.path : tab.name) + ' · Ln ' + ln + ', Col ' + col);
+    });
+
+    const file = vscodeCollectFiles().find(x => x.node.id === tab.id);
+    vscodeSetStatusRight((file ? file.path : tab.name) + ' · Ln 1, Col 1');
+}
+
+function vscodeWelcomeHTML() {
+    return `\n                <img src="./img/vscode.png" alt="VS Code" />\n                <h1>Visual Studio Code</h1>\n                <p>Web Edition — Janak Sanjel's workspace</p>\n                <div class="vscode-welcome-keys">\n                  <div><span>Open a file</span><kbd>Click a file in the Explorer</kbd></div>\n                  <div><span>Terminal</span><kbd>Ctrl + \`</kbd></div>\n                  <div><span>Command Palette</span><kbd>Ctrl + Shift + P</kbd></div>\n                </div>\n              `;
+}
+
+function vscodeRebuildRows(code, tab) {
+    code.innerHTML = '';
+    tab.content.split('\n').forEach((line, i) => {
+        const rowEl = document.createElement('div');
+        rowEl.className = 'vscode-code-line';
+        const no = document.createElement('span');
+        no.className = 'vscode-line-no';
+        no.textContent = i + 1;
+        const src = document.createElement('span');
+        src.className = 'vscode-line-code';
+        src.innerHTML = vscodeHighlight(line) || '&nbsp;';
+        rowEl.appendChild(no);
+        rowEl.appendChild(src);
+        code.appendChild(rowEl);
+    });
+}
+
+function vscodeGetCaretOffset(root) {
+    const sel = window.getSelection();
+    if (!sel || !sel.rangeCount) return 0;
+    const range = sel.getRangeAt(0);
+    if (!root.contains(range.startContainer)) return 0;
+    const pre = document.createRange();
+    pre.selectNodeContents(root);
+    pre.setEnd(range.startContainer, range.startOffset);
+    return pre.toString().length;
+}
+
+function vscodeSetCaretOffset(root, offset) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    let remaining = offset, node;
+    while ((node = walker.nextNode())) {
+        if (remaining <= node.length) {
+            const sel = window.getSelection();
+            const range = document.createRange();
+            try {
+                range.setStart(node, remaining);
+            } catch (err) {
+                range.setStart(node, node.length);
+            }
+            range.collapse(true);
+            sel.removeAllRanges();
+            sel.addRange(range);
+            return;
+        }
+        remaining -= node.length;
+    }
+}
+
+function vscodeUpdateTabLabel(tab) {
+    const bar = document.getElementById('vscode-tabs');
+    if (!bar) return;
+    const active = bar.querySelector('.vscode-tab.active span');
+    if (active) active.textContent = (tab.dirty ? '● ' : '') + tab.name;
+}
+
+function vscodeCloseTab(id) {
+    const idx = vscodeState.openTabs.findIndex(t => t.id === id);
+    if (idx === -1) return;
+    vscodeState.openTabs.splice(idx, 1);
+    if (vscodeState.activeTabId === id) {
+        const next = vscodeState.openTabs[idx] || vscodeState.openTabs[idx - 1];
+        vscodeState.activeTabId = next ? next.id : null;
+    }
+    vscodeRenderTabs();
+    const active = vscodeState.openTabs.find(t => t.id === vscodeState.activeTabId);
+    vscodeRenderEditor(active || null);
+}
+
+function vscodePersistTab(tab) {
+    const node = vscodeFindNode(tab.id);
+    if (node) {
+        node.content = tab.content;
+        fileSystem.save();
+        saveUserFS();
+    }
+}
+
+// ---------- Lightweight syntax highlighting ----------
+function vscodeHighlight(line) {
+    const esc = line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const parts = [];
+    // Order matters: comments, strings, then keywords/numbers on the rest
+    const re = /(\/\/.*$|#(?![^\[]*\]).*$|\/\*.*?\*\/)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`)|(\b(?:const|let|var|function|return|if|else|for|while|class|import|from|export|default|new|await|async|def|self|None|True|False|print|public|private|static|void|int|String|boolean|SELECT|FROM|WHERE|INSERT|UPDATE|DELETE|CREATE|TABLE|JOIN|ON|AS)\b)|(\b\d+(?:\.\d+)?\b)/gi;
+    let last = 0, m;
+    while ((m = re.exec(esc)) !== null) {
+        if (m.index > last) parts.push({ t: esc.slice(last, m.index), c: null });
+        let cls = null;
+        if (m[1] !== undefined) cls = 'tok-com';
+        else if (m[2] !== undefined) cls = 'tok-str';
+        else if (m[3] !== undefined) cls = 'tok-key';
+        else if (m[4] !== undefined) cls = 'tok-num';
+        parts.push({ t: m[0], c: cls });
+        last = m.index + m[0].length;
+        if (m[0].length === 0) re.lastIndex++;
+    }
+    if (last < esc.length) parts.push({ t: esc.slice(last), c: null });
+    return parts.map(p => p.c ? '<span class="' + p.c + '">' + p.t + '</span>' : p.t).join('');
+}
+
+// ---------- Activity bar panels (search / run / extensions) ----------
+function initVSCodeUI() {
+    document.querySelectorAll('.vscode-act-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.vscode-act-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const view = btn.dataset.view;
+            if (view === 'explorer') {
+                vscodeShowExplorer();
+            } else if (view === 'search') {
+                vscodeShowSearch();
+            } else if (view === 'run') {
+                vscodeShowRun();
+            } else if (view === 'extensions') {
+                vscodeShowExtensions();
+            }
+        });
+    });
+
+    // Terminal toggle (Ctrl + `)
+    document.addEventListener('keydown', function(e) {
+        const win = document.getElementById('vscode-window');
+        if (!win || win.style.display === 'none') return;
+        if (e.ctrlKey && e.key === '`') {
+            e.preventDefault();
+            vscodeToggleTerminal();
+        }
+    });
+
+    const termClose = document.getElementById('vscode-term-close');
+    if (termClose) termClose.addEventListener('click', vscodeToggleTerminal);
+
+    const termInput = document.getElementById('vscode-term-input');
+    if (termInput) {
+        termInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                vscodeRunCommand(this.value);
+                this.value = '';
+            }
+        });
+    }
+
+    // Clicking editor area hides side panels
+    const area = document.getElementById('vscode-editor-area');
+    if (area) {
+        area.addEventListener('mousedown', function() {
+            const panel = area.querySelector('.vscode-panel');
+            if (panel) {
+                panel.remove();
+                document.querySelectorAll('.vscode-act-btn').forEach(b => b.classList.remove('active'));
+            }
+        });
+    }
+}
+
+function vscodeShowExplorer() {
+    const sb = document.getElementById('vscode-sidebar');
+    if (!sb) return;
+    sb.style.display = '';
+    // Rebuild sidebar markup (search/run/extensions panels replace it)
+    sb.innerHTML = '<div class="vscode-side-title">EXPLORER</div><div class="vscode-tree" id="vscode-tree"></div>';
+    renderVSCodeTree();
+    const area = document.getElementById('vscode-editor-area');
+    const panel = area && area.querySelector('.vscode-panel');
+    if (panel) panel.remove();
+    document.querySelectorAll('.vscode-act-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.view === 'explorer');
+    });
+}
+
+function vscodeShowSearch() {
+    const sb = document.getElementById('vscode-sidebar');
+    if (!sb) return;
+    sb.style.display = '';
+    sb.innerHTML = `
+        <div class="vscode-side-title">SEARCH</div>
+        <div class="vscode-panel">
+            <input type="text" id="vscode-search-input" placeholder="Search files..." />
+            <div id="vscode-search-results"><span class="muted">Type to search across all files</span></div>
+        </div>`;
+    const input = document.getElementById('vscode-search-input');
+    if (input) {
+        input.addEventListener('input', function() {
+            vscodeDoSearch(this.value);
+        });
+        input.focus();
+    }
+}
+
+function vscodeDoSearch(q) {
+    const box = document.getElementById('vscode-search-results');
+    if (!box) return;
+    box.innerHTML = '';
+    if (!q.trim()) {
+        box.innerHTML = '<span class="muted">Type to search across all files</span>';
+        return;
+    }
+    const needle = q.toLowerCase();
+    let count = 0;
+    vscodeCollectFiles().forEach(f => {
+        const hay = ((f.node.name || '') + ' ' + (f.node.content || '')).toLowerCase();
+        const idx = hay.indexOf(needle);
+        if (idx === -1 || count >= 30) return;
+        count++;
+        const row = document.createElement('div');
+        row.className = 'vscode-search-result';
+        const snippet = ((f.node.content || '').replace(/\s+/g, ' ') || f.node.name);
+        const at = snippet.toLowerCase().indexOf(needle);
+        let html = vscodeEsc(snippet.slice(Math.max(0, at - 20), at + needle.length + 30));
+        html = html.replace(new RegExp(vscodeEsc(q).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'ig'), m => '<mark>' + m + '</mark>');
+        row.innerHTML = '<i class="' + vscodeFileIcon(f.node) + '"></i> <strong>' + vscodeEsc(f.node.name) + '</strong><br><small class="muted">' + f.path + '</small><br>' + html;
+        row.addEventListener('click', function() {
+            vscodeOpenFile(f.node.id);
+        });
+        box.appendChild(row);
+    });
+    if (!count) box.innerHTML = '<span class="muted">No results found</span>';
+}
+
+function vscodeShowRun() {
+    const sb = document.getElementById('vscode-sidebar');
+    if (!sb) return;
+    sb.style.display = '';
+    sb.innerHTML = `
+        <div class="vscode-side-title">RUN AND DEBUG</div>
+        <div class="vscode-panel">
+            <p class="muted">Run and Debug</p>
+            <p class="muted" style="font-size:12px;">To customize Run and Debug, create a launch.json file.</p>
+            <button class="vscode-run-btn" id="vscode-run-btn"><i class="fas fa-play"></i> Run active file</button>
+            <div id="vscode-run-out" class="muted" style="margin-top:10px; font-size:12px;"></div>
+        </div>`;
+    const btn = document.getElementById('vscode-run-btn');
+    if (btn) btn.addEventListener('click', vscodeRunActiveFile);
+}
+
+function vscodeRunActiveFile() {
+    const out = document.getElementById('vscode-run-out');
+    const tab = vscodeState.openTabs.find(t => t.id === vscodeState.activeTabId);
+    if (!out) return;
+    if (!tab) {
+        out.innerHTML = '<span class="t-err">No file is open in the editor.</span>';
+        return;
+    }
+    const name = tab.name.toLowerCase();
+    vscodeToggleTerminal(true);
+    if (name.endsWith('.py')) {
+        vscodeTermPrint('$ python ' + tab.name, 't-dim');
+        vscodeTermPrint('Hello from ' + tab.name + ' — Python runtime (simulated)', 't-ok');
+    } else if (name.endsWith('.js')) {
+        vscodeTermPrint('$ node ' + tab.name, 't-dim');
+        vscodeTermPrint('Node.js v22 — script finished (simulated)', 't-ok');
+    } else if (name.endsWith('.html')) {
+        vscodeTermPrint('$ open ' + tab.name, 't-dim');
+        vscodeTermPrint('Preview: open it in Safari from the Dock for the real page.', 't-ok');
+    } else {
+        vscodeTermPrint('$ ' + tab.name, 't-dim');
+        vscodeTermPrint('No runtime available for this file type.', 't-err');
+    }
+    vscodeSetStatus('Debug session started');
+}
+
+function vscodeShowExtensions() {
+    const sb = document.getElementById('vscode-sidebar');
+    if (!sb) return;
+    sb.style.display = '';
+    sb.innerHTML = `
+        <div class="vscode-side-title">EXTENSIONS</div>
+        <div class="vscode-panel" style="padding:0 8px;">${vscodeExts.map(ext => `
+            <div class="vscode-ext-item">
+                <div class="ext-icon"><i class="${ext.icon}" style="color:${ext.color};"></i></div>
+                <div>
+                    <div class="ext-name">${ext.name}</div>
+                    <div class="ext-desc">${ext.desc}</div>
+                    <div class="ext-meta">${ext.meta}</div>
+                </div>
+            </div>`).join('')}
+        </div>`;
+}
+
+// ---------- Terminal ----------
+function vscodeToggleTerminal(forceOpen) {
+    const term = document.getElementById('vscode-terminal');
+    if (!term) return;
+    const show = forceOpen === true ? true : term.style.display === 'none';
+    term.style.display = show ? 'flex' : 'none';
+    if (show) {
+        const out = document.getElementById('vscode-term-output');
+        if (out && !out.dataset.init) {
+            out.dataset.init = '1';
+            vscodeTermPrint('Web VS Code terminal — type `help` for commands.', 't-dim');
+        }
+        const input = document.getElementById('vscode-term-input');
+        if (input) input.focus();
+    }
+}
+
+function vscodeTermPrint(text, cls) {
+    const out = document.getElementById('vscode-term-output');
+    if (!out) return;
+    const div = document.createElement('div');
+    if (cls) div.className = cls;
+    div.textContent = text;
+    out.appendChild(div);
+    out.scrollTop = out.scrollHeight;
+}
+
+function vscodeRunCommand(cmdLine) {
+    const cmd = cmdLine.trim();
+    vscodeTermPrint('janak@mac ~ % ' + cmd);
+    if (!cmd) return;
+    const [name, ...args] = cmd.split(/\s+/);
+    switch (name) {
+        case 'help':
+            vscodeTermPrint('Available: help, ls, cd, cat <file>, open <file>, code <file>, clear, echo, date, whoami, pwd, tree, node <file>, python <file>, exit');
+            break;
+        case 'ls':
+        case 'dir': {
+            const files = vscodeCollectFiles();
+            vscodeTermPrint(files.map(f => f.path).join('\n'));
+            break;
+        }
+        case 'pwd':
+            vscodeTermPrint('/Users/janak');
+            break;
+        case 'whoami':
+            vscodeTermPrint('janak');
+            break;
+        case 'date':
+            vscodeTermPrint(new Date().toString());
+            break;
+        case 'echo':
+            vscodeTermPrint(args.join(' '));
+            break;
+        case 'tree': {
+            const files = vscodeCollectFiles();
+            vscodeTermPrint(files.length + ' files in workspace\n' + files.map(f => '  ' + f.path).join('\n'));
+            break;
+        }
+        case 'cat':
+        case 'code':
+        case 'open': {
+            if (!args.length) { vscodeTermPrint('usage: ' + name + ' <file>', 't-err'); break; }
+            const target = vscodeCollectFiles().find(f =>
+                f.node.name.toLowerCase() === args.join(' ').toLowerCase() ||
+                f.path.toLowerCase() === args.join(' ').toLowerCase());
+            if (!target) { vscodeTermPrint('No such file: ' + args.join(' '), 't-err'); break; }
+            if (name === 'cat') {
+                vscodeTermPrint(target.node.content || '(empty file)');
+            } else {
+                vscodeOpenFile(target.node.id);
+                vscodeTermPrint('Opened ' + target.path, 't-ok');
+            }
+            break;
+        }
+        case 'node':
+        case 'python': {
+            if (!args.length) { vscodeTermPrint('usage: ' + name + ' <file>', 't-err'); break; }
+            const f = vscodeCollectFiles().find(x => x.node.name.toLowerCase() === args.join(' ').toLowerCase());
+            if (!f) { vscodeTermPrint('No such file: ' + args.join(' '), 't-err'); break; }
+            vscodeTermPrint(name + ' ' + f.path + ' — executed (simulated runtime)', 't-ok');
+            break;
+        }
+        case 'clear': {
+            const out = document.getElementById('vscode-term-output');
+            if (out) out.innerHTML = '';
+            break;
+        }
+        case 'exit':
+            vscodeToggleTerminal();
+            break;
+        default:
+            vscodeTermPrint('command not found: ' + name + ' (try `help`)', 't-err');
+    }
+}
+
+function vscodeEsc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// ---------- Status bar ----------
+function vscodeSetStatus(text) {
+    const el = document.getElementById('vscode-status-left');
+    if (el) el.textContent = text;
+}
+
+function vscodeSetStatusRight(text) {
+    const el = document.getElementById('vscode-status-right');
+    if (el) el.textContent = text;
+}
