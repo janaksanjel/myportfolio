@@ -8,7 +8,6 @@
   },
   "stats": [
     { "value": "10+", "label": "Live Production Systems" },
-    { "value": "500+", "label": "Job Placements Facilitated" },
     { "value": "10+", "label": "Concurrent Client Projects" },
     { "value": "1", "label": "App on Google Play" }
   ],
