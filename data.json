@@ -104,33 +104,23 @@
   "projects": [
     {
   "icon": "fas fa-file-circle-check",
-  "title": "FilesWow.com — Privacy-First File Toolkit",
+  "title": "FilesWow.com",
   "badge": "SaaS · Live",
   "description": "Privacy-first browser-based file toolkit featuring 100+ free PDF, document, and image utilities. Files are processed directly in the browser, minimizing the need for server-side uploads.",
   "role": "Founder & Full-Stack Developer",
   "tech": ["TypeScript", "JavaScript", "CSS"],
-  "status": ["Live"],
+  "status": ["Personal Project · Live"],
   "featured": true
 },
     
     {
       "icon": "fas fa-building",
-      "title": "GWP — Palika Software",
+      "title": "GWP",
       "badge": "Government · Official",
       "description": "Digital operations suite for Nepali local government offices. Contributed backend modules for citizen records, reporting, and service workflows.",
       "role": "Backend Developer",
       "tech": ["Java", "Grails", "MySQL"],
-      "status": ["Live in municipal offices"],
-      "featured": true
-    },
-    {
-      "icon": "fas fa-users",
-      "title": "Rakmina — Recruitment Platform",
-      "badge": "International · 500+ Placements",
-      "description": "Full-featured staffing portal with ATS, job listings, and employer dashboards for a Lithuania-based recruitment agency. Designed all backend APIs and data models.",
-      "role": "Project Manager & Full Stack Developer",
-      "tech": ["Django", "Next.js", "MySQL"],
-      "status": ["Live in production"],
+      "status": ["Company Project · Production"],
       "featured": true
     },
     {
@@ -140,7 +130,7 @@
       "description": "SMB accounting system: income/expense tracking, invoicing, ledger management, financial reports, and balance sheets.",
       "role": "Project Manager & Full Stack Developer",
       "tech": ["Django", "ReactJS", "MySQL"],
-      "status": ["Live & in active use"],
+      "status": ["Personal Project · Working"],
       "featured": true
     },
     {
@@ -150,7 +140,7 @@
       "description": "Member registration, subscription billing, attendance tracking, and staff management with full end-to-end ownership.",
       "role": "Project Manager & Full Stack Developer",
       "tech": ["Django", "ReactJS", "MySQL"],
-      "status": ["Live in production"],
+      "status": ["Company Project · Production"],
       "featured": true
     },
     {
@@ -160,7 +150,7 @@
       "description": "Institute management platform: course scheduling, student enrolment, attendance tracking, and progress reporting.",
       "role": "Project Manager & Full Stack Developer",
       "tech": ["Django", "ReactJS", "MySQL"],
-      "status": ["Live in production"],
+      "status": ["Company Project · Production"],
       "featured": true
     },
     {
@@ -170,7 +160,7 @@
       "description": "Multi-vertical CRM with customer records, sales pipelines, and follow-up workflows for a restaurant and a vehicle dealership client.",
       "role": "Full Stack Developer",
       "tech": ["Django", "ReactJS", "MySQL"],
-      "status": ["Delivered"],
+      "status": ["Personal Project · Live"],
       "featured": true
     },
     {
@@ -180,7 +170,7 @@
       "description": "Online ordering system with dynamic menus, real-time cart management, and checkout flow for restaurant clients.",
       "role": "Full Stack Developer",
       "tech": ["Node.js", "ReactJS"],
-      "status": ["Delivered"],
+      "status": ["Personal College Project · Live"],
       "featured": true
     },
     {
@@ -190,7 +180,7 @@
       "description": "Secure electronic voting system allowing students to cast votes remotely with an efficient and user-friendly interface.",
       "role": "Developer",
       "tech": ["HTML", "CSS", "JavaScript"],
-      "status": ["Completed"],
+      "status": ["Personal College Project · Live"],
       "featured": false
     },
     {
@@ -200,17 +190,7 @@
       "description": "Suite of tools for content creators including caption generators, blog writers, and YouTube tools.",
       "role": "Developer",
       "tech": ["ReactJS", "JavaScript", "API"],
-      "status": ["Completed"],
-      "featured": false
-    },
-    {
-      "icon": "fas fa-signature",
-      "title": "E-Signature App",
-      "badge": "Personal Project",
-      "description": "Digital signature solution for online document signing built with modern web technologies.",
-      "role": "Developer",
-      "tech": ["HTML", "CSS", "JavaScript"],
-      "status": ["Completed"],
+      "status": ["Personal Project · Live"],
       "featured": false
     }
   ],
