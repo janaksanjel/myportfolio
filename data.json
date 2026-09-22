@@ -103,6 +103,17 @@
   ],
   "projects": [
     {
+  "icon": "fas fa-file-circle-check",
+  "title": "FilesWow.com — Privacy-First File Toolkit",
+  "badge": "SaaS · Live",
+  "description": "Privacy-first browser-based file toolkit featuring 100+ free PDF, document, and image utilities. Files are processed directly in the browser, minimizing the need for server-side uploads.",
+  "role": "Founder & Full-Stack Developer",
+  "tech": ["TypeScript", "JavaScript", "CSS"],
+  "status": ["Live"],
+  "featured": true
+},
+    
+    {
       "icon": "fas fa-building",
       "title": "GWP — Palika Software",
       "badge": "Government · Official",
