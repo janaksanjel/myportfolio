@@ -1147,7 +1147,7 @@ function createGitHubPage() {
             </header>
             <div style="display:grid;grid-template-columns:260px 1fr;gap:24px;">
                 <aside style="text-align:center;">
-                    <img src="./img/myphoto.jpg" alt="Janak Sanjel" style="width:200px;height:200px;border-radius:50%;object-fit:cover;border:1px solid #d0d7de;">
+                    <img src="./img/myphoto.png" alt="Janak Sanjel" style="width:200px;height:200px;border-radius:50%;object-fit:cover;border:1px solid #d0d7de;">
                     <h1 style="margin:14px 0 2px;font-size:22px;color:#24292f;">Janak Sanjel</h1>
                     <p style="margin:0;color:#656d76;font-size:17px;">janaksanjel</p>
                     <div style="display:flex;gap:8px;justify-content:center;margin:14px 0;">
